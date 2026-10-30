@@ -8,7 +8,7 @@
 - **Oficiální MCP od Trimble pro Teklu neexistuje.** Je ~18 komunitních MCP serverů; reálně použitelné jsou 2–3. → [01](01-mcp-servery.md)
 - **Trimble má vlastní AI v Tekle** (Tekla Model Assistant – preview, Developer Assistant), ale jen pro dražší licence (Diamond/Graphite/Carbon). → [06](06-trimble-ai-a-aec-mcp.md)
 - **Nejlepší start pro neprogramátora není MCP, ale práce se soubory** (exporty reportů → Excel) a pak **C# makra**, která Claude napíše do složky maker. → [05](05-automatizace-bez-mcp.md), [11](11-napady-na-automatizace.md)
-- **Pozor na právní stránku:** Pro/Max má v EU podmínkách „non-commercial use“; pro práci pro klienty zvážit Team/API. Hlídat NDA. → [09](09-bezpecnost-data-zalohy.md)
+- **Pozor na právní stránku:** Pro/Max má v EU podmínkách „non-commercial use“. Pro firmu o 2 lidech je řešením **Team se 2 místy Standard** (min. 2 místa, ~25 USD/místo/měs., Claude Code v ceně, firemní podmínky, netrénuje se na datech). Hlídat NDA. → [09](09-bezpecnost-data-zalohy.md)
 
 ## Tři cesty, jak Claude s Teklou propojit
 
@@ -28,7 +28,7 @@ Další okrajové cesty (samostatné C# aplikace přes `dotnet build`, Python/py
 
 ## Instalace u kamaráda (z [04](04-instalace-claude-windows.md))
 
-1. Tarif: **Claude Pro** na zkoušku (Free nemá Claude Code); pro klientskou práci zvážit **Team** ([09](09-bezpecnost-data-zalohy.md)). V nastavení vypnout *Model improvement*.
+1. Tarif: **Claude Pro** na zkoušku (Free nemá Claude Code); pro ostrou práci **Team se 2 místy Standard** (2 lidi ve firmě = minimum Teamu) ([09](09-bezpecnost-data-zalohy.md)). V nastavení vypnout *Model improvement*.
 2. **Claude Desktop** z claude.com/download (ne Microsoft Store) → záložka **Code** (žádný terminál, Node ani WSL).
 3. **Git for Windows** (doporučeno – Claude pak umí vracet změny souborů).
 4. MCP: `%APPDATA%\Claude\claude_desktop_config.json` (Settings → Developer → Edit Config), absolutní cesty se zdvojenými `\\`, po změně Claude úplně ukončit a spustit. Logy: `%APPDATA%\Claude\logs\mcp*.log`.

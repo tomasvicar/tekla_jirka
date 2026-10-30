@@ -16,7 +16,7 @@ Tato verze je upravená pro **stavaře / detailera, který v Tekla Structures na
 
 ## Prostředí (závazné)
 
-- **Placený Claude (Pro, případně Team) v aplikaci Claude Desktop na Windows, záložka Code.**
+- **Placený Claude v aplikaci Claude Desktop na Windows, záložka Code.** Firma o 2 lidech: na zkoušku Pro, ostře Team se 2 místy Standard (min. 2 místa, Claude Code v ceně, firemní podmínky; ověřeno 30. 10. 2026).
   Žádný Codex, žádné CERIT. Terminál jen zmínit.
 - Git for Windows doporučen. Python skripty přes `uv` (Claude si je spustí sám).
 - Projektová pravidla: `CLAUDE.md` (ne AGENTS.md).
