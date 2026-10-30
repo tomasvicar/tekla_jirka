@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ocelová hala – parametrický koncept</title>
+<style>
+  :root { --ink:#17212b; --muted:#5b6b78; --line:#d7e5ea; --accent:#007f86; --navy:#12355b; --warn:#b54708; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color:var(--ink); background:#eef3f5; }
+  #app { display:grid; grid-template-columns: 330px 1fr; height:100vh; }
+  #side { overflow:auto; background:#fff; border-right:1px solid var(--line); padding:14px 16px 24px; }
+  #view { position:relative; min-height:320px; }
+  #view canvas { display:block; }
+  h1 { font-size:1.1rem; margin:.2rem 0 .2rem; color:var(--navy); }
+  .stamp { display:inline-block; border:2px solid var(--warn); color:var(--warn); font-weight:800; letter-spacing:.08em; font-size:.72rem; padding:3px 7px; border-radius:4px; margin:.3rem 0 .6rem; }
+  .ctl { margin:.55rem 0; }
+  .ctl label { display:flex; justify-content:space-between; font-size:.84rem; }
+  .ctl output { font-weight:700; color:var(--navy); font-variant-numeric: tabular-nums; }
+  .ctl input[type=range] { width:100%; accent-color: var(--accent); }
+  .row { display:flex; gap:.8rem; flex-wrap:wrap; font-size:.82rem; margin:.4rem 0; }
+  .row label { display:flex; gap:.3rem; align-items:center; }
+  h2 { font-size:.78rem; text-transform:uppercase; letter-spacing:.12em; color:var(--accent); margin:1rem 0 .3rem; }
+  table { width:100%; border-collapse:collapse; font-size:.76rem; font-variant-numeric: tabular-nums; }
+  th, td { padding:3px 4px; border-bottom:1px solid #edf2f4; text-align:right; }
+  th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align:left; }
+  thead th { color:var(--muted); font-weight:600; }
+  tfoot td { font-weight:800; border-top:2px solid var(--navy); }
+  .kpi { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:.5rem 0; }
+  .kpi div { background:#f4f8f9; border-radius:8px; padding:6px 8px; }
+  .kpi small { display:block; color:var(--muted); font-size:.7rem; }
+  .kpi b { font-size:1.05rem; color:var(--navy); }
+  .note { font-size:.74rem; color:var(--muted); line-height:1.35; }
+  .warn { background:#fff6ed; border-left:3px solid var(--warn); padding:6px 8px; font-size:.74rem; margin:.6rem 0; }
+  button { font:inherit; font-size:.8rem; padding:.35rem .7rem; border:1px solid var(--accent); background:#fff; color:var(--accent); border-radius:6px; cursor:pointer; }
+  button.primary { background:var(--accent); color:#fff; }
+  #banner { position:absolute; left:12px; top:10px; background:#ffffffe6; padding:6px 10px; border-radius:8px; font-size:.78rem; color:var(--muted); pointer-events:none; }
+  #legend { position:absolute; right:12px; bottom:10px; background:#ffffffe6; padding:6px 10px; border-radius:8px; font-size:.74rem; display:flex; gap:10px; flex-wrap:wrap; }
+  #legend i { display:inline-block; width:10px; height:10px; border-radius:2px; margin-right:4px; vertical-align:-1px; }
+  @media (max-width: 760px) {
+    #app { grid-template-columns: 1fr; grid-template-rows: 55vh auto; height:auto; }
+    #view { order:-1; height:55vh; }
+    #side { border-right:0; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <aside id="side">
+    <h1>Ocelová hala – rychlý koncept</h1>
+    <span class="stamp">KONCEPT · NE STATICKÝ NÁVRH</span>
+    <div class="ctl"><label>Rozpětí rámu <output id="o_span"></output></label><input id="span" type="range" min="12" max="36" step="1" value="24"></div>
+    <div class="ctl"><label>Délka haly <output id="o_len"></output></label><input id="len" type="range" min="18" max="96" step="0.5" value="48"></div>
+    <div class="ctl"><label>Osová vzdálenost rámů <output id="o_bay"></output></label><input id="bay" type="range" min="4.5" max="8" step="0.5" value="6"></div>
+    <div class="ctl"><label>Výška okapu <output id="o_h"></output></label><input id="h" type="range" min="4" max="12" step="0.25" value="7"></div>
+    <div class="ctl"><label>Sklon střechy <output id="o_pitch"></output></label><input id="pitch" type="range" min="3" max="15" step="0.5" value="6"></div>
+    <div class="ctl"><label>Max. rozteč vaznic <output id="o_pur"></output></label><input id="pur" type="range" min="1.2" max="3" step="0.1" value="2.5"></div>
+    <div class="row">
+      <label><input type="checkbox" id="clad"> opláštění</label>
+      <label><input type="checkbox" id="girts" checked> paždíky</label>
+      <label><input type="checkbox" id="brace" checked> ztužidla</label>
+    </div>
+    <div class="kpi">
+      <div><small>Půdorys</small><b id="k_area"></b></div>
+      <div><small>Ocel celkem</small><b id="k_mass"></b></div>
+      <div><small>Spotřeba oceli</small><b id="k_kgm2"></b></div>
+      <div><small>Počet rámů / polí</small><b id="k_frames"></b></div>
+    </div>
+    <h2>Odhad hmotnosti</h2>
+    <table id="tbl"><thead><tr><th>Prvek</th><th>Profil</th><th>ks</th><th>m</th><th>kg</th></tr></thead><tbody></tbody><tfoot></tfoot></table>
+    <div class="row" style="margin-top:.6rem"><button class="primary" id="csv">Stáhnout CSV</button><button id="reset">Výchozí hodnoty</button></div>
+    <div class="warn"><b>Jen orientační odhad.</b> Profily jsou zvoleny hrubým pravidlem
+      (výška příčle ≈ rozpětí / 55, sloup o číslo větší, vaznice podle rozpětí pole), bez zatížení a bez posudku.
+      Skutečné průřezy určí statický výpočet podle ČSN EN 1993-1-1 a ČSN EN 1991.</div>
+    <p class="note">Spoje, patní a čelní desky, šrouby a výztuhy jsou zahrnuty paušální přirážkou.
+      Typická lehká hala bez jeřábu vychází zhruba 25–45 kg/m² půdorysu – slouží jako kontrola řádu, ne jako norma.</p>
+  </aside>
+  <main id="view">
+    <div id="banner">Táhněte = otáčení · kolečko = zoom · pravé tlačítko = posun</div>
+    <div id="legend"><span><i style="background:#2f5d8a"></i>rámy</span><span><i style="background:#d08b2c"></i>vaznice a paždíky</span><span><i style="background:#c0392b"></i>ztužidla</span><span><i style="background:#6c8a3c"></i>štítové sloupky</span></div>
+  </main>
+</div>
+
+<script type="importmap">
+{ "imports": { "three": "../vendor/three.module.js", "three/addons/controls/OrbitControls.js": "../vendor/OrbitControls.js" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// --- Profily: h, b, tw, tf [mm], hmotnost [kg/m]
+const IPE = {
+  'IPE 140':[140,73,4.7,6.9,12.9], 'IPE 160':[160,82,5.0,7.4,15.8], 'IPE 180':[180,91,5.3,8.0,18.8],
+  'IPE 200':[200,100,5.6,8.5,22.4], 'IPE 220':[220,110,5.9,9.2,26.2], 'IPE 240':[240,120,6.2,9.8,30.7],
+  'IPE 270':[270,135,6.6,10.2,36.1], 'IPE 300':[300,150,7.1,10.7,42.2], 'IPE 330':[330,160,7.5,11.5,49.1],
+  'IPE 360':[360,170,8.0,12.7,57.1], 'IPE 400':[400,180,8.6,13.5,66.3], 'IPE 450':[450,190,9.4,14.6,77.6],
+  'IPE 500':[500,200,10.2,16.0,90.7], 'IPE 550':[550,210,11.1,17.2,106], 'IPE 600':[600,220,12.0,19.0,122]
+};
+const IPE_ORDER = Object.keys(IPE);
+const C_GIRT = { name:'C 150×50×2', h:150, b:50, kg:4.1 };   // tenkostěnný paždík (orientačně)
+const ROD = { name:'Ø 20 (tyč)', d:20, kg:2.47 };
+const DEFAULTS = { span:24, len:48, bay:6, h:7, pitch:6, pur:2.5 };
+
+function ipeAtLeast(hmm, step = 0) {
+  let i = IPE_ORDER.findIndex(k => IPE[k][0] >= hmm);
+  if (i < 0) i = IPE_ORDER.length - 1;
+  return IPE_ORDER[Math.min(IPE_ORDER.length - 1, i + step)];
+}
+
+// --- Three.js scéna
+const view = document.getElementById('view');
+const renderer = new THREE.WebGLRenderer({ antialias:true, preserveDrawingBuffer:true });
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio));
+view.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xeef3f5);
+scene.fog = new THREE.Fog(0xeef3f5, 150, 600);
+const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 1000);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8a9aa5, 1.6));
+const sun = new THREE.DirectionalLight(0xffffff, 1.6); sun.position.set(30, 50, 20); scene.add(sun);
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(2000, 2000), new THREE.MeshLambertMaterial({ color:0xdfe7ea }));
+ground.rotation.x = -Math.PI / 2; ground.position.y = -0.01; scene.add(ground);
+const grid = new THREE.GridHelper(400, 80, 0xc4d1d6, 0xd2dde1); scene.add(grid);
+
+const MAT = {
+  frame: new THREE.MeshStandardMaterial({ color:0x2f5d8a, metalness:.3, roughness:.55 }),
+  purlin: new THREE.MeshStandardMaterial({ color:0xd08b2c, metalness:.2, roughness:.6 }),
+  brace: new THREE.MeshStandardMaterial({ color:0xc0392b, metalness:.2, roughness:.5 }),
+  wind: new THREE.MeshStandardMaterial({ color:0x6c8a3c, metalness:.2, roughness:.6 }),
+  conc: new THREE.MeshStandardMaterial({ color:0x9aa3a8, roughness:.9 }),
+  clad: new THREE.MeshStandardMaterial({ color:0xb8c7cf, transparent:true, opacity:.35, side:THREE.DoubleSide, depthWrite:false }),
+};
+let model = new THREE.Group(); scene.add(model);
+
+const geoCache = new Map();
+function iShape(h, b, tw, tf) {
+  const s = new THREE.Shape(); const H = h/2000, B = b/2000, w = tw/2000, f = tf/1000;
+  s.moveTo(-B, -H); s.lineTo(B, -H); s.lineTo(B, -H+f); s.lineTo(w, -H+f); s.lineTo(w, H-f); s.lineTo(B, H-f);
+  s.lineTo(B, H); s.lineTo(-B, H); s.lineTo(-B, H-f); s.lineTo(-w, H-f); s.lineTo(-w, -H+f); s.lineTo(-B, -H+f); s.closePath();
+  return s;
+}
+function cShape(h, b) {
+  const s = new THREE.Shape(); const H = h/2000, B = b/1000, t = 0.004;
+  s.moveTo(0, -H); s.lineTo(B, -H); s.lineTo(B, -H+t); s.lineTo(t, -H+t); s.lineTo(t, H-t); s.lineTo(B, H-t); s.lineTo(B, H); s.lineTo(0, H); s.closePath();
+  return s;
+}
+function sectionGeo(key, shapeFn) {
+  if (!geoCache.has(key)) {
+    const g = new THREE.ExtrudeGeometry(shapeFn(), { depth:1, bevelEnabled:false });
+    geoCache.set(key, g);
+  }
+  return geoCache.get(key);
+}
+const _up = new THREE.Vector3();
+function member(p1, p2, geo, mat, up = [0,1,0]) {
+  const a = new THREE.Vector3(...p1), b = new THREE.Vector3(...p2);
+  const len = a.distanceTo(b);
+  const m = new THREE.Mesh(geo, mat);
+  m.position.copy(a); m.up.copy(_up.set(...up)); m.lookAt(b); m.scale.set(1, 1, len);
+  model.add(m);
+  return len;
+}
+function rod(p1, p2, d, mat) {
+  const a = new THREE.Vector3(...p1), b = new THREE.Vector3(...p2);
+  const len = a.distanceTo(b);
+  const g = new THREE.CylinderGeometry(d/2000*1.6, d/2000*1.6, len, 6); // mírně zesíleno kvůli viditelnosti
+  const m = new THREE.Mesh(g, mat);
+  m.position.copy(a).add(b).multiplyScalar(.5);
+  m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0), b.clone().sub(a).normalize());
+  model.add(m);
+  return len;
+}
+
+// --- Generátor konstrukce
+function build(p) {
+  const cached = new Set(geoCache.values());
+  model.removeFromParent(); model.traverse(o => { if (o.geometry && !cached.has(o.geometry)) o.geometry.dispose(); });
+  model = new THREE.Group(); scene.add(model);
+
+  const L = p.span, Lh = L/2, H = p.h, th = p.pitch * Math.PI/180;
+  const nBays = Math.max(1, Math.round(p.len / p.bay)); const bay = p.len / nBays; const len = p.len;
+  const ridge = H + Lh * Math.tan(th);
+  const rafterLen = Lh / Math.cos(th);
+
+  // pravidla profilů (hrubý odhad)
+  const rafterP = ipeAtLeast(L*1000/55);
+  const colP = ipeAtLeast(Math.max(L*1000/55, H*1000/22), 1);
+  const purP = bay <= 5 ? 'IPE 140' : bay <= 6 ? 'IPE 160' : bay <= 7 ? 'IPE 180' : 'IPE 200';
+  const windP = ipeAtLeast(ridge*1000/30);
+
+  const g = k => sectionGeo(k, () => iShape(...IPE[k].slice(0,4)));
+  const rows = []; const add = (name, prof, n, lenEach, kgm) => rows.push({ name, prof, n, m: n*lenEach, kg: n*lenEach*kgm });
+
+  // rámy: sloupy + příčle, x = podél haly, z = napříč
+  for (let i = 0; i <= nBays; i++) {
+    const x = i * bay;
+    member([x,0,-Lh], [x,H,-Lh], g(colP), MAT.frame, [0,0,1]);
+    member([x,0, Lh], [x,H, Lh], g(colP), MAT.frame, [0,0,1]);
+    member([x,H,-Lh], [x,ridge,0], g(rafterP), MAT.frame);
+    member([x,H, Lh], [x,ridge,0], g(rafterP), MAT.frame);
+    for (const z of [-Lh, Lh]) { const f = new THREE.Mesh(new THREE.BoxGeometry(1.0, .5, 1.0), MAT.conc); f.position.set(x, -.25+.01, z); model.add(f); }
+  }
+  const nFr = nBays + 1;
+  add('Sloupy rámů', colP, 2*nFr, H, IPE[colP][4]);
+  add('Příčle rámů', rafterP, 2*nFr, rafterLen, IPE[rafterP][4]);
+
+  // vaznice: rovnoměrně na každém svahu, včetně okapové a vrcholové
+  const nPurSeg = Math.max(1, Math.ceil(rafterLen / p.pur));
+  const purOff = IPE[rafterP][0]/2000 + IPE[purP][0]/2000;
+  let purLines = 0;
+  for (const side of [-1, 1]) {
+    for (let k = 0; k <= nPurSeg; k++) {
+      if (side === 1 && k === nPurSeg) continue; // vrcholová vaznice jen jednou
+      const t = k / nPurSeg;
+      const z = side * Lh * (1 - t), y = H + t * Lh * Math.tan(th) + purOff;
+      member([0,y,z], [len,y,z], g(purP), MAT.purlin);
+      purLines++;
+    }
+  }
+  add('Vaznice', purP, purLines, len, IPE[purP][4]);
+
+  // štítové sloupky (osová vzdálenost ≤ 6 m)
+  const nWind = Math.max(0, Math.ceil(L / 6) - 1);
+  let windLen = 0;
+  for (let j = 1; j <= nWind; j++) {
+    const z = -Lh + j * L / (nWind + 1);
+    const top = H + (Lh - Math.abs(z)) * Math.tan(th) - IPE[rafterP][0]/2000;
+    for (const x of [0, len]) { member([x,0,z], [x,top,z], g(windP), MAT.wind, [0,0,1]); windLen += top; }
+  }
+  if (nWind) add('Štítové sloupky', windP, 2*nWind, windLen/(2*nWind), IPE[windP][4]);
+
+  // paždíky po ~2 m na podélných stěnách a štítech
+  if (p.girts) {
+    const cg = sectionGeo('C', () => cShape(C_GIRT.h, C_GIRT.b));
+    const nG = Math.max(1, Math.floor((H - 0.4) / 2));
+    let gl = 0, gn = 0;
+    for (let k = 1; k <= nG; k++) {
+      const y = k * (H - 0.2) / (nG + 0.5);
+      for (const z of [-Lh - .25, Lh + .25]) { member([0,y,z], [len,y,z], cg, MAT.purlin); gl += len; gn++; }
+      for (const x of [-.2, len + .2]) { member([x,y,-Lh], [x,y,Lh], cg, MAT.purlin, [1,0,0]); gl += L; gn++; }
+    }
+    add('Paždíky', C_GIRT.name, gn, gl/gn, C_GIRT.kg);
+  }
+
+  // ztužidla: střešní a stěnová X v krajních polích
+  if (p.brace) {
+    const braceBays = nBays >= 6 ? [0, nBays-1] : [0];
+    if (nBays >= 10) braceBays.splice(1, 0, Math.floor(nBays/2));
+    let bl = 0, bn = 0;
+    const panels = Math.max(1, Math.round(rafterLen / bay));
+    for (const bi of braceBays) {
+      const x0 = bi * bay, x1 = x0 + bay;
+      for (const side of [-1, 1]) {
+        for (let k = 0; k < panels; k++) {
+          const t0 = k/panels, t1 = (k+1)/panels;
+          const z0 = side*Lh*(1-t0), z1 = side*Lh*(1-t1);
+          const y0 = H + t0*Lh*Math.tan(th) + .05, y1 = H + t1*Lh*Math.tan(th) + .05;
+          bl += rod([x0,y0,z0],[x1,y1,z1], ROD.d, MAT.brace); bl += rod([x0,y1,z1],[x1,y0,z0], ROD.d, MAT.brace); bn += 2;
+        }
+        const z = side*Lh;
+        bl += rod([x0,0.2,z],[x1,H,z], ROD.d, MAT.brace); bl += rod([x0,H,z],[x1,0.2,z], ROD.d, MAT.brace); bn += 2;
+      }
+    }
+    add('Ztužidla (X)', ROD.name, bn, bl/bn, ROD.kg);
+  }
+
+  // opláštění (jen vizuálně)
+  if (p.clad) {
+    const roofW = rafterLen;
+    for (const side of [-1, 1]) {
+      const pl = new THREE.Mesh(new THREE.PlaneGeometry(len, roofW), MAT.clad);
+      pl.position.set(len/2, (H + ridge)/2 + purOff + .12, side*Lh/2);
+      pl.rotation.x = side * (th - Math.PI/2); // lokální osa y míří po spádu od okapu k hřebeni
+      model.add(pl);
+      const wall = new THREE.Mesh(new THREE.PlaneGeometry(len, H), MAT.clad);
+      wall.position.set(len/2, H/2, side*(Lh + .35)); model.add(wall);
+    }
+    const gable = new THREE.Shape([new THREE.Vector2(-Lh,0), new THREE.Vector2(Lh,0), new THREE.Vector2(Lh,H), new THREE.Vector2(0,ridge), new THREE.Vector2(-Lh,H)]);
+    for (const x of [-.3, len + .3]) { const m = new THREE.Mesh(new THREE.ShapeGeometry(gable), MAT.clad); m.rotation.y = Math.PI/2; m.position.x = x; model.add(m); }
+  }
+
+  const steel = rows.reduce((s, r) => s + r.kg, 0);
+  const extra = steel * 0.10;
+  rows.push({ name:'Přípoje, desky, šrouby (+10 %)', prof:'paušál', n:'', m:'', kg: extra });
+  return { rows, total: steel + extra, area: L * len, nFr, nBays, bay, ridge, rafterP, colP };
+}
+
+// --- UI
+const ids = ['span','len','bay','h','pitch','pur'];
+const fmt = (v, d=0) => v.toLocaleString('cs-CZ', { minimumFractionDigits:d, maximumFractionDigits:d });
+let last = null;
+function params() {
+  const p = Object.fromEntries(ids.map(k => [k, parseFloat(document.getElementById(k).value)]));
+  p.clad = document.getElementById('clad').checked; p.girts = document.getElementById('girts').checked; p.brace = document.getElementById('brace').checked;
+  return p;
+}
+function update(fit = false) {
+  const p = params();
+  document.getElementById('o_span').textContent = fmt(p.span) + ' m';
+  document.getElementById('o_len').textContent = fmt(p.len, 1) + ' m';
+  document.getElementById('o_bay').textContent = fmt(p.bay, 1) + ' m';
+  document.getElementById('o_h').textContent = fmt(p.h, 2) + ' m';
+  document.getElementById('o_pitch').textContent = fmt(p.pitch, 1) + '°';
+  document.getElementById('o_pur').textContent = fmt(p.pur, 1) + ' m';
+  const r = build(p); last = { p, r };
+  document.getElementById('k_area').textContent = fmt(r.area) + ' m²';
+  document.getElementById('k_mass').textContent = fmt(r.total/1000, 1) + ' t';
+  document.getElementById('k_kgm2').textContent = fmt(r.total / r.area, 1) + ' kg/m²';
+  document.getElementById('k_frames').textContent = `${r.nFr} / ${r.nBays} × ${fmt(r.bay, 2)} m`;
+  document.querySelector('#tbl tbody').innerHTML = r.rows.map(x =>
+    `<tr><td>${x.name}</td><td>${x.prof}</td><td>${x.n === '' ? '' : fmt(x.n)}</td><td>${x.m === '' ? '' : fmt(x.m)}</td><td>${fmt(x.kg)}</td></tr>`).join('');
+  document.querySelector('#tbl tfoot').innerHTML = `<tr><td colspan="4">Celkem</td><td>${fmt(r.total)}</td></tr>`;
+  if (fit) fitCamera(p, r);
+}
+function fitCamera(p, r) {
+  const c = new THREE.Vector3(p.len/2, r.ridge/2, 0);
+  const d = Math.max(p.len, p.span) * 1.35 * Math.max(1, 1.2 / camera.aspect);
+  camera.position.set(c.x - d*0.55, c.y + d*0.45, c.z + d*0.85);
+  controls.target.copy(c); controls.update();
+}
+ids.forEach(k => document.getElementById(k).addEventListener('input', () => update(false)));
+['clad','girts','brace'].forEach(k => document.getElementById(k).addEventListener('change', () => update(false)));
+document.getElementById('reset').addEventListener('click', () => { ids.forEach(k => document.getElementById(k).value = DEFAULTS[k]); update(true); });
+document.getElementById('csv').addEventListener('click', () => {
+  const { p, r } = last;
+  const lines = [`# Koncept ocelové haly - NE statický návrh; rozpětí ${p.span} m, délka ${p.len} m, rámy po ${r.bay.toFixed(2)} m, okap ${p.h} m, sklon ${p.pitch}°`,
+    'prvek;profil;ks;delka_m;hmotnost_kg', ...r.rows.map(x => [x.name, x.prof, x.n, x.m === '' ? '' : x.m.toFixed(2), x.kg.toFixed(1)].join(';')),
+    `Celkem;;;;${r.total.toFixed(1)}`];
+  const blob = new Blob(['﻿' + lines.join('\r\n')], { type:'text/csv;charset=utf-8' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'hala_odhad_hmotnosti.csv'; a.click();
+});
+
+function resize() {
+  const w = view.clientWidth, h = view.clientHeight;
+  renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize).observe(view);
+resize(); update(true);
+renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, camera); });
+</script>
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prostý nosník – orientační kontrola</title>
+<style>
+  :root { --ink:#17212b; --muted:#5b6b78; --line:#d7e5ea; --accent:#007f86; --navy:#12355b; --ok:#1a7f4b; --bad:#c0392b; --warn:#b54708; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color:var(--ink); background:#f3f6f8; }
+  .wrap { max-width:1100px; margin:0 auto; padding:16px; }
+  .disclaimer { background:#fff3e0; border:2px solid var(--warn); border-radius:10px; padding:10px 14px; font-size:.9rem; margin-bottom:14px; }
+  .disclaimer b { color:var(--warn); }
+  h1 { font-size:1.35rem; color:var(--navy); margin:.2rem 0 .8rem; }
+  .grid { display:grid; grid-template-columns: 340px 1fr; gap:14px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px; }
+  h2 { font-size:.76rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 .5rem; }
+  .f { display:grid; grid-template-columns: 1fr 110px; align-items:center; gap:6px; margin:.35rem 0; font-size:.86rem; }
+  .f input, .f select { font:inherit; padding:4px 6px; border:1px solid #bccdd3; border-radius:6px; width:100%; }
+  .f small { color:var(--muted); }
+  .chk { font-size:.84rem; margin:.5rem 0; display:flex; gap:.4rem; align-items:flex-start; }
+  button { font:inherit; font-size:.85rem; padding:.45rem .8rem; border:1px solid var(--accent); background:var(--accent); color:#fff; border-radius:6px; cursor:pointer; margin-top:.5rem; }
+  .res { display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
+  .chkcard { border:1px solid var(--line); border-radius:10px; padding:10px; }
+  .chkcard small { color:var(--muted); display:block; font-size:.74rem; }
+  .chkcard b { font-size:1.4rem; font-variant-numeric: tabular-nums; }
+  .bar { height:8px; background:#e6edf0; border-radius:4px; overflow:hidden; margin:.4rem 0; }
+  .bar i { display:block; height:100%; }
+  .ok b { color:var(--ok); } .ok .bar i { background:var(--ok); }
+  .bad b { color:var(--bad); } .bad .bar i { background:var(--bad); }
+  table { border-collapse:collapse; width:100%; font-size:.82rem; font-variant-numeric: tabular-nums; }
+  td, th { padding:4px 6px; border-bottom:1px solid #edf2f4; text-align:left; }
+  td.n { text-align:right; white-space:nowrap; }
+  .formula { font-family: ui-monospace, Consolas, monospace; font-size:.8rem; color:#33424e; }
+  .alert { background:#fdecea; border-left:4px solid var(--bad); padding:8px 10px; font-size:.84rem; margin:.6rem 0; }
+  svg text { font-family: system-ui, sans-serif; }
+  @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } .res { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="disclaimer"><b>Pouze orientační pomůcka, ne statický výpočet.</b>
+    Prostý nosník, rovnoměrné spojité zatížení, jednoosý ohyb. Výsledky musí ověřit a za ně odpovídá autorizovaný statik
+    podle ČSN EN 1990, ČSN EN 1991 a ČSN EN 1993-1-1 včetně národních příloh. Program neřeší klopení, šikmý ohyb, kroucení,
+    stabilitu stojiny, lokální účinky, přípoje ani mezní stav únavy.</div>
+  <h1>Prostý nosník / vaznice – rychlá kontrola</h1>
+  <div class="grid">
+    <div class="card">
+      <h2>Zadání</h2>
+      <div class="f"><label>Rozpětí L [m]</label><input id="L" type="number" step="0.1" min="0.5" value="6"></div>
+      <div class="f"><label>Zatěžovací šířka [m] <small>(rozteč vaznic)</small></label><input id="b" type="number" step="0.1" min="0.1" value="2"></div>
+      <div class="f"><label>Stálé g<sub>k</sub> [kN/m²] <small>(plášť, bez vl. tíhy)</small></label><input id="gk" type="number" step="0.05" value="0.35"></div>
+      <div class="f"><label>Proměnné q<sub>k</sub> [kN/m²] <small>(např. sníh)</small></label><input id="qk" type="number" step="0.05" value="0.8"></div>
+      <div class="f"><label>Profil</label><select id="prof"></select></div>
+      <div class="f"><label>Ocel</label><select id="steel"><option value="235">S235</option><option value="355">S355</option></select></div>
+      <div class="f"><label>Limit průhybu</label><select id="lim"><option>200</option><option selected>250</option><option>300</option><option>400</option></select></div>
+      <div class="f"><label>γ<sub>G</sub> / γ<sub>Q</sub></label><input id="gam" value="1.35 / 1.5"></div>
+      <label class="chk"><input type="checkbox" id="ltb" checked> Tlačená pásnice je spojitě držena (plášť), klopení se neuplatní</label>
+      <label class="chk"><input type="checkbox" id="sw" checked> Připočítat vlastní tíhu profilu</label>
+      <button id="lightest">Najít nejlehčí vyhovující profil</button>
+      <p id="lightmsg" style="font-size:.82rem;color:var(--muted)"></p>
+    </div>
+    <div>
+      <div class="card">
+        <h2>Výsledek</h2>
+        <div id="alerts"></div>
+        <div class="res" id="res"></div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h2>Schéma a průběhy</h2>
+        <svg id="diag" viewBox="0 0 700 300" width="100%" role="img" aria-label="Schéma nosníku, průběh momentu a průhybu"></svg>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h2>Mezivýpočty (pro kontrolu ručně)</h2>
+        <table id="steps"></table>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// Průřezové charakteristiky (orientační tabulkové hodnoty; před použitím ověřte v katalogu výrobce):
+// h, b, tw, tf, r [mm]; A [cm²]; Iy [cm⁴]; Wel,y [cm³]; Wpl,y [cm³]; G [kg/m]
+const SECTIONS = {
+ 'IPE 100':[100,55,4.1,5.7,7,10.3,171,34.2,39.4,8.1], 'IPE 120':[120,64,4.4,6.3,7,13.2,318,53.0,60.7,10.4],
+ 'IPE 140':[140,73,4.7,6.9,7,16.4,541,77.3,88.3,12.9], 'IPE 160':[160,82,5.0,7.4,9,20.1,869,109,124,15.8],
+ 'IPE 180':[180,91,5.3,8.0,9,23.9,1317,146,166,18.8], 'IPE 200':[200,100,5.6,8.5,12,28.5,1943,194,221,22.4],
+ 'IPE 220':[220,110,5.9,9.2,12,33.4,2772,252,285,26.2], 'IPE 240':[240,120,6.2,9.8,15,39.1,3892,324,367,30.7],
+ 'IPE 270':[270,135,6.6,10.2,15,45.9,5790,429,484,36.1], 'IPE 300':[300,150,7.1,10.7,15,53.8,8356,557,628,42.2],
+ 'IPE 330':[330,160,7.5,11.5,18,62.6,11770,713,804,49.1], 'IPE 360':[360,170,8.0,12.7,18,72.7,16270,904,1019,57.1],
+ 'IPE 400':[400,180,8.6,13.5,21,84.5,23130,1156,1307,66.3], 'IPE 450':[450,190,9.4,14.6,21,98.8,33740,1500,1702,77.6],
+ 'IPE 500':[500,200,10.2,16.0,21,116,48200,1928,2194,90.7],
+ 'HEA 140':[133,140,5.5,8.5,12,31.4,1033,155,173,24.7], 'HEA 160':[152,160,6,9,15,38.8,1673,220,245,30.4],
+ 'HEA 180':[171,180,6,9.5,15,45.3,2510,294,325,35.5], 'HEA 200':[190,200,6.5,10,18,53.8,3692,389,430,42.3],
+ 'HEA 220':[210,220,7,11,18,64.3,5410,515,568,50.5], 'HEA 240':[230,240,7.5,12,21,76.8,7763,675,745,60.3],
+ 'HEA 260':[250,260,7.5,12.5,24,86.8,10450,836,920,68.2], 'HEA 280':[270,280,8,13,24,97.3,13670,1013,1112,76.4],
+ 'HEA 300':[290,300,8.5,14,27,112.5,18260,1260,1383,88.3],
+ 'HEB 140':[140,140,7,12,12,43.0,1509,216,246,33.7], 'HEB 160':[160,160,8,13,15,54.3,2492,311,354,42.6],
+ 'HEB 180':[180,180,8.5,14,15,65.3,3831,426,482,51.2], 'HEB 200':[200,200,9,15,18,78.1,5696,570,642,61.3],
+ 'HEB 220':[220,220,9.5,16,18,91.0,8091,736,828,71.5], 'HEB 240':[240,240,10,17,21,106,11260,938,1053,83.2],
+};
+const E = 210000, GM0 = 1.0;
+const $ = id => document.getElementById(id);
+const fmt = (v, d=1) => Number(v).toLocaleString('cs-CZ', { minimumFractionDigits:d, maximumFractionDigits:d });
+$('prof').innerHTML = Object.keys(SECTIONS).map(k => `<option${k==='IPE 160'?' selected':''}>${k}</option>`).join('');
+
+function sectionClass(s, fy) {
+  const [h,b,tw,tf,r] = s; const eps = Math.sqrt(235/fy);
+  const cf = (b - tw - 2*r)/2 / tf;            // přečnívající pásnice, tlak
+  const cw = (h - 2*tf - 2*r) / tw;            // stojina, ohyb
+  const fl = cf <= 9*eps ? 1 : cf <= 10*eps ? 2 : cf <= 14*eps ? 3 : 4;
+  const wb = cw <= 72*eps ? 1 : cw <= 83*eps ? 2 : cw <= 124*eps ? 3 : 4;
+  return { cls: Math.max(fl, wb), cf, cw, eps };
+}
+
+function check(name, inp) {
+  const s = SECTIONS[name]; const [h,b,tw,tf,r,A,Iy,Wel,Wpl,G] = s;
+  const fy = inp.fy; const L = inp.L * 1000;               // mm
+  const gsw = inp.sw ? G * 9.81 / 1000 : 0;                // kN/m
+  const gk = inp.gk * inp.b + gsw, qk = inp.qk * inp.b;    // kN/m = N/mm
+  const qEd = inp.gG * gk + inp.gQ * qk;
+  const MEd = qEd * inp.L**2 / 8;                          // kNm
+  const VEd = qEd * inp.L / 2;                             // kN
+  const c = sectionClass(s, fy);
+  const W = c.cls <= 2 ? Wpl : Wel;
+  const McRd = W * 1e3 * fy / GM0 / 1e6;                   // kNm
+  let Av = A*100 - 2*b*tf + (tw + 2*r)*tf;                 // mm²
+  Av = Math.max(Av, (h - 2*tf) * tw);                      // η = 1,0 (konzervativně)
+  const VplRd = Av * fy / Math.sqrt(3) / GM0 / 1000;       // kN
+  const qser = gk + qk;
+  const w = 5 * qser * L**4 / (384 * E * Iy * 1e4);        // mm
+  const wlim = L / inp.lim;
+  const highShear = VEd > 0.5 * VplRd;
+  return { name, s, gsw, gk, qk, qEd, MEd, VEd, cls:c, W, McRd, Av, VplRd, qser, w, wlim, highShear,
+    uM: MEd / McRd, uV: VEd / VplRd, uW: w / wlim, G };
+}
+
+function readInput() {
+  const [gG, gQ] = $('gam').value.split('/').map(x => parseFloat(x.replace(',', '.')));
+  return { L:+$('L').value, b:+$('b').value, gk:+$('gk').value, qk:+$('qk').value, fy:+$('steel').value,
+    lim:+$('lim').value, gG: gG || 1.35, gQ: gQ || 1.5, sw:$('sw').checked, ltb:$('ltb').checked };
+}
+
+function card(title, u, val, cap) {
+  const ok = u <= 1;
+  return `<div class="chkcard ${ok?'ok':'bad'}"><small>${title}</small><b>${fmt(u*100,0)} %</b>
+    <div class="bar"><i style="width:${Math.min(100,u*100)}%"></i></div><small>${val}</small><small>${cap}</small></div>`;
+}
+
+function render() {
+  const inp = readInput(); const r = check($('prof').value, inp);
+  const al = [];
+  if (!inp.ltb) al.push('<b>Klopení není posouzeno.</b> Bez spojitého držení tlačené pásnice je skutečná únosnost v ohybu nižší – výsledek ohybu níže je NEPLATNÝ.');
+  if (r.cls.cls >= 3) al.push(`Průřez je ve třídě ${r.cls.cls} – použit pružný modul W<sub>el</sub>.${r.cls.cls===4?' Třída 4 vyžaduje efektivní průřez – mimo rozsah pomůcky.':''}`);
+  if (r.highShear) al.push('V<sub>Ed</sub> > 0,5 V<sub>pl,Rd</sub> – u prostého nosníku nevadí (max. M a V nejsou ve stejném místě), ale u jiných schémat je nutná interakce.');
+  $('alerts').innerHTML = al.map(a => `<div class="alert">${a}</div>`).join('');
+  $('res').innerHTML =
+    card('Ohyb (MSÚ)', r.uM, `M<sub>Ed</sub> = ${fmt(r.MEd)} kNm`, `M<sub>c,Rd</sub> = ${fmt(r.McRd)} kNm`) +
+    card('Smyk (MSÚ)', r.uV, `V<sub>Ed</sub> = ${fmt(r.VEd)} kN`, `V<sub>pl,Rd</sub> = ${fmt(r.VplRd)} kN`) +
+    card(`Průhyb (MSP, L/${inp.lim})`, r.uW, `w = ${fmt(r.w)} mm`, `w<sub>lim</sub> = ${fmt(r.wlim)} mm`);
+  const st = [
+    ['Vlastní tíha profilu', `${r.G} kg/m × 9,81`, `${fmt(r.gsw,3)} kN/m`],
+    ['g<sub>k</sub> (liniové)', `${inp.gk} × ${inp.b} + vl. tíha`, `${fmt(r.gk,3)} kN/m`],
+    ['q<sub>k</sub> (liniové)', `${inp.qk} × ${inp.b}`, `${fmt(r.qk,3)} kN/m`],
+    ['q<sub>Ed</sub>', `${inp.gG}·g<sub>k</sub> + ${inp.gQ}·q<sub>k</sub> (rov. 6.10)`, `${fmt(r.qEd,3)} kN/m`],
+    ['M<sub>Ed</sub>', 'q<sub>Ed</sub>·L²/8', `${fmt(r.MEd,2)} kNm`],
+    ['V<sub>Ed</sub>', 'q<sub>Ed</sub>·L/2', `${fmt(r.VEd,2)} kN`],
+    ['Třída průřezu', `pásnice c/t = ${fmt(r.cls.cf,2)} (9ε = ${fmt(9*r.cls.eps,2)}), stojina c/t = ${fmt(r.cls.cw,1)} (72ε = ${fmt(72*r.cls.eps,1)})`, `${r.cls.cls}`],
+    ['M<sub>c,Rd</sub>', `${r.cls.cls<=2?'W<sub>pl</sub>':'W<sub>el</sub>'} = ${r.W} cm³ × f<sub>y</sub> ${inp.fy} MPa / γ<sub>M0</sub> 1,0`, `${fmt(r.McRd,2)} kNm`],
+    ['A<sub>v</sub>', 'A − 2b·t<sub>f</sub> + (t<sub>w</sub> + 2r)·t<sub>f</sub> ≥ h<sub>w</sub>·t<sub>w</sub>', `${fmt(r.Av,0)} mm²`],
+    ['V<sub>pl,Rd</sub>', 'A<sub>v</sub>·f<sub>y</sub>/(√3·γ<sub>M0</sub>)', `${fmt(r.VplRd,1)} kN`],
+    ['q (charakteristické)', 'g<sub>k</sub> + q<sub>k</sub>', `${fmt(r.qser,3)} kN/m`],
+    ['w', `5·q·L⁴/(384·E·I<sub>y</sub>), I<sub>y</sub> = ${r.s[6]} cm⁴, E = 210 GPa`, `${fmt(r.w,1)} mm`],
+  ];
+  $('steps').innerHTML = st.map(x => `<tr><td>${x[0]}</td><td class="formula">${x[1]}</td><td class="n"><b>${x[2]}</b></td></tr>`).join('');
+  drawDiagram(inp, r);
+}
+
+function drawDiagram(inp, r) {
+  const x0 = 60, x1 = 640, y = 70; const N = 40; let s = '';
+  // zatížení
+  for (let i = 0; i <= 14; i++) { const x = x0 + (x1-x0)*i/14; s += `<line x1="${x}" y1="22" x2="${x}" y2="${y-6}" stroke="#d08b2c" stroke-width="1.5"/><path d="M${x-4},${y-12} L${x},${y-4} L${x+4},${y-12} z" fill="#d08b2c"/>`; }
+  s += `<line x1="${x0}" y1="22" x2="${x1}" y2="22" stroke="#d08b2c" stroke-width="2"/><text x="${x0}" y="14" font-size="12" fill="#8a5a17">q<tspan font-size="9" dy="3">Ed</tspan><tspan dy="-3"> = ${fmt(r.qEd,2)} kN/m</tspan></text>`;
+  s += `<line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="#12355b" stroke-width="5"/>`;
+  s += `<path d="M${x0},${y+3} l-10,16 h20 z" fill="none" stroke="#12355b" stroke-width="1.5"/><path d="M${x1},${y+3} l-10,16 h20 z" fill="none" stroke="#12355b" stroke-width="1.5"/><line x1="${x1-12}" y1="${y+23}" x2="${x1+12}" y2="${y+23}" stroke="#12355b"/>`;
+  s += `<text x="${(x0+x1)/2}" y="${y+28}" text-anchor="middle" font-size="12" fill="#5b6b78">L = ${fmt(inp.L,2)} m · ${r.name}</text>`;
+  // moment
+  const my = 130, mh = 70; let p = `M${x0},${my}`;
+  for (let i = 0; i <= N; i++) { const t = i/N; p += ` L${x0+(x1-x0)*t},${my + mh*4*t*(1-t)}`; }
+  s += `<path d="${p} L${x1},${my} Z" fill="#2f5d8a22" stroke="#2f5d8a" stroke-width="2"/><line x1="${x0}" y1="${my}" x2="${x1}" y2="${my}" stroke="#999"/>`;
+  s += `<text x="${(x0+x1)/2}" y="${my+mh+16}" text-anchor="middle" font-size="12" fill="#2f5d8a">M<tspan font-size="9" dy="3">Ed,max</tspan><tspan dy="-3"> = ${fmt(r.MEd,1)} kNm</tspan></text><text x="${x0-8}" y="${my+4}" text-anchor="end" font-size="12" fill="#2f5d8a">M</text>`;
+  // průhyb
+  const wy = 245, wh = 35 * Math.min(1.6, r.uW); p = `M${x0},${wy}`;
+  for (let i = 0; i <= N; i++) { const t = i/N; const f = 16/5*(t - 2*t**3 + t**4); p += ` L${x0+(x1-x0)*t},${wy + wh*f}`; }
+  const col = r.uW <= 1 ? '#1a7f4b' : '#c0392b';
+  s += `<line x1="${x0}" y1="${wy}" x2="${x1}" y2="${wy}" stroke="#999" stroke-dasharray="4 3"/><path d="${p}" fill="none" stroke="${col}" stroke-width="2.5"/>`;
+  s += `<line x1="${x0}" y1="${wy+35}" x2="${x1}" y2="${wy+35}" stroke="#b54708" stroke-dasharray="2 4"/><text x="${x1+6}" y="${wy+39}" font-size="11" fill="#b54708">L/${inp.lim}</text>`;
+  s += `<text x="${x0-8}" y="${wy+4}" text-anchor="end" font-size="12" fill="${col}">w</text><text x="${(x0+x1)/2}" y="${wy-6}" text-anchor="middle" font-size="12" fill="${col}">w = ${fmt(r.w,1)} mm (měřítko průhybu přehnané)</text>`;
+  $('diag').innerHTML = `<defs><marker id="ar" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto"><path d="M0,0 L8,0 L4,8 z" fill="#d08b2c"/></marker></defs>` + s;
+}
+
+$('lightest').addEventListener('click', () => {
+  const inp = readInput();
+  const ok = Object.keys(SECTIONS).map(k => check(k, inp)).filter(r => r.uM <= 1 && r.uV <= 1 && r.uW <= 1 && r.cls.cls <= 3)
+    .sort((a, b) => a.G - b.G);
+  if (!ok.length) { $('lightmsg').textContent = 'Žádný profil z tabulky nevyhovuje.'; return; }
+  $('prof').value = ok[0].name; render();
+  $('lightmsg').textContent = `Nejlehčí vyhovující: ${ok[0].name} (${ok[0].G} kg/m). Další: ${ok.slice(1,4).map(x => x.name).join(', ')}.`;
+});
+document.querySelectorAll('input, select').forEach(el => el.addEventListener('input', render));
+render();
+</script>
+</body>
+</html>

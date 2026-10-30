@@ -1,0 +1,4 @@
+Pergola: převzato z workshopu „AI agenti v laboratoři“ (Tomáš Vičar, repozitář AI_agents_workshop,
+demos/pergola), původně z tomasvicar/pergola_2. Three.js 0.163.0 je přiložen lokálně
+(licence ve vendor/LICENSE). Úprava: odkaz zpět na stránku ukázky.
+Fotografie realizace: assets/ukazky/pergola/realizace.jpg (zmenšená kopie fotografie lektora).

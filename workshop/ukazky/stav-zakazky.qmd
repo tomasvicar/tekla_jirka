@@ -1,0 +1,49 @@
+---
+title: "Stav zakázky pro klienta"
+subtitle: "Kontrolní den za pět minut: harmonogram, tonáž, výkresy a otevřené dotazy."
+toc: false
+---
+
+[← Všechny ukázky](../ukazky.qmd){.demo-back}
+
+::: {.demo-summary}
+Před kontrolním dnem obvykle skládáte čísla z Tekly, harmonogramu a e-mailů do prezentace.
+Tady všechny slajdy vznikají z **jednoho bloku dat** (tonáž podle fází, termíny, počty
+výkresů, dotazy). Příště jen aktualizujete čísla a prezentace se překreslí. Funguje
+v prohlížeči i bez internetu a tlačítkem PDF ji uložíte pro e-mail.
+:::
+
+<iframe class="demo-frame" src="../demos/ukazky/stav-zakazky/index.html" title="Prezentace stavu zakázky pro klienta" loading="lazy" allow="fullscreen"></iframe>
+
+<div class="demo-actions"><a href="../demos/ukazky/stav-zakazky/index.html" target="_blank" rel="noopener">Otevřít prezentaci na celou obrazovku</a><a href="../demos/ukazky/stav-zakazky/index.html" download>Stáhnout HTML</a></div>
+
+Šipkami nebo kliknutím listujete. Zakázka i čísla jsou fiktivní.
+
+## Zadání pro agenta
+
+```default
+Připrav prezentaci na kontrolní den se zákazníkem jako jeden HTML soubor
+(16 : 9, listování šipkami, tisk do PDF). Slajdy: titulní, shrnutí se třemi
+čísly (vymodelováno / schváleno / vyrobeno v tunách a %), Ganttův diagram
+s čarou „dnes“, tonáž podle fází, stav výkresů (rozpracováno, ke kontrole,
+schváleno, vydáno), tabulka otevřených dotazů (RFI) s barevným stavem,
+změny od minula a další kroky.
+Všechna čísla ber z jednoho bloku dat nahoře v souboru, abych je příště
+jen přepsal. Data: hmotnosti.xlsx (export z Tekly), harmonogram.xlsx
+a rfi.xlsx v této složce.
+```
+
+```default
+Zkontroluj, že se součty tun na slajdu 2 rovnají součtu fází na slajdu 4
+a že žádný text nepřetéká. Pošli mi screenshot každého slajdu.
+```
+
+## Co si ohlídat
+
+- **Čísla, ne vzhled.** Hezký graf přesvědčí i se špatným číslem. Ověřte jeden údaj
+  z každého slajdu proti zdroji (report z Tekly, harmonogram).
+- **Datum „dnes“** je v datech zadané ručně. Před každou schůzkou ho změňte.
+- **Co jde ven z firmy.** Prezentace je jeden soubor. Před odesláním zkontrolujte,
+  že v datech nezůstalo nic interního, například ceny nebo poznámky k subdodavatelům.
+- Stejný princip „data → HTML“ se hodí na týdenní přehled zakázek pro kancelář,
+  souhrn hodin podle projektů nebo přehled výkresů k vydání.

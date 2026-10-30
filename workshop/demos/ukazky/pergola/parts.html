@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pergola — seznam dřeva</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; background: #f7f7f7; color: #222; }
+  .topnav {
+    position: sticky; top: 0; z-index: 10;
+    background: white; border-bottom: 1px solid #ddd;
+    padding: 8px 16px; display: flex; gap: 4px; align-items: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .topnav a {
+    text-decoration: none; padding: 6px 14px; border-radius: 4px;
+    color: #555; font-size: 14px;
+  }
+  .topnav a.active { background: #1a5f7f; color: white; }
+  .topnav a:hover:not(.active) { background: #eee; }
+  .topnav .spacer { flex: 1; }
+  .topnav .meta { color: #888; font-size: 12px; }
+
+  main { max-width: 1000px; margin: 0 auto; padding: 1.5em 1em; }
+  h1 { margin: 0.3em 0 0.2em; font-size: 1.6em; }
+  .lead { color: #555; margin-bottom: 1.5em; }
+  h2 {
+    margin-top: 2em; padding-bottom: 0.3em;
+    border-bottom: 2px solid #1a5f7f;
+    font-size: 1.25em;
+  }
+  h2 .desc { font-weight: normal; color: #777; font-size: 0.85em; margin-left: 0.5em; }
+  h3 { margin-top: 1em; color: #555; font-size: 1em; }
+
+  table { border-collapse: collapse; width: 100%; margin: 0.5em 0 1em; background: white; border-radius: 6px; overflow: hidden; }
+  th, td { padding: 6px 12px; border-bottom: 1px solid #eee; font-size: 14px; }
+  th { background: #f0f3f5; text-align: left; font-weight: 600; color: #555; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr:last-child td { border-bottom: none; }
+  tr.subtotal td { background: #fafbfc; font-weight: 600; }
+
+  .summary {
+    background: #eef5fb; border-left: 4px solid #1a5f7f;
+    padding: 8px 14px; border-radius: 4px;
+    margin: 0.5em 0 1em;
+    font-size: 14px;
+  }
+  .summary strong { color: #1a5f7f; }
+  .joining {
+    background: #fff8e1; border-left: 4px solid #b08200;
+    padding: 8px 14px; border-radius: 4px;
+    margin: 0.5em 0;
+    font-size: 13px; color: #5a4a00;
+  }
+  .joining strong { color: #5a4a00; }
+  .stocks-line { font-size: 12px; color: #777; margin: 0.2em 0 0.8em; }
+  .waste-low { color: #1a7f37; }
+  .waste-mid { color: #b08200; }
+  .waste-high { color: #cf222e; }
+
+  tr.spare td { background: #f3ecff; color: #4a2b8a; }
+  .spare-badge {
+    display: inline-block; background: #6a3fc0; color: white;
+    padding: 1px 8px; border-radius: 10px; font-size: 11px;
+    font-weight: 600; margin-right: 6px; letter-spacing: 0.3px;
+  }
+
+  .order-summary {
+    margin: 2em 0 1em;
+    background: #fff; border: 1px solid #ccc; border-radius: 6px;
+    padding: 14px 18px;
+  }
+  .order-summary h2 {
+    border-bottom: none; margin: 0 0 0.5em; padding: 0;
+    font-size: 1.15em; color: #1a5f7f;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .order-summary pre {
+    background: #f7f7f7; border: 1px solid #e0e0e0;
+    border-radius: 4px; padding: 12px 14px;
+    font-family: 'Consolas', 'Menlo', 'Courier New', monospace;
+    font-size: 13px; line-height: 1.5;
+    white-space: pre-wrap; word-break: break-word;
+    margin: 0; color: #222;
+  }
+  .copy-btn {
+    background: #1a5f7f; color: white; border: none;
+    padding: 4px 12px; border-radius: 4px; cursor: pointer;
+    font-size: 12px; font-weight: 600;
+  }
+  .copy-btn:hover { background: #0f4660; }
+  .copy-btn.copied { background: #1a7f37; }
+
+  .overall {
+    background: #1a5f7f; color: white; padding: 12px 16px;
+    border-radius: 6px; margin: 1.5em 0; font-size: 15px;
+  }
+  .overall strong { color: white; font-size: 1.2em; }
+
+  code { background: #f0f0f0; padding: 1px 5px; border-radius: 3px; font-size: 13px; }
+  .stock-cm { color: #888; font-size: 12px; margin-left: 4px; }
+  .err { color: #cf222e; }
+
+  .vartabs {
+    display: flex; gap: 4px; margin: 1em 0 0;
+    border-bottom: 2px solid #1a5f7f;
+  }
+  .vartab {
+    padding: 8px 16px; cursor: pointer;
+    background: #e8eef2; color: #555;
+    border-radius: 6px 6px 0 0;
+    font-size: 14px; font-weight: 600;
+    border: none; border-bottom: 0;
+  }
+  .vartab.active { background: #1a5f7f; color: white; }
+  .vartab:hover:not(.active) { background: #d0dde6; }
+  .vardesc {
+    background: #f5f8fa; padding: 8px 14px;
+    border-radius: 0 6px 6px 6px;
+    font-size: 13px; color: #555;
+    margin: 0 0 1em;
+  }
+</style>
+</head>
+<body>
+<nav class="topnav"><a href="../../../ukazky/pergola.html" target="_top">← Ukázka pergoly</a><a href="viewer.html">3D model</a><a href="parts.html">Seznam dřeva</a></nav>
+
+<main>
+  <h1>Seznam dřevěných dílů + plán řezání</h1>
+  <p class="lead">
+    Dřevo na konstrukci pergoly (bez prken terasy). Pravidlo: <strong>vše z 5 m
+    hranolů</strong>, jediná výjimka jsou 2× dlouhý 12×12 průvlak z 8 m kusu
+    (bez spoje). Pár 5 m kusů navíc jako <span class="spare-badge">REZERVA</span>
+    — viditelně označeno v plánu řezání. Best-Fit Decreasing s look-ahead pro
+    každý profil samostatně.
+  </p>
+  <p id="meta" style="font-size:13px;color:#555"></p>
+  <div id="tabs"></div>
+  <div id="vardesc"></div>
+  <div id="content">načítám…</div>
+</main>
+
+<script>
+function fmtCm(x) { return Number(x).toFixed(1); }
+function wasteClass(pct) { return pct < 5 ? 'waste-low' : (pct < 12 ? 'waste-mid' : 'waste-high'); }
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[c]));
+}
+
+// Sestaví plain-text souhrn typu „X ks profil × délka" pro každou kombinaci
+// (profil, stock_cm). Vše KVH smrk — uvedeno v nadpisu, ne na řádcích.
+// Rezerva se nevypisuje zvlášť (jde do stejné objednávky).
+function buildOrderSummary(variant) {
+  const lines = ['Objednávka dřeva — vše KVH smrk', ''];
+  let total = 0;
+  for (const g of variant.groups) {
+    // Seskup CutPieces podle stock_cm.
+    const byStock = new Map();   // stock_cm -> count
+    for (const c of g.cutting) {
+      byStock.set(c.stock_cm, (byStock.get(c.stock_cm) || 0) + 1);
+    }
+    // Seřadit od nejdelšího stocku (8 m před 5 m).
+    const stocks = [...byStock.keys()].sort((a, b) => b - a);
+    for (const sc of stocks) {
+      const count = byStock.get(sc);
+      const m = sc / 100;
+      lines.push(`${g.profile} × ${m} m: ${count} ks`);
+      total += count;
+    }
+  }
+  lines.push('');
+  lines.push(`Celkem: ${total} hranolů.`);
+  return lines.join('\n');
+}
+
+let DATA = null;
+let CURRENT_VARIANT = 0;
+
+function renderVariant(variantIndex) {
+  CURRENT_VARIANT = variantIndex;
+  const variant = DATA.variants[variantIndex];
+
+  // Re-render tabs (active state)
+  const tabsEl = document.getElementById('tabs');
+  tabsEl.className = 'vartabs';
+  tabsEl.innerHTML = DATA.variants.map((v, i) =>
+    `<button class="vartab ${i === variantIndex ? 'active' : ''}" data-i="${i}">${v.name}</button>`
+  ).join('');
+  for (const btn of tabsEl.querySelectorAll('.vartab')) {
+    btn.addEventListener('click', e => renderVariant(parseInt(e.target.dataset.i, 10)));
+  }
+
+  document.getElementById('vardesc').className = 'vardesc';
+  document.getElementById('vardesc').textContent = variant.description;
+
+  const root = document.getElementById('content');
+  root.innerHTML = '';
+
+  for (const g of variant.groups) {
+    const items = g.items.map(it => `
+      <tr>
+        <td>${it.name}</td>
+        <td class="num">${fmtCm(it.length_cm)} cm</td>
+        <td class="num">${it.count}×</td>
+        <td class="num">${fmtCm(it.length_cm * it.count)} cm</td>
+      </tr>`).join('');
+
+    const cuts = g.cutting.map((c, i) => {
+      if (c.is_spare) {
+        return `
+      <tr class="spare">
+        <td>#${i + 1}</td>
+        <td>${c.stock_cm / 100} m <span class="stock-cm">(${c.stock_cm} cm)</span></td>
+        <td><span class="spare-badge">REZERVA</span>kus navíc, neřezat</td>
+        <td class="num">—</td>
+      </tr>`;
+      }
+      const cutsStr = c.cuts.map(x => fmtCm(x)).join(' + ');
+      return `
+      <tr>
+        <td>#${i + 1}</td>
+        <td>${c.stock_cm / 100} m <span class="stock-cm">(${c.stock_cm} cm)</span></td>
+        <td>${cutsStr} cm</td>
+        <td class="num ${wasteClass(100 * c.waste_cm / c.stock_cm)}">${fmtCm(c.waste_cm)} cm</td>
+      </tr>`;
+    }).join('');
+
+    const s = g.summary;
+    const stocksAvailable = (g.stock_sizes_cm || []).map(x => `${x / 100} m`).join(' / ');
+    const joiningHTML = g.joining_note
+      ? `<div class="joining"><strong>⚠ Napojování</strong>: ${g.joining_note}</div>`
+      : '';
+    root.insertAdjacentHTML('beforeend', `
+      <h2>${g.profile} <span class="desc">— ${g.description}</span></h2>
+      <div class="stocks-line">Dostupné délky hranolů: ${stocksAvailable}</div>
+      ${joiningHTML}
+      <h3>Díly</h3>
+      <table>
+        <thead><tr><th>Díl</th><th class="num">Délka</th><th class="num">Počet</th><th class="num">Celkem</th></tr></thead>
+        <tbody>
+          ${items}
+          <tr class="subtotal">
+            <td colspan="3">Suma dílů</td>
+            <td class="num">${fmtCm(s.total_required_cm)} cm</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Plán řezání</h3>
+      <table>
+        <thead><tr><th>#</th><th>Hranol</th><th>Řezy</th><th class="num">Odpad</th></tr></thead>
+        <tbody>${cuts}</tbody>
+      </table>
+      <div class="summary">
+        <strong>${s.stock_count}</strong> hranolů
+        (celkem <strong>${s.total_stock_cm} cm</strong>),
+        ${s.total_pieces} dílů,
+        odpad <strong class="${wasteClass(s.waste_pct)}">${fmtCm(s.waste_cm)} cm</strong>
+        (${s.waste_pct} %)
+        ${s.spare_count ? `<br><span class="spare-badge">REZERVA</span><strong>${s.spare_count}</strong> 5m kusů navíc (${s.spare_stock_cm} cm, mimo odpad)` : ''}
+      </div>
+    `);
+  }
+
+  const o = variant.overall;
+  root.insertAdjacentHTML('beforeend', `
+    <div class="overall">
+      <strong>Celkem (${variant.name})</strong>: ${o.total_pieces} dílů,
+      ${o.total_stock_cm} cm hranolů
+      (${(o.total_stock_cm / 100).toFixed(1)} m),
+      odpad <strong>${fmtCm(o.waste_cm)} cm</strong>
+      (${o.waste_pct} %)
+      ${o.spare_count ? `<br><span class="spare-badge">REZERVA</span><strong>${o.spare_count}</strong> 5m kusů navíc napříč profily (${o.spare_stock_cm} cm = ${(o.spare_stock_cm / 100).toFixed(1)} m, mimo odpad)` : ''}
+    </div>
+  `);
+
+  const orderText = buildOrderSummary(variant);
+  root.insertAdjacentHTML('beforeend', `
+    <div class="order-summary">
+      <h2>📋 Souhrn pro objednávku (kopírovat do emailu)
+        <button class="copy-btn" id="copy-order">Kopírovat</button>
+      </h2>
+      <pre id="order-pre">${escapeHtml(orderText)}</pre>
+    </div>
+  `);
+  document.getElementById('copy-order').addEventListener('click', e => {
+    navigator.clipboard.writeText(orderText).then(() => {
+      e.target.textContent = '✓ Zkopírováno';
+      e.target.classList.add('copied');
+      setTimeout(() => {
+        e.target.textContent = 'Kopírovat';
+        e.target.classList.remove('copied');
+      }, 1500);
+    });
+  });
+
+  document.getElementById('meta').textContent =
+    `${o.total_pieces} dílů · odpad ${o.waste_pct} % (${variant.name})`;
+}
+
+async function load() {
+  try {
+    const r = await fetch('parts_list.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    DATA = await r.json();
+  } catch (e) {
+    document.getElementById('content').innerHTML =
+      `<p class="err">Chyba načítání <code>parts_list.json</code>: ${e.message}</p>`;
+    return;
+  }
+  if (!DATA.variants || DATA.variants.length === 0) {
+    document.getElementById('content').innerHTML =
+      `<p class="err">parts_list.json nemá pole <code>variants</code> — re-render přes <code>main.py</code>.</p>`;
+    return;
+  }
+  renderVariant(CURRENT_VARIANT);
+}
+
+load();
+
+</script>
+</body>
+</html>

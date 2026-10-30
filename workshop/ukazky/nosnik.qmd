@@ -1,0 +1,62 @@
+---
+title: "Rychlá kontrola vaznice"
+subtitle: "Prostý nosník: ohyb, smyk, průhyb a mezivýpočty, které si přepočítáte ručně."
+toc: false
+---
+
+[← Všechny ukázky](../ukazky.qmd){.demo-back}
+
+::: {.demo-summary}
+Webová kalkulačka pro nejběžnější rychlou otázku: *vydrží tahle vaznice, nebo potřebuju
+o číslo větší?* Zadáte rozpětí, zatěžovací šířku a zatížení. Stránka ukáže využití v ohybu,
+smyku a průhybu, vykreslí průběhy a vypíše všechny mezivýpočty. Tlačítkem najdete nejlehčí
+profil z tabulky, který vyhoví.
+:::
+
+::: {.callout-warning}
+## Pomůcka, ne posudek
+Kalkulačka řeší jen prostý nosník s rovnoměrným zatížením a jednoosým ohybem. **Neřeší klopení,
+šikmý ohyb na sklonité střeše, kroucení, spojitost ani přípoje.** Výsledky musí ověřit a za ně
+odpovídá autorizovaný statik podle ČSN EN 1990, 1991 a 1993-1-1 včetně národních příloh.
+Průřezové charakteristiky jsou orientační tabulkové hodnoty, před použitím je ověřte v katalogu.
+:::
+
+<iframe class="demo-frame tall" src="../demos/ukazky/nosnik/index.html" title="Kalkulačka prostého nosníku" loading="lazy"></iframe>
+
+<div class="demo-actions"><a href="../demos/ukazky/nosnik/index.html" target="_blank" rel="noopener">Otevřít kalkulačku</a><a href="../demos/ukazky/nosnik/index.html" download>Stáhnout HTML</a></div>
+
+**Co předvést:** výchozí IPE 160 na 6 m vychází v ohybu na 55 %, ale průhyb je na 95 %
+limitu L/250. Přepněte limit na L/300 a nechte najít nejlehčí vyhovující profil.
+Pak vypněte „tlačená pásnice je držena“ a ukažte, že kalkulačka výsledek sama označí za neplatný.
+
+## Zadání pro agenta
+
+```default
+Udělej jednoduchou HTML kalkulačku pro prostý nosník (vaznici) s rovnoměrným
+zatížením. Vstupy: rozpětí, zatěžovací šířka, stálé a proměnné zatížení v kN/m²,
+profil z tabulky IPE/HEA/HEB, ocel S235/S355, limit průhybu L/200–L/400.
+Kombinace 1,35·G + 1,5·Q, vlastní tíhu připočítej. Spočítej M_Ed, V_Ed,
+třídu průřezu, M_c,Rd (W_pl nebo W_el podle třídy), V_pl,Rd a průhyb 5qL⁴/384EI.
+Ukaž využití v procentech, schéma s průběhem momentu a průhybu a tabulku
+všech mezivýpočtů, abych to mohl ručně zkontrolovat.
+Nahoru dej výrazné upozornění, že nejde o statický výpočet.
+Klopení neřeš, ale když uživatel odškrtne „pásnice je držena“, výsledek označ za neplatný.
+```
+
+```default
+Teď ověř výchozí příklad (IPE 160, L = 6 m, šířka 2 m, g = 0,35, q = 0,8 kN/m²)
+ručním výpočtem krok za krokem a porovnej s tím, co ukazuje stránka.
+```
+
+## Co si ohlídat
+
+- **Přepočítejte jeden příklad ručně.** Tabulka mezivýpočtů je tu právě proto.
+  Výchozí příklad: q~Ed~ = 1,35 · 0,855 + 1,5 · 1,6 = 3,55 kN/m, M~Ed~ = 3,55 · 6² / 8 = 16,0 kNm,
+  M~c,Rd~ = 124 cm³ · 235 MPa = 29,1 kNm.
+- **Hodnoty v tabulce profilů** (I~y~, W~pl~, hmotnost) zkontrolujte namátkou proti katalogu.
+  Model je může napsat zpaměti a jedno přehozené číslo není na první pohled vidět.
+- **Co pomůcka neumí:** vaznice na sklonité střeše je ve šikmém ohybu, spojitá vaznice má jiné
+  momenty, sání větru obrací tlačenou pásnici a pak se klopení uplatní. To vše patří do
+  skutečného statického výpočtu.
+- Stejný postup se hodí na **firemní tabulky** (průřezy, kotvy, šrouby), které chcete mít
+  po ruce v prohlížeči. Vždycky ale s mezivýpočty, které jdou zkontrolovat.

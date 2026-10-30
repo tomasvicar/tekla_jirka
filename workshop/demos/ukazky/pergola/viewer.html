@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pergola viewer</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #f0f0f0; font-family: system-ui, sans-serif; overflow: hidden; }
+  .topnav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 5;
+    background: rgba(255,255,255,0.92); border-bottom: 1px solid #ddd;
+    padding: 6px 12px; display: flex; gap: 4px; align-items: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04); font-size: 13px;
+  }
+  .topnav a {
+    text-decoration: none; padding: 4px 12px; border-radius: 4px; color: #555;
+  }
+  .topnav a.active { background: #1a5f7f; color: white; }
+  .topnav a:hover:not(.active) { background: #eee; }
+  .panel {
+    position: absolute; padding: 6px 10px;
+    background: rgba(255,255,255,0.88); border-radius: 6px; font-size: 13px;
+    line-height: 1.4; user-select: none; max-height: 90vh; overflow-y: auto;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .panel .header {
+    cursor: pointer; display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; font-weight: 600;
+  }
+  .panel .body { margin-top: 6px; }
+  .panel.collapsed .body { display: none; }
+  .panel.collapsed { padding: 6px 10px; }
+  .caret { font-size: 10px; color: #888; transition: transform 0.2s ease; }
+  .panel.collapsed .caret { transform: rotate(-90deg); }
+  #info { top: 54px; left: 10px; max-width: 520px; }
+  #controls { top: 54px; right: 10px; }
+  #controls label { display: block; margin: 2px 0; cursor: pointer; font-weight: normal; }
+  #controls hr { border: none; border-top: 1px solid #ccc; margin: 6px 0; }
+  #controls .section { font-weight: 600; margin-top: 4px; color: #444; }
+  #pergolaInfo { display: block; margin-top: 4px; font-family: ui-monospace, monospace; font-size: 12px; }
+  #pergolaInfo .group { margin-top: 4px; }
+  #pergolaInfo .group-title { color: #555; }
+  #pergolaInfo strong { color: #1a5f7f; }
+  #status { color: #555; }
+  .ok { color: #1a7f37; }
+  .err { color: #cf222e; }
+  @media(max-width:600px){.panel{max-width:calc(100vw - 40px)!important;max-height:65vh}#info{top:54px}#controls{top:94px}.topnav{font-size:11px}.topnav a{padding:4px 7px}}
+</style>
+</head>
+<body>
+<nav class="topnav"><a href="../../../ukazky/pergola.html" target="_top">← Ukázka pergoly</a><a href="viewer.html">3D model</a><a href="parts.html">Seznam dřeva</a></nav>
+<div id="info" class="panel collapsed">
+  <div class="header">
+    <span>ⓘ Info</span>
+    <span class="caret">▼</span>
+  </div>
+  <div class="body">
+    <div style="font-size:12px; color:#555;">
+      Levé táhnutí = rotace · pravé = pan · scroll = zoom<br>
+      <kbd>F</kbd> = pivot na pergolu · <kbd>R</kbd> = reset pohledu
+    </div>
+    <span id="pergolaInfo">načítám…</span>
+    <div style="font-size:11px; color:#888; margin-top:4px;">
+      <span id="dims"></span><br>
+      <span id="status">loading...</span>
+    </div>
+  </div>
+</div>
+<div id="controls" class="panel collapsed">
+  <div class="header">
+    <span>⚙ Ovládání</span>
+    <span class="caret">▼</span>
+  </div>
+  <div class="body">
+    <label><input type="checkbox" id="showAxes" checked> osy (X red, Y green, Z blue)</label>
+    <label><input type="checkbox" id="showGrid"> mřížka (1 m)</label>
+    <label><input type="checkbox" id="showEdges" checked> hrany</label>
+    <hr>
+    <div class="section">Zobrazit:</div>
+    <label><input type="checkbox" class="groupToggle" data-group="house" checked> dům (zdi, okna, podhled, okap)</label>
+    <label><input type="checkbox" class="groupToggle" data-group="terrace_cladding" checked> obložení terasy</label>
+    <label><input type="checkbox" class="groupToggle" data-group="posts" checked> sloupky</label>
+    <label><input type="checkbox" class="groupToggle" data-group="beams" checked> nosníky</label>
+    <label><input type="checkbox" class="groupToggle" data-group="rafters" checked> krovy</label>
+    <label><input type="checkbox" class="groupToggle" data-group="battens" checked> latě</label>
+    <label><input type="checkbox" class="groupToggle" data-group="back_closure" checked> zadní krycí hranol</label>
+    <label><input type="checkbox" class="groupToggle" data-group="braces" checked> závětrování</label>
+    <label><input type="checkbox" class="groupToggle" data-group="polycarbonate" checked> krytina (polykarbonát)</label>
+    <label><input type="checkbox" class="groupToggle" data-group="furniture" checked> nábytek + figurka</label>
+    <hr>
+    <div class="section">Barva krytiny:</div>
+    <label><input type="radio" name="polycarbColor" value="bronze" checked> bronzová</label>
+    <label><input type="radio" name="polycarbColor" value="grey"> šedá (kouřová)</label>
+    <hr>
+    <button id="btnRecenter" type="button" style="width:100%; margin:2px 0;">Pivot na pergolu (F)</button>
+    <button id="btnReset" type="button" style="width:100%; margin:2px 0;">Reset pohledu (R)</button>
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three.module.js",
+    "three/addons/controls/TrackballControls.js": "./vendor/TrackballControls.js",
+    "three/addons/loaders/STLLoader.js": "./vendor/STLLoader.js"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
+import { STLLoader } from 'three/addons/loaders/STLLoader.js';
+
+// Per-part STLs s vlastními barvami. Pořadí podle vykreslovací priority není podstatné.
+// Barvy musí odpovídat hodnotám v house.py (COLOR_*) a pergola.py (COLOR_PERGOLA_*).
+const PARTS = [
+  { name: 'walls',   url: 'parts/walls.stl',   color: 0xf5d140, roughness: 0.85 },
+  { name: 'windows', url: 'parts/windows.stl', color: 0x747a85, roughness: 0.30 },
+  { name: 'parapets', url: 'parts/parapets.stl', color: 0x141414, roughness: 0.55 },
+  { name: 'socket',  url: 'parts/socket.stl',  color: 0xf0f0ed, roughness: 0.30 },
+  { name: 'soffit',  url: 'parts/soffit.stl',  color: 0x8c5c33, roughness: 0.85 },
+  { name: 'soffit_batten', url: 'parts/soffit_batten.stl', color: 0x8c5c33, roughness: 0.85 },
+  { name: 'gutter',  url: 'parts/gutter.stl',  color: 0xc7ccd2, roughness: 0.40, metalness: 0.5 },
+  { name: 'fascia',  url: 'parts/fascia.stl',  color: 0x8c5c33, roughness: 0.85 },
+  { name: 'roof',    url: 'parts/roof.stl',    color: 0x1a1a1a, roughness: 0.70 },
+  { name: 'terrace', url: 'parts/terrace.stl', color: 0x9e9e9e, roughness: 0.95 },
+  { name: 'terrace_cladding', url: 'parts/terrace_cladding.stl',
+    color: 0x8c5c33, roughness: 0.85 },
+  // Pergola — stejná hnědá jako podhled (dub) pro dřevěné díly, tmavá ocel pro patky.
+  { name: 'pergola_footings', url: 'parts/pergola_footings.stl', color: 0x4d4d52, roughness: 0.55 },
+  { name: 'pergola_posts',    url: 'parts/pergola_posts.stl',    color: 0x8c5c33, roughness: 0.85 },
+  { name: 'pergola_beams',    url: 'parts/pergola_beams.stl',    color: 0x8c5c33, roughness: 0.85 },
+  { name: 'pergola_rafters',  url: 'parts/pergola_rafters.stl',  color: 0x8c5c33, roughness: 0.85 },
+  { name: 'pergola_battens',  url: 'parts/pergola_battens.stl',  color: 0x8c5c33, roughness: 0.85 },
+  { name: 'pergola_back_closure', url: 'parts/pergola_back_closure.stl', color: 0x8c5c33, roughness: 0.85 },
+  { name: 'pergola_braces',   url: 'parts/pergola_braces.stl',   color: 0x8c5c33, roughness: 0.85 },
+  // Polykarbonátové desky Wabe bronz — poloprůhledné (alpha 0.45).
+  { name: 'pergola_polycarbonate', url: 'parts/pergola_polycarbonate.stl',
+    color: 0x9e6630, roughness: 0.20, transparent: true, opacity: 0.45 },
+  // Zahradní nábytek (referenční velikost) — tmavší dřevo.
+  { name: 'furniture_table',  url: 'parts/furniture_table.stl',  color: 0x6b4527, roughness: 0.85 },
+  { name: 'furniture_chairs', url: 'parts/furniture_chairs.stl', color: 0x6b4527, roughness: 0.85 },
+  // Silueta člověka 180 cm — velikostní reference.
+  { name: 'furniture_person', url: 'parts/furniture_person.stl', color: 0x26262d, roughness: 0.95 },
+];
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xf0f0f0);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100000);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const controls = new TrackballControls(camera, renderer.domElement);
+controls.rotateSpeed = 3.5;
+controls.zoomSpeed = 1.2;
+controls.panSpeed = 1.0;
+controls.staticMoving = false;
+controls.dynamicDampingFactor = 0.2;
+controls.noRoll = false;
+
+// Lights
+scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+const sun = new THREE.DirectionalLight(0xffffff, 0.8);
+sun.position.set(500, 800, 1000);
+scene.add(sun);
+const fill = new THREE.DirectionalLight(0xffffff, 0.3);
+fill.position.set(-500, -200, 200);
+scene.add(fill);
+
+// Helpers (axes, grid). Axes length = 200 cm = 2 m, grid 20 m square, divisions per 1 m.
+let axesHelper = new THREE.AxesHelper(200);
+scene.add(axesHelper);
+let gridHelper = new THREE.GridHelper(2000, 20, 0x888888, 0xcccccc);
+gridHelper.rotation.x = Math.PI / 2; // grid lies in XY plane (Z up)
+gridHelper.visible = false;
+scene.add(gridHelper);
+
+// Skupiny dílů pro přepínače viditelnosti — klíč odpovídá data-group v HTML.
+const GROUPS = {
+  house:            ['walls', 'windows', 'parapets', 'socket', 'soffit', 'soffit_batten', 'gutter', 'fascia', 'roof'],
+  terrace_cladding: ['terrace_cladding'],
+  posts:            ['pergola_posts'],
+  beams:            ['pergola_beams'],
+  rafters:          ['pergola_rafters'],
+  battens:          ['pergola_battens'],
+  back_closure:     ['pergola_back_closure'],
+  braces:           ['pergola_braces'],
+  polycarbonate:    ['pergola_polycarbonate'],
+  furniture:        ['furniture_table', 'furniture_chairs', 'furniture_person'],
+};
+// Výchozí stav viditelnosti per part (true = viditelné). Aktualizuje se při toggle.
+const partVisible = new Map();
+for (const parts of Object.values(GROUPS)) for (const p of parts) partVisible.set(p, true);
+
+function applyPartVisibility(name) {
+  const s = loaded.get(name);
+  if (!s) return;
+  const v = partVisible.get(name) !== false;
+  if (s.mesh) s.mesh.visible = v;
+  if (s.edges) s.edges.visible = v && document.getElementById('showEdges').checked;
+}
+
+// Loaded part state — disposed/replaced on every reload.
+const loaded = new Map(); // name -> { mesh, edges, lastModified }
+let firstFitDone = false;
+let lastPergolaCenter = null; // THREE.Vector3 — pivot otáčení (klávesa F)
+let lastPergolaBox = null;    // THREE.Box3 — pro plný re-fit (klávesa R)
+
+const statusEl = document.getElementById('status');
+const dimsEl = document.getElementById('dims');
+
+// Defaultní pohled = zezadu (kamera v +Y, kouká na -Y), zoom na bbox pergoly,
+// okrajový multiplikátor blízko 1.0 aby pergola vyplnila skoro celý záběr.
+function fitCameraBackOnPergola(pergolaBox, sceneBox) {
+  const center = new THREE.Vector3();
+  pergolaBox.getCenter(center);
+  const size = new THREE.Vector3();
+  pergolaBox.getSize(size);
+  // Při pohledu z +Y vidíme dimenze X (šířka) a Z (výška).
+  const aspect = window.innerWidth / window.innerHeight;
+  const fovV = camera.fov * Math.PI / 180;
+  const fovH = 2 * Math.atan(Math.tan(fovV / 2) * aspect);
+  // Fit the whole pergola in perspective, including its depth, on narrow screens too.
+  const radius = size.length() / 2;
+  const dist = radius / Math.sin(Math.min(fovV, fovH) / 2) * 1.08;
+  const direction = new THREE.Vector3(0.55, 1, 0.5).normalize();
+  camera.position.copy(center).addScaledVector(direction, dist);
+  camera.up.set(0, 0, 1);
+  camera.lookAt(center);
+  controls.target.copy(center);
+  controls.update();
+
+  // near/far podle celé scény, aby se nic neořízlo
+  const sceneSize = new THREE.Vector3();
+  sceneBox.getSize(sceneSize);
+  const sceneMax = Math.max(sceneSize.x, sceneSize.y, sceneSize.z);
+  camera.near = Math.max(sceneMax / 1000, 0.1);
+  camera.far = sceneMax * 20 + dist * 2;
+  camera.updateProjectionMatrix();
+}
+
+function disposePart(state) {
+  if (state.mesh) { scene.remove(state.mesh); state.mesh.geometry.dispose(); state.mesh.material.dispose(); }
+  if (state.edges) { scene.remove(state.edges); state.edges.geometry.dispose(); state.edges.material.dispose(); }
+}
+
+async function loadPart(part, force) {
+  const head = await fetch(part.url, { method: 'HEAD', cache: 'no-store' });
+  if (!head.ok) throw new Error(`HEAD ${part.url}: ${head.status}`);
+  const lm = head.headers.get('Last-Modified');
+  const prev = loaded.get(part.name);
+  if (!force && prev && lm && lm === prev.lastModified) return false; // unchanged
+
+  const loader = new STLLoader();
+  const geom = await new Promise((resolve, reject) =>
+    loader.load(part.url + '?t=' + Date.now(), resolve, undefined, reject)
+  );
+  geom.computeBoundingBox();
+  geom.computeVertexNormals();
+
+  if (prev) disposePart(prev);
+
+  const mat = new THREE.MeshStandardMaterial({
+    color: part.color, roughness: part.roughness, metalness: part.metalness ?? 0.0, flatShading: false,
+    transparent: part.transparent || false,
+    opacity: part.opacity ?? 1.0,
+    depthWrite: !(part.transparent || false),
+  });
+  const mesh = new THREE.Mesh(geom, mat);
+  if (part.transparent) mesh.renderOrder = 1;  // průhledné kreslit po neprůhledných
+  scene.add(mesh);
+
+  const edgesGeom = new THREE.EdgesGeometry(geom, 20);
+  const edges = new THREE.LineSegments(edgesGeom, new THREE.LineBasicMaterial({ color: 0x222222 }));
+  scene.add(edges);
+  edges.visible = document.getElementById('showEdges').checked;
+
+  loaded.set(part.name, { mesh, edges, lastModified: lm });
+  applyPartVisibility(part.name);
+  return true;
+}
+
+async function loadAll(force = false) {
+  try {
+    const results = await Promise.all(PARTS.map(p => loadPart(p, force).catch(e => ({ err: e, part: p }))));
+    const errors = results.filter(r => r && r.err);
+    if (errors.length === PARTS.length) throw new Error(errors[0].err.message);
+
+    // Spočítej overall bounding box ze všech načtených partů
+    // a zvlášť bbox jen pro pergola díly (defaultní framing).
+    const overall = new THREE.Box3();
+    const pergolaBox = new THREE.Box3();
+    const PERGOLA_NAMES = new Set([
+      'pergola_footings', 'pergola_posts', 'pergola_beams',
+      'pergola_rafters', 'pergola_battens', 'pergola_back_closure',
+      'pergola_braces', 'pergola_polycarbonate',
+    ]);
+    let any = false;
+    let pergolaAny = false;
+    for (const part of PARTS) {
+      const s = loaded.get(part.name);
+      if (!s) continue;
+      const bb = s.mesh.geometry.boundingBox;
+      if (!bb) continue;
+      overall.union(bb);
+      any = true;
+      if (PERGOLA_NAMES.has(part.name)) {
+        pergolaBox.union(bb);
+        pergolaAny = true;
+      }
+    }
+    if (pergolaAny) {
+      lastPergolaBox = pergolaBox.clone();
+      lastPergolaCenter = new THREE.Vector3();
+      pergolaBox.getCenter(lastPergolaCenter);
+    } else if (any) {
+      lastPergolaBox = overall.clone();
+      lastPergolaCenter = new THREE.Vector3();
+      overall.getCenter(lastPergolaCenter);
+    }
+    if (any && !firstFitDone) {
+      fitCameraBackOnPergola(pergolaAny ? pergolaBox : overall, overall);
+      firstFitDone = true;
+    }
+    if (any) {
+      const min = overall.min, max = overall.max;
+      dimsEl.textContent = `BB: X[${min.x.toFixed(0)},${max.x.toFixed(0)}] · Y[${min.y.toFixed(0)},${max.y.toFixed(0)}] · Z[${min.z.toFixed(0)},${max.z.toFixed(0)}] cm`;
+    }
+    const failed = errors.length > 0 ? ` · ${errors.length} part(s) missing` : '';
+    statusEl.textContent = `loaded (${new Date().toLocaleTimeString()})${failed}`;
+    statusEl.className = errors.length > 0 ? 'err' : 'ok';
+  } catch (e) {
+    statusEl.textContent = `error: ${e.message}`;
+    statusEl.className = 'err';
+  }
+}
+
+await loadAll(true);
+loadPergolaInfo();
+
+async function loadPergolaInfo() {
+  try {
+    const r = await fetch('pergola_info.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!r.ok) return;
+    const s = await r.json();
+    const fmt = (x, n=1) => Number(x).toFixed(n);
+    document.getElementById('pergolaInfo').innerHTML = `
+      <div class="group">
+        Sklon střechy: <strong>${fmt(s.pitch_deg, 2)}°</strong> (${fmt(s.pitch_pct)} %)<br>
+        Přední sloupek: <strong>${fmt(s.front_post_h_cm)}</strong> cm &middot;
+          zadní: ${fmt(s.back_post_h_cm)} cm<br>
+        Světlá výška vepředu: <strong>${fmt(s.clearance_front_cm)}</strong> cm
+          (od obložení k spodku průvlaku)<br>
+        Mezera krytina ↔ podhled: ${fmt(s.gap_polycarb_to_soffit_cm)} cm
+      </div>
+      <div class="group">
+        <span class="group-title">Boční přesah krytiny (obě strany):</span><br>
+        &nbsp;&nbsp;nad sloupem: <strong>${fmt(s.side_overhang_post_cm)}</strong> &middot;
+        nad betonem: ${fmt(s.side_overhang_concrete_cm)} &middot;
+        nad prkny: ${fmt(s.side_overhang_cladding_cm)} &middot;
+        nad krovem: ${fmt(s.side_overhang_rafter_cm)} cm
+      </div>
+      <div class="group">
+        <span class="group-title">Přední přesah krytiny:</span><br>
+        &nbsp;&nbsp;nad sloupem: <strong>${fmt(s.front_overhang_post_cm)}</strong> &middot;
+        nad betonem: ${fmt(s.front_overhang_concrete_cm)} &middot;
+        nad prkny: ${fmt(s.front_overhang_cladding_cm)} cm<br>
+        &nbsp;&nbsp;nad krovem: ${fmt(s.front_overhang_rafter_cm)} &middot;
+        za poslední latí: ${fmt(s.front_overhang_last_batten_cm)} cm
+      </div>
+      <div class="group">
+        <span class="group-title">Montáž na patky:</span><br>
+        &nbsp;&nbsp;mezera nosník ↔ podhled: <strong>${fmt(s.install_back_beam_to_soffit_cm, 2)} cm</strong> &middot;
+        nutný lift: ${fmt(s.install_lift_required_cm)} cm &middot;
+        vůle: <strong>${fmt(s.install_clearance_cm, 2)} cm</strong>
+      </div>
+    `;
+  } catch (e) { /* tichá chyba — info panel není kritický */ }
+}
+
+// Sbalovací panely — klik na hlavičku přepíná .collapsed.
+for (const panel of document.querySelectorAll('.panel')) {
+  const header = panel.querySelector('.header');
+  if (header) header.addEventListener('click', () => panel.classList.toggle('collapsed'));
+}
+
+document.getElementById('showAxes').addEventListener('change', e => axesHelper.visible = e.target.checked);
+document.getElementById('showGrid').addEventListener('change', e => gridHelper.visible = e.target.checked);
+document.getElementById('showEdges').addEventListener('change', () => {
+  for (const name of loaded.keys()) applyPartVisibility(name);
+});
+
+for (const cb of document.querySelectorAll('.groupToggle')) {
+  cb.addEventListener('change', e => {
+    const group = e.target.dataset.group;
+    const visible = e.target.checked;
+    for (const name of GROUPS[group] || []) {
+      partVisible.set(name, visible);
+      applyPartVisibility(name);
+    }
+  });
+}
+
+// Přepínač barvy polykarbonátu (bronz = výchozí, dle COLOR_PERGOLA_POLYCARB v pergola.py;
+// šedá = jen náhledový odstín). Mění živý materiál i PARTS záznam, aby auto-reload
+// nepřepsal barvu zpět na výchozí.
+const POLYCARB_COLORS = { bronze: 0x9e6630, grey: 0x8c9094 };
+const polycarbPart = PARTS.find(p => p.name === 'pergola_polycarbonate');
+for (const rb of document.querySelectorAll('input[name="polycarbColor"]')) {
+  rb.addEventListener('change', e => {
+    if (!e.target.checked) return;
+    const hex = POLYCARB_COLORS[e.target.value] ?? POLYCARB_COLORS.bronze;
+    if (polycarbPart) polycarbPart.color = hex;
+    const s = loaded.get('pergola_polycarbonate');
+    if (s && s.mesh) s.mesh.material.color.setHex(hex);
+  });
+}
+
+// ── Barva dřeva + světlost žluté fasády z realizace.html (vzorník „Nátěr a barva") ──
+// realizace.html zapisuje do localStorage + posílá přes BroadcastChannel; tady to
+// aplikujeme na materiály. Dřevěné díly = pergola + prkna terasy (dle textu na realizace).
+const WOOD_PART_NAMES = [
+  'pergola_posts', 'pergola_beams', 'pergola_rafters', 'pergola_battens',
+  'pergola_back_closure', 'pergola_braces', 'terrace_cladding',
+];
+const DEFAULT_WOOD_HEX = 0x8c5c33;
+function applyWoodColor(hex) {
+  for (const name of WOOD_PART_NAMES) {
+    const part = PARTS.find(p => p.name === name);
+    if (part) part.color = hex;                 // aby auto-reload nepřepsal
+    const s = loaded.get(name);
+    if (s && s.mesh) s.mesh.material.color.setHex(hex);
+  }
+}
+function hslToHex(h, s, l) {                     // stejná matematika jako realizace.html
+  s /= 100; l /= 100;
+  const k = n => (n + h / 30) % 12;
+  const a = s * Math.min(l, 1 - l);
+  const f = n => Math.round(255 * (l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))));
+  return (f(0) << 16) | (f(8) << 8) | f(4);
+}
+function applyYellow(slider) {
+  const hex = hslToHex(48, 89, 40 + (slider / 100) * 50);  // 40..90 %
+  const part = PARTS.find(p => p.name === 'walls');
+  if (part) part.color = hex;
+  const s = loaded.get('walls');
+  if (s && s.mesh) s.mesh.material.color.setHex(hex);
+}
+function applyStoredSettings() {
+  const w = localStorage.getItem('pergola_wood_color_hex');
+  if (w) applyWoodColor(parseInt(w, 16));
+  const y = localStorage.getItem('pergola_yellow_lightness');
+  if (y !== null) applyYellow(parseInt(y, 10));
+}
+applyStoredSettings();
+try {
+  const bc = new BroadcastChannel('pergola_settings');
+  bc.onmessage = (e) => {
+    const d = e.data || {};
+    if (d.type === 'wood') applyWoodColor(d.hex);
+    else if (d.type === 'yellow') applyYellow(d.l);
+    else if (d.type === 'reset') { applyWoodColor(DEFAULT_WOOD_HEX); applyYellow(50); }
+  };
+} catch (e) { /* BroadcastChannel nemusí být podporovaný */ }
+window.addEventListener('storage', (e) => {
+  if (e.key === 'pergola_wood_color_hex' && e.newValue) applyWoodColor(parseInt(e.newValue, 16));
+  else if (e.key === 'pergola_yellow_lightness' && e.newValue !== null) applyYellow(parseInt(e.newValue, 10));
+});
+
+// Snapne pivot otáčení (controls.target) na střed pergoly bez změny pozice/úhlu kamery.
+// Užitečné po panu, kdy target uteče. Zachovává zoom i orientaci.
+function snapPivotToPergola() {
+  if (!lastPergolaCenter) return;
+  // Posun targetu — kameru posuneme o stejný delta, aby se nezměnil view-direction ani vzdálenost.
+  const delta = new THREE.Vector3().subVectors(lastPergolaCenter, controls.target);
+  controls.target.add(delta);
+  camera.position.add(delta);
+  controls.update();
+}
+
+// Plný reset pohledu — back view, zoom na pergolu (jako po refreshi).
+function resetViewBackOnPergola() {
+  if (!lastPergolaBox) return;
+  fitCameraBackOnPergola(lastPergolaBox, lastPergolaBox);
+}
+
+document.getElementById('btnRecenter').addEventListener('click', snapPivotToPergola);
+document.getElementById('btnReset').addEventListener('click', resetViewBackOnPergola);
+
+window.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'f' || e.key === 'F') { snapPivotToPergola(); e.preventDefault(); }
+  else if (e.key === 'r' || e.key === 'R') { resetViewBackOnPergola(); e.preventDefault(); }
+});
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  controls.handleResize();
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+</script>
+</body>
+</html>

@@ -1,0 +1,1007 @@
+{
+  "stock_sizes_cm": [
+    500,
+    800
+  ],
+  "variants": [
+    {
+      "key": "5m_plus_8m_for_longs",
+      "name": "Vše z 5 m + 8 m jen na dlouhé 12×12 průvlaky",
+      "description": "Všechny profily z 5 m hranolů. Výjimka: 2× čelní/zadní 12×12 průvlak (697 cm) z 8 m kusů (bez spoje). Plus pár 5 m kusů navíc jako rezerva — označeno REZERVA v plánu řezání.",
+      "groups": [
+        {
+          "profile": "12×12 cm",
+          "description": "Sloupy + nosníky (KVH smrkové hranoly)",
+          "stock_sizes_cm": [
+            500,
+            800
+          ],
+          "joining_note": null,
+          "extra_stock_5m": 1,
+          "items": [
+            {
+              "name": "zadní sloup",
+              "length_cm": 233.3,
+              "count": 4
+            },
+            {
+              "name": "střední sloup",
+              "length_cm": 212.0,
+              "count": 2
+            },
+            {
+              "name": "přední sloup",
+              "length_cm": 200.0,
+              "count": 4
+            },
+            {
+              "name": "čelní průvlak (back + front)",
+              "length_cm": 697.3,
+              "count": 2
+            },
+            {
+              "name": "boční nosník (left + right)",
+              "length_cm": 360.5,
+              "count": 2
+            }
+          ],
+          "cutting": [
+            {
+              "stock_cm": 800,
+              "cuts": [
+                697.3
+              ],
+              "waste_cm": 102.7,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 800,
+              "cuts": [
+                697.3
+              ],
+              "waste_cm": 102.7,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                360.5
+              ],
+              "waste_cm": 139.5,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                360.5
+              ],
+              "waste_cm": 139.5,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                233.3,
+                233.3
+              ],
+              "waste_cm": 33.3,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                233.3,
+                233.3
+              ],
+              "waste_cm": 33.3,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                212.0,
+                212.0
+              ],
+              "waste_cm": 76.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                200.0,
+                200.0
+              ],
+              "waste_cm": 100.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                200.0,
+                200.0
+              ],
+              "waste_cm": 100.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [],
+              "waste_cm": 0.0,
+              "is_spare": true
+            }
+          ],
+          "summary": {
+            "total_pieces": 14,
+            "total_required_cm": 4273.0,
+            "total_stock_cm": 5100,
+            "stock_count": 9,
+            "waste_cm": 827.0,
+            "waste_pct": 16.22,
+            "spare_count": 1,
+            "spare_stock_cm": 500
+          }
+        },
+        {
+          "profile": "8×16 cm",
+          "description": "Krovy (po šikmině, plumb cuts na obou koncích)",
+          "stock_sizes_cm": [
+            500
+          ],
+          "joining_note": null,
+          "extra_stock_5m": 2,
+          "items": [
+            {
+              "name": "krov",
+              "length_cm": 405.0,
+              "count": 8
+            }
+          ],
+          "cutting": [
+            {
+              "stock_cm": 500,
+              "cuts": [
+                405.0
+              ],
+              "waste_cm": 95.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                405.0
+              ],
+              "waste_cm": 95.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                405.0
+              ],
+              "waste_cm": 95.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                405.0
+              ],
+              "waste_cm": 95.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                405.0
+              ],
+              "waste_cm": 95.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                405.0
+              ],
+              "waste_cm": 95.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                405.0
+              ],
+              "waste_cm": 95.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                405.0
+              ],
+              "waste_cm": 95.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [],
+              "waste_cm": 0.0,
+              "is_spare": true
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [],
+              "waste_cm": 0.0,
+              "is_spare": true
+            }
+          ],
+          "summary": {
+            "total_pieces": 8,
+            "total_required_cm": 3240.0,
+            "total_stock_cm": 4000,
+            "stock_count": 8,
+            "waste_cm": 760.0,
+            "waste_pct": 19.0,
+            "spare_count": 2,
+            "spare_stock_cm": 1000
+          }
+        },
+        {
+          "profile": "4×6 cm",
+          "description": "Latě KVH 40×60 mm hoblované, na ležato — 6 cm v Y, 4 cm v tloušťce",
+          "stock_sizes_cm": [
+            500
+          ],
+          "joining_note": "Délka dílu přesahuje max stock 5 m → každý díl se v reálu spojí z více kusů: lať (758.1 cm) = 500.0 cm + 258.1 cm.",
+          "extra_stock_5m": 4,
+          "items": [
+            {
+              "name": "lať",
+              "length_cm": 758.1,
+              "count": 6
+            }
+          ],
+          "cutting": [
+            {
+              "stock_cm": 500,
+              "cuts": [
+                500.0
+              ],
+              "waste_cm": 0.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                500.0
+              ],
+              "waste_cm": 0.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                500.0
+              ],
+              "waste_cm": 0.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                500.0
+              ],
+              "waste_cm": 0.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                500.0
+              ],
+              "waste_cm": 0.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                500.0
+              ],
+              "waste_cm": 0.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                258.1
+              ],
+              "waste_cm": 241.9,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                258.1
+              ],
+              "waste_cm": 241.9,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                258.1
+              ],
+              "waste_cm": 241.9,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                258.1
+              ],
+              "waste_cm": 241.9,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                258.1
+              ],
+              "waste_cm": 241.9,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                258.1
+              ],
+              "waste_cm": 241.9,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [],
+              "waste_cm": 0.0,
+              "is_spare": true
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [],
+              "waste_cm": 0.0,
+              "is_spare": true
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [],
+              "waste_cm": 0.0,
+              "is_spare": true
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [],
+              "waste_cm": 0.0,
+              "is_spare": true
+            }
+          ],
+          "summary": {
+            "total_pieces": 6,
+            "total_required_cm": 4548.6,
+            "total_stock_cm": 6000,
+            "stock_count": 12,
+            "waste_cm": 1451.4,
+            "waste_pct": 24.19,
+            "spare_count": 4,
+            "spare_stock_cm": 2000
+          }
+        },
+        {
+          "profile": "6×8 cm",
+          "description": "Zadní krycí hranol mezi konci krovů a podhledem domu — uzavírá zadní mezeru proti větru/sněhu. KVH smrk, spodní hrana scribována na sklon krovu (skloněná o 5.76°).",
+          "stock_sizes_cm": [
+            500
+          ],
+          "joining_note": "Délka dílu přesahuje max stock 5 m → každý díl se v reálu spojí z více kusů: zadní krycí hranol (758.1 cm) = 500.0 cm + 258.1 cm.",
+          "extra_stock_5m": 0,
+          "items": [
+            {
+              "name": "zadní krycí hranol",
+              "length_cm": 758.1,
+              "count": 1
+            }
+          ],
+          "cutting": [
+            {
+              "stock_cm": 500,
+              "cuts": [
+                500.0
+              ],
+              "waste_cm": 0.0,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                258.1
+              ],
+              "waste_cm": 241.9,
+              "is_spare": false
+            }
+          ],
+          "summary": {
+            "total_pieces": 1,
+            "total_required_cm": 758.1,
+            "total_stock_cm": 1000,
+            "stock_count": 2,
+            "waste_cm": 241.9,
+            "waste_pct": 24.19,
+            "spare_count": 0,
+            "spare_stock_cm": 0
+          }
+        },
+        {
+          "profile": "10×10 cm",
+          "description": "Vzpěry / závětrování (8 rohových + 2 vnitřní zadní, miter 45° na obou koncích)",
+          "stock_sizes_cm": [
+            500
+          ],
+          "joining_note": null,
+          "extra_stock_5m": 1,
+          "items": [
+            {
+              "name": "vzpěra (stock vč. odpadu z miterů)",
+              "length_cm": 80.7,
+              "count": 10
+            }
+          ],
+          "cutting": [
+            {
+              "stock_cm": 500,
+              "cuts": [
+                80.7,
+                80.7,
+                80.7,
+                80.7,
+                80.7,
+                80.7
+              ],
+              "waste_cm": 15.7,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [
+                80.7,
+                80.7,
+                80.7,
+                80.7
+              ],
+              "waste_cm": 177.2,
+              "is_spare": false
+            },
+            {
+              "stock_cm": 500,
+              "cuts": [],
+              "waste_cm": 0.0,
+              "is_spare": true
+            }
+          ],
+          "summary": {
+            "total_pieces": 10,
+            "total_required_cm": 807.1,
+            "total_stock_cm": 1000,
+            "stock_count": 2,
+            "waste_cm": 192.9,
+            "waste_pct": 19.29,
+            "spare_count": 1,
+            "spare_stock_cm": 500
+          }
+        }
+      ],
+      "overall": {
+        "total_pieces": 39,
+        "total_stock_cm": 17100,
+        "total_required_cm": 13626.8,
+        "waste_cm": 3473.2,
+        "waste_pct": 20.31,
+        "spare_count": 8,
+        "spare_stock_cm": 4000
+      }
+    }
+  ],
+  "groups": [
+    {
+      "profile": "12×12 cm",
+      "description": "Sloupy + nosníky (KVH smrkové hranoly)",
+      "stock_sizes_cm": [
+        500,
+        800
+      ],
+      "joining_note": null,
+      "extra_stock_5m": 1,
+      "items": [
+        {
+          "name": "zadní sloup",
+          "length_cm": 233.3,
+          "count": 4
+        },
+        {
+          "name": "střední sloup",
+          "length_cm": 212.0,
+          "count": 2
+        },
+        {
+          "name": "přední sloup",
+          "length_cm": 200.0,
+          "count": 4
+        },
+        {
+          "name": "čelní průvlak (back + front)",
+          "length_cm": 697.3,
+          "count": 2
+        },
+        {
+          "name": "boční nosník (left + right)",
+          "length_cm": 360.5,
+          "count": 2
+        }
+      ],
+      "cutting": [
+        {
+          "stock_cm": 800,
+          "cuts": [
+            697.3
+          ],
+          "waste_cm": 102.7,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 800,
+          "cuts": [
+            697.3
+          ],
+          "waste_cm": 102.7,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            360.5
+          ],
+          "waste_cm": 139.5,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            360.5
+          ],
+          "waste_cm": 139.5,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            233.3,
+            233.3
+          ],
+          "waste_cm": 33.3,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            233.3,
+            233.3
+          ],
+          "waste_cm": 33.3,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            212.0,
+            212.0
+          ],
+          "waste_cm": 76.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            200.0,
+            200.0
+          ],
+          "waste_cm": 100.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            200.0,
+            200.0
+          ],
+          "waste_cm": 100.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [],
+          "waste_cm": 0.0,
+          "is_spare": true
+        }
+      ],
+      "summary": {
+        "total_pieces": 14,
+        "total_required_cm": 4273.0,
+        "total_stock_cm": 5100,
+        "stock_count": 9,
+        "waste_cm": 827.0,
+        "waste_pct": 16.22,
+        "spare_count": 1,
+        "spare_stock_cm": 500
+      }
+    },
+    {
+      "profile": "8×16 cm",
+      "description": "Krovy (po šikmině, plumb cuts na obou koncích)",
+      "stock_sizes_cm": [
+        500
+      ],
+      "joining_note": null,
+      "extra_stock_5m": 2,
+      "items": [
+        {
+          "name": "krov",
+          "length_cm": 405.0,
+          "count": 8
+        }
+      ],
+      "cutting": [
+        {
+          "stock_cm": 500,
+          "cuts": [
+            405.0
+          ],
+          "waste_cm": 95.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            405.0
+          ],
+          "waste_cm": 95.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            405.0
+          ],
+          "waste_cm": 95.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            405.0
+          ],
+          "waste_cm": 95.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            405.0
+          ],
+          "waste_cm": 95.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            405.0
+          ],
+          "waste_cm": 95.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            405.0
+          ],
+          "waste_cm": 95.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            405.0
+          ],
+          "waste_cm": 95.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [],
+          "waste_cm": 0.0,
+          "is_spare": true
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [],
+          "waste_cm": 0.0,
+          "is_spare": true
+        }
+      ],
+      "summary": {
+        "total_pieces": 8,
+        "total_required_cm": 3240.0,
+        "total_stock_cm": 4000,
+        "stock_count": 8,
+        "waste_cm": 760.0,
+        "waste_pct": 19.0,
+        "spare_count": 2,
+        "spare_stock_cm": 1000
+      }
+    },
+    {
+      "profile": "4×6 cm",
+      "description": "Latě KVH 40×60 mm hoblované, na ležato — 6 cm v Y, 4 cm v tloušťce",
+      "stock_sizes_cm": [
+        500
+      ],
+      "joining_note": "Délka dílu přesahuje max stock 5 m → každý díl se v reálu spojí z více kusů: lať (758.1 cm) = 500.0 cm + 258.1 cm.",
+      "extra_stock_5m": 4,
+      "items": [
+        {
+          "name": "lať",
+          "length_cm": 758.1,
+          "count": 6
+        }
+      ],
+      "cutting": [
+        {
+          "stock_cm": 500,
+          "cuts": [
+            500.0
+          ],
+          "waste_cm": 0.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            500.0
+          ],
+          "waste_cm": 0.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            500.0
+          ],
+          "waste_cm": 0.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            500.0
+          ],
+          "waste_cm": 0.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            500.0
+          ],
+          "waste_cm": 0.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            500.0
+          ],
+          "waste_cm": 0.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            258.1
+          ],
+          "waste_cm": 241.9,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            258.1
+          ],
+          "waste_cm": 241.9,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            258.1
+          ],
+          "waste_cm": 241.9,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            258.1
+          ],
+          "waste_cm": 241.9,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            258.1
+          ],
+          "waste_cm": 241.9,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            258.1
+          ],
+          "waste_cm": 241.9,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [],
+          "waste_cm": 0.0,
+          "is_spare": true
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [],
+          "waste_cm": 0.0,
+          "is_spare": true
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [],
+          "waste_cm": 0.0,
+          "is_spare": true
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [],
+          "waste_cm": 0.0,
+          "is_spare": true
+        }
+      ],
+      "summary": {
+        "total_pieces": 6,
+        "total_required_cm": 4548.6,
+        "total_stock_cm": 6000,
+        "stock_count": 12,
+        "waste_cm": 1451.4,
+        "waste_pct": 24.19,
+        "spare_count": 4,
+        "spare_stock_cm": 2000
+      }
+    },
+    {
+      "profile": "6×8 cm",
+      "description": "Zadní krycí hranol mezi konci krovů a podhledem domu — uzavírá zadní mezeru proti větru/sněhu. KVH smrk, spodní hrana scribována na sklon krovu (skloněná o 5.76°).",
+      "stock_sizes_cm": [
+        500
+      ],
+      "joining_note": "Délka dílu přesahuje max stock 5 m → každý díl se v reálu spojí z více kusů: zadní krycí hranol (758.1 cm) = 500.0 cm + 258.1 cm.",
+      "extra_stock_5m": 0,
+      "items": [
+        {
+          "name": "zadní krycí hranol",
+          "length_cm": 758.1,
+          "count": 1
+        }
+      ],
+      "cutting": [
+        {
+          "stock_cm": 500,
+          "cuts": [
+            500.0
+          ],
+          "waste_cm": 0.0,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            258.1
+          ],
+          "waste_cm": 241.9,
+          "is_spare": false
+        }
+      ],
+      "summary": {
+        "total_pieces": 1,
+        "total_required_cm": 758.1,
+        "total_stock_cm": 1000,
+        "stock_count": 2,
+        "waste_cm": 241.9,
+        "waste_pct": 24.19,
+        "spare_count": 0,
+        "spare_stock_cm": 0
+      }
+    },
+    {
+      "profile": "10×10 cm",
+      "description": "Vzpěry / závětrování (8 rohových + 2 vnitřní zadní, miter 45° na obou koncích)",
+      "stock_sizes_cm": [
+        500
+      ],
+      "joining_note": null,
+      "extra_stock_5m": 1,
+      "items": [
+        {
+          "name": "vzpěra (stock vč. odpadu z miterů)",
+          "length_cm": 80.7,
+          "count": 10
+        }
+      ],
+      "cutting": [
+        {
+          "stock_cm": 500,
+          "cuts": [
+            80.7,
+            80.7,
+            80.7,
+            80.7,
+            80.7,
+            80.7
+          ],
+          "waste_cm": 15.7,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [
+            80.7,
+            80.7,
+            80.7,
+            80.7
+          ],
+          "waste_cm": 177.2,
+          "is_spare": false
+        },
+        {
+          "stock_cm": 500,
+          "cuts": [],
+          "waste_cm": 0.0,
+          "is_spare": true
+        }
+      ],
+      "summary": {
+        "total_pieces": 10,
+        "total_required_cm": 807.1,
+        "total_stock_cm": 1000,
+        "stock_count": 2,
+        "waste_cm": 192.9,
+        "waste_pct": 19.29,
+        "spare_count": 1,
+        "spare_stock_cm": 500
+      }
+    }
+  ],
+  "overall": {
+    "total_pieces": 39,
+    "total_stock_cm": 17100,
+    "total_required_cm": 13626.8,
+    "waste_cm": 3473.2,
+    "waste_pct": 20.31,
+    "spare_count": 8,
+    "spare_stock_cm": 4000
+  }
+}

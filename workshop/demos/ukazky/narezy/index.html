@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nářezový plán z tyčí</title>
+<style>
+  :root { --ink:#17212b; --muted:#5b6b78; --line:#d7e5ea; --accent:#007f86; --navy:#12355b; --warn:#b54708; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color:var(--ink); background:#f3f6f8; }
+  .wrap { max-width:1150px; margin:0 auto; padding:16px; }
+  h1 { font-size:1.35rem; color:var(--navy); margin:.2rem 0 .3rem; }
+  .lead { color:var(--muted); margin:0 0 1rem; font-size:.92rem; }
+  .grid { display:grid; grid-template-columns: 360px 1fr; gap:14px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px; }
+  h2 { font-size:.76rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin:0 0 .5rem; }
+  textarea { width:100%; height:300px; font-family: ui-monospace, Consolas, monospace; font-size:.8rem; border:1px solid #bccdd3; border-radius:8px; padding:8px; }
+  .f { display:grid; grid-template-columns: 1fr 110px; align-items:center; gap:6px; margin:.35rem 0; font-size:.86rem; }
+  .f input { font:inherit; padding:4px 6px; border:1px solid #bccdd3; border-radius:6px; width:100%; }
+  button { font:inherit; font-size:.85rem; padding:.45rem .8rem; border:1px solid var(--accent); background:#fff; color:var(--accent); border-radius:6px; cursor:pointer; margin:.4rem .3rem 0 0; }
+  button.primary { background:var(--accent); color:#fff; }
+  .kpi { display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-bottom:10px; }
+  .kpi div { background:#f4f8f9; border-radius:8px; padding:8px 10px; }
+  .kpi small { display:block; color:var(--muted); font-size:.72rem; }
+  .kpi b { font-size:1.2rem; color:var(--navy); font-variant-numeric: tabular-nums; }
+  .group { margin:14px 0 6px; display:flex; justify-content:space-between; align-items:baseline; border-bottom:2px solid var(--navy); }
+  .group h3 { margin:0; font-size:1rem; color:var(--navy); }
+  .group span { font-size:.8rem; color:var(--muted); }
+  .bar { display:grid; grid-template-columns: 70px 1fr 80px; gap:8px; align-items:center; margin:4px 0; font-size:.76rem; }
+  .bar .lab { color:var(--muted); font-variant-numeric: tabular-nums; }
+  .stock { position:relative; height:26px; background: repeating-linear-gradient(45deg, #eef1f3 0 6px, #e2e7ea 6px 12px); border:1px solid #c5d2d8; border-radius:3px; display:flex; overflow:hidden; }
+  .piece { height:100%; border-right:2px solid #fff; color:#fff; font-size:.7rem; display:flex; align-items:center; justify-content:center; white-space:nowrap; overflow:hidden; }
+  .err { background:#fdecea; border-left:4px solid #c0392b; padding:6px 10px; font-size:.82rem; margin:.4rem 0; }
+  .note { font-size:.78rem; color:var(--muted); }
+  table { border-collapse:collapse; width:100%; font-size:.8rem; font-variant-numeric: tabular-nums; }
+  td, th { padding:3px 6px; border-bottom:1px solid #edf2f4; text-align:right; }
+  td:first-child, th:first-child { text-align:left; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } .kpi { grid-template-columns: 1fr 1fr; } }
+  @media print { .grid { grid-template-columns: 1fr; } #inputs, button { display:none; } body { background:#fff; } .card { border:0; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Nářezový plán – dělení tyčí na prutové díly</h1>
+  <p class="lead">Vložte seznam dílů (např. zkopírovaný z exportu Tekly nebo z Excelu). Nástroj je rozdělí do obchodních délek tyčí
+  s ohledem na prořez pily a zarovnání konců. Ukázková data jsou syntetická.</p>
+  <div class="grid">
+    <div class="card" id="inputs">
+      <h2>Seznam dílů</h2>
+      <p class="note">Jeden díl na řádek: <code>pozice; profil; délka [mm]; ks</code>. Oddělovač středník, tabulátor nebo čárka.</p>
+      <textarea id="list" spellcheck="false">pozice;profil;delka;ks
+S1;HEA 240;5900;8
+S2;HEA 240;3420;6
+P1;IPE 300;5480;12
+P2;IPE 300;3210;6
+P3;IPE 300;2650;9
+V1;IPE 160;5985;40
+V2;IPE 160;2995;8
+V3;IPE 160;1480;6
+Z1;L 70x7;4230;16
+Z2;L 70x7;3870;16
+Z3;L 70x7;1250;24
+R1;SHS 100x5;2980;10
+R2;SHS 100x5;1840;14
+R3;SHS 100x5;860;20</textarea>
+      <h2 style="margin-top:.8rem">Parametry</h2>
+      <div class="f"><label>Délka tyče [mm]</label><input id="stock" type="number" value="12000" step="100"></div>
+      <div class="f"><label>Prořez pily [mm]</label><input id="kerf" type="number" value="3" step="1"></div>
+      <div class="f"><label>Zarovnání konce tyče [mm]</label><input id="trim" type="number" value="10" step="1"></div>
+      <div class="f"><label>Využitelný zbytek od [mm]</label><input id="usable" type="number" value="1000" step="100"></div>
+      <button class="primary" id="run">Spočítat nářezy</button><button id="csv">Stáhnout CSV</button><button onclick="window.print()">Tisk / PDF</button>
+    </div>
+    <div class="card">
+      <h2>Výsledek</h2>
+      <div id="errors"></div>
+      <div class="kpi" id="kpi"></div>
+      <div id="summary"></div>
+      <div id="out"></div>
+      <p class="note">Algoritmus: Best Fit Decreasing + několik set náhodných pokusů, vybírá řešení s nejmenším počtem tyčí
+        a co nejdelším zbytkem. Je to heuristika – nemusí najít matematické optimum, ale pro dílenskou praxi stačí.
+        Spodní mez = ⌈součet délek / použitelná délka tyče⌉.</p>
+    </div>
+  </div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const fmt = (v, d=0) => Number(v).toLocaleString('cs-CZ', { minimumFractionDigits:d, maximumFractionDigits:d });
+const COLORS = ['#2f5d8a','#d08b2c','#1a7f6e','#8e44ad','#c0392b','#5d6d7e','#b7950b','#117a65','#a04000','#1f618d'];
+let lastResult = null;
+
+function parse(text) {
+  const items = [], errors = [];
+  text.split(/\r?\n/).forEach((line, i) => {
+    if (!line.trim()) return;
+    const c = (/[;\t]/.test(line) ? line.split(/[;\t]/) : line.split(',')).map(x => x.trim());
+    if (c.length < 4) { if (i > 0) errors.push(`Řádek ${i+1}: čekám 4 sloupce – „${line}“`); return; }
+    const len = parseFloat(c[2].replace(/\s/g,'').replace(',', '.')), n = parseInt(c[3]);
+    if (!isFinite(len) || !isFinite(n)) { if (i > 0) errors.push(`Řádek ${i+1}: délka nebo počet není číslo – „${line}“`); return; }
+    items.push({ pos:c[0], prof:c[1], len, n });
+  });
+  return { items, errors };
+}
+
+// Seed-able RNG, aby výsledek byl opakovatelný
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+function packOnce(pieces, cap, kerf) {
+  const bars = [];
+  for (const p of pieces) {
+    let best = -1, bestRest = Infinity;
+    for (let i = 0; i < bars.length; i++) {
+      const need = p.len + (bars[i].items.length ? kerf : 0);
+      const rest = bars[i].free - need;
+      if (rest >= 0 && rest < bestRest) { best = i; bestRest = rest; }
+    }
+    if (best < 0) { bars.push({ items:[p], free: cap - p.len }); }
+    else { const b = bars[best]; b.free -= p.len + kerf; b.items.push(p); }
+  }
+  return bars;
+}
+function score(bars) { // méně tyčí; pak co největší jeden zbytek (využitelný)
+  return bars.length * 1e9 - Math.max(...bars.map(b => b.free));
+}
+function optimise(pieces, cap, kerf) {
+  const sorted = [...pieces].sort((a, b) => b.len - a.len);
+  let best = packOnce(sorted, cap, kerf), bestS = score(best);
+  const r = rng(2026);
+  for (let it = 0; it < 400; it++) {
+    // lehce zamíchané pořadí: řazení podle délky s náhodným šumem
+    const noisy = pieces.map(p => ({ p, k: p.len * (1 + (r() - .5) * 0.35) })).sort((a, b) => b.k - a.k).map(x => x.p);
+    const bars = packOnce(noisy, cap, kerf), s = score(bars);
+    if (s < bestS) { best = bars; bestS = s; }
+  }
+  // seřadit tyče: nejplnější nahoru, díly v tyči od nejdelšího
+  best.forEach(b => b.items.sort((a, c) => c.len - a.len));
+  return best.sort((a, b) => a.free - b.free);
+}
+
+function restText(rests) {
+  if (!rests.length) return '–';
+  const m = new Map(); rests.forEach(x => m.set(x, (m.get(x) || 0) + 1));
+  return [...m].sort((a, b) => b[0] - a[0]).map(([v, n]) => (n > 1 ? n + '× ' : '') + fmt(v)).join(', ');
+}
+function run() {
+  const stock = +$('stock').value, kerf = +$('kerf').value, trim = +$('trim').value, usable = +$('usable').value;
+  const cap = stock - 2 * trim;
+  const { items, errors } = parse($('list').value);
+  const groups = new Map();
+  items.forEach(it => {
+    if (it.len > cap) { errors.push(`${it.pos} (${it.prof}, ${fmt(it.len)} mm) je delší než použitelná délka tyče ${fmt(cap)} mm – nutný svar nebo delší tyč.`); return; }
+    if (!groups.has(it.prof)) groups.set(it.prof, []);
+    for (let k = 0; k < it.n; k++) groups.get(it.prof).push({ pos: it.pos, len: it.len });
+  });
+  $('errors').innerHTML = errors.map(e => `<div class="err">${e}</div>`).join('');
+  const posColor = new Map(); let ci = 0;
+  let html = '', totBars = 0, totNeed = 0, totWaste = 0, sumRows = [];
+  for (const [prof, pieces] of groups) {
+    const bars = optimise(pieces, cap, kerf);
+    const need = pieces.reduce((s, p) => s + p.len, 0);
+    const lb = Math.ceil(need / cap);
+    const util = need / (bars.length * stock);
+    const rests = bars.map(b => b.free).filter(f => f >= usable);
+    totBars += bars.length; totNeed += need; totWaste += bars.length * stock - need;
+    sumRows.push({ prof, n: pieces.length, need, bars: bars.length, lb, util, rests });
+    html += `<div class="group"><h3>${prof}</h3><span>${pieces.length} dílů · ${bars.length} tyčí × ${fmt(stock)} mm · využití ${fmt(util*100,1)} % · spodní mez ${lb}</span></div>`;
+    // sloučit stejné vzory tyčí
+    const patterns = new Map();
+    bars.forEach(b => { const key = b.items.map(p => p.pos + ':' + p.len).join('|'); if (!patterns.has(key)) patterns.set(key, { b, n: 0 }); patterns.get(key).n++; });
+    for (const { b, n } of patterns.values()) {
+      const segs = b.items.map(p => {
+        if (!posColor.has(p.pos)) posColor.set(p.pos, COLORS[ci++ % COLORS.length]);
+        const w = p.len / stock * 100, kw = kerf / stock * 100;
+        return `<div class="piece" style="width:${w}%;background:${posColor.get(p.pos)};margin-right:${kw}%" title="${p.pos} – ${fmt(p.len)} mm">${w > 7 ? p.pos + ' ' + fmt(p.len) : p.pos}</div>`;
+      }).join('');
+      const pad = `<div style="width:${trim/stock*100}%"></div>`;
+      html += `<div class="bar"><span class="lab">${n} ×</span><div class="stock">${pad}${segs}</div><span class="lab">zbytek ${fmt(b.free)}</span></div>`;
+    }
+  }
+  lastResult = { groups, sumRows, stock, kerf, trim };
+  $('out').innerHTML = html;
+  $('kpi').innerHTML = `<div><small>Tyčí celkem</small><b>${fmt(totBars)}</b></div><div><small>Dílů celkem</small><b>${fmt(items.reduce((s, i) => s + i.n, 0))}</b></div>
+    <div><small>Využití materiálu</small><b>${fmt(totNeed / (totNeed + totWaste) * 100, 1)} %</b></div><div><small>Odpad + zbytky</small><b>${fmt(totWaste/1000, 1)} m</b></div>`;
+  $('summary').innerHTML = `<table><thead><tr><th>Profil</th><th>dílů</th><th>potřeba [m]</th><th>tyčí</th><th>spodní mez</th><th>využití</th><th>využitelné zbytky ≥ ${fmt(usable)} mm</th></tr></thead><tbody>` +
+    sumRows.map(r => `<tr><td>${r.prof}</td><td>${r.n}</td><td>${fmt(r.need/1000,1)}</td><td><b>${r.bars}</b></td><td>${r.lb}</td><td>${fmt(r.util*100,1)} %</td><td>${restText(r.rests)}</td></tr>`).join('') + '</tbody></table>';
+  window._bars = [...groups.keys()].map(prof => ({ prof, bars: optimise(groups.get(prof), cap, kerf) }));
+}
+
+$('run').addEventListener('click', run);
+$('csv').addEventListener('click', () => {
+  if (!window._bars) run();
+  const lines = ['profil;tyc_c;delka_tyce_mm;dily (pozice x delka);zbytek_mm'];
+  window._bars.forEach(g => g.bars.forEach((b, i) => lines.push([g.prof, i+1, $('stock').value, b.items.map(p => `${p.pos} ${p.len}`).join(' + '), b.free].join(';'))));
+  const blob = new Blob(['﻿' + lines.join('\r\n')], { type:'text/csv;charset=utf-8' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'narezovy_plan.csv'; a.click();
+});
+run();
+</script>
+</body>
+</html>

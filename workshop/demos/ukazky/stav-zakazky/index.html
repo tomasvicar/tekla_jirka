@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hala Lipník – stav zakázky</title>
+<style>
+  :root { --ink:#17212b; --muted:#5b6b78; --line:#d7e5ea; --accent:#007f86; --navy:#12355b; --amber:#d08b2c; --red:#c0392b; --green:#1a7f4b; }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:#1d2a36; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color:var(--ink); overflow:hidden; }
+  #stage { position:absolute; left:50%; top:50%; width:1280px; height:720px; transform-origin: center center; }
+  section { position:absolute; inset:0; background:#fff; padding:56px 72px; display:none; flex-direction:column; }
+  section.on { display:flex; }
+  .kick { color:var(--accent); font-size:15px; letter-spacing:.14em; text-transform:uppercase; font-weight:750; }
+  h1 { font-size:58px; line-height:1.05; letter-spacing:-.03em; color:var(--navy); margin:.25em 0 .3em; }
+  h2 { font-size:38px; color:var(--navy); margin:.1em 0 .6em; letter-spacing:-.02em; }
+  p, li { font-size:22px; line-height:1.4; }
+  .foot { position:absolute; left:72px; right:72px; bottom:22px; display:flex; justify-content:space-between; font-size:13px; color:#8a99a4; }
+  .title { background: linear-gradient(120deg, #12355b 0%, #0b5e6b 100%); color:#fff; justify-content:center; }
+  .title h1 { color:#fff; } .title .kick { color:#8bdad1; } .title p { color:#d9ecf0; }
+  .kpis { display:grid; grid-template-columns: repeat(3, 1fr); gap:24px; margin-top:10px; }
+  .kpis > div { border:1px solid var(--line); border-radius:16px; padding:22px 24px; }
+  .kpis b { display:block; font-size:64px; color:var(--navy); letter-spacing:-.03em; }
+  .kpis small { font-size:18px; color:var(--muted); }
+  .meter { height:10px; background:#e6edf0; border-radius:5px; margin-top:12px; overflow:hidden; } .meter i { display:block; height:100%; background:var(--accent); }
+  .status { display:inline-block; padding:4px 12px; border-radius:30px; font-size:16px; font-weight:700; }
+  .s-ok { background:#e3f4ea; color:var(--green); } .s-warn { background:#fdf0dc; color:#9a5b08; } .s-bad { background:#fbe3e0; color:var(--red); }
+  table { border-collapse:collapse; width:100%; font-size:19px; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); }
+  th { color:var(--muted); font-weight:600; font-size:15px; text-transform:uppercase; letter-spacing:.06em; }
+  svg text { font-family: system-ui, sans-serif; }
+  .two { display:grid; grid-template-columns: 1fr 1fr; gap:40px; }
+  .disclaimer { font-size:14px; color:#8a99a4; }
+  #nav { position:fixed; right:14px; bottom:12px; display:flex; gap:6px; align-items:center; color:#cfd9df; font-size:13px; }
+  #nav button { background:#ffffff22; color:#fff; border:0; border-radius:6px; padding:6px 10px; cursor:pointer; font-size:14px; }
+  @media print {
+    html, body { overflow:visible; background:#fff; height:auto; }
+    #stage { position:static; transform:none !important; width:auto; height:auto; }
+    section { display:flex !important; position:relative; width:1280px; height:720px; page-break-after:always; }
+    #nav { display:none; }
+    @page { size: 1280px 720px; margin:0; }
+  }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="nav"><button id="prev" aria-label="Předchozí">◀</button><span id="count"></span><button id="next" aria-label="Další">▶</button><button onclick="window.print()" title="Uložit jako PDF">PDF</button></div>
+
+<!-- Data zakázky: jediný zdroj pro všechny slajdy. Syntetická, fiktivní zakázka. -->
+<script id="data" type="application/json">
+{
+  "zakazka": "2026-031 Hala Lipník", "klient": "Agro Lipník s.r.o. (fiktivní)", "datum": "2026-10-30",
+  "popis": "Skladová hala 24 × 48 m, ocelové rámy, opláštění sendvičovými panely",
+  "faze": [
+    { "nazev": "Fáze 1 – osy A–E", "t_celkem": 24.8, "t_modelovano": 24.8, "t_schvaleno": 24.8, "t_vyrobeno": 17.1 },
+    { "nazev": "Fáze 2 – osy E–J", "t_celkem": 22.3, "t_modelovano": 22.3, "t_schvaleno": 11.9, "t_vyrobeno": 0 }
+  ],
+  "harmonogram": [
+    { "ukol": "3D model", "od": "2026-08-24", "do": "2026-09-18", "hotovo": 100 },
+    { "ukol": "Dílenské výkresy F1", "od": "2026-09-07", "do": "2026-09-30", "hotovo": 100 },
+    { "ukol": "Dílenské výkresy F2", "od": "2026-09-28", "do": "2026-10-23", "hotovo": 100 },
+    { "ukol": "Schválení výkresů F2", "od": "2026-10-19", "do": "2026-11-06", "hotovo": 55 },
+    { "ukol": "Výroba F1", "od": "2026-10-05", "do": "2026-11-06", "hotovo": 70 },
+    { "ukol": "Výroba F2", "od": "2026-11-02", "do": "2026-12-04", "hotovo": 0 },
+    { "ukol": "Montáž F1", "od": "2026-11-16", "do": "2026-12-04", "hotovo": 0 },
+    { "ukol": "Montáž F2", "od": "2026-12-07", "do": "2026-12-23", "hotovo": 0 }
+  ],
+  "vykresy": [
+    { "typ": "Sestavy", "rozpracovano": 0, "kontrola": 9, "schvaleno": 31, "vydano": 58 },
+    { "typ": "Díly (plechy)", "rozpracovano": 4, "kontrola": 18, "schvaleno": 40, "vydano": 86 },
+    { "typ": "Kotevní plán + výkresy montáže", "rozpracovano": 1, "kontrola": 2, "schvaleno": 1, "vydano": 3 }
+  ],
+  "dotazy": [
+    { "c": "RFI-07", "text": "Poloha vrat v ose J – potvrdit šířku 4,5 m", "kdo": "klient", "do": "2026-11-04", "stav": "otevřeno" },
+    { "c": "RFI-08", "text": "Kotvení – výška podlití 40 nebo 50 mm?", "kdo": "statik", "do": "2026-11-02", "stav": "po termínu" },
+    { "c": "RFI-09", "text": "Odstín nátěru RAL 7016 vs. 7024", "kdo": "architekt", "do": "2026-11-10", "stav": "otevřeno" },
+    { "c": "RFI-05", "text": "Zesílení rámu v ose E kvůli technologii", "kdo": "statik", "do": "2026-10-20", "stav": "vyřešeno" }
+  ],
+  "zmeny": [
+    "Revize C: rám v ose E – příčel IPE 450 → IPE 500 (+0,32 t)",
+    "Přidány 4 štítové sloupky u vrat v ose J",
+    "Úprava patních desek P1–P4 po připomínce statika"
+  ],
+  "dalsi_kroky": [
+    ["Schválit výkresy fáze 2", "klient", "6. 11."],
+    ["Odpověď na RFI-08 (podlití)", "statik", "2. 11."],
+    ["Expedice fáze 1 na stavbu", "výrobna", "13. 11."],
+    ["Kontrolní den na stavbě", "všichni", "16. 11."]
+  ]
+}
+</script>
+<script>
+const D = JSON.parse(document.getElementById('data').textContent);
+const fmt = (v, d=1) => Number(v).toLocaleString('cs-CZ', { minimumFractionDigits:d, maximumFractionDigits:d });
+const dt = s => new Date(s + 'T00:00:00');
+const dcz = s => { const d = dt(s); return `${d.getDate()}. ${d.getMonth()+1}. ${d.getFullYear()}`; };
+const sum = (a, k) => a.reduce((s, x) => s + x[k], 0);
+const T = sum(D.faze, 't_celkem'), Tm = sum(D.faze, 't_modelovano'), Ts = sum(D.faze, 't_schvaleno'), Tv = sum(D.faze, 't_vyrobeno');
+const today = dt(D.datum);
+const foot = n => `<div class="foot"><span>${D.zakazka} · stav k ${dcz(D.datum)}</span><span>${n}</span></div>`;
+
+function gantt() {
+  const t0 = dt('2026-08-17'), t1 = dt('2026-12-28'); const W = 1130, x0 = 230, rowH = 50;
+  const X = d => x0 + (dt(d) - t0) / (t1 - t0) * (W - x0);
+  let s = '';
+  for (let m = 8; m <= 12; m++) { const d = `2026-${String(m).padStart(2,'0')}-01`; const x = Math.max(x0, X(d));
+    s += `<line x1="${x}" y1="0" x2="${x}" y2="${D.harmonogram.length*rowH+10}" stroke="#e6edf0"/><text x="${x+6}" y="${D.harmonogram.length*rowH+32}" font-size="15" fill="#8a99a4">${['srpen','září','říjen','listopad','prosinec'][m-8]}</text>`; }
+  D.harmonogram.forEach((g, i) => {
+    const y = i * rowH + 8, a = X(g.od), b = X(g.do), late = g.hotovo < 100 && dt(g.do) < today;
+    s += `<text x="0" y="${y+24}" font-size="18" fill="#17212b">${g.ukol}</text>`;
+    s += `<rect x="${a}" y="${y+6}" width="${b-a}" height="26" rx="6" fill="#d7e5ea"/>`;
+    s += `<rect x="${a}" y="${y+6}" width="${(b-a)*g.hotovo/100}" height="26" rx="6" fill="${late ? '#c0392b' : g.hotovo === 100 ? '#1a7f4b' : '#007f86'}"/>`;
+    s += `<text x="${b+8}" y="${y+25}" font-size="14" fill="#5b6b78">${g.hotovo} %</text>`;
+  });
+  const xt = X(D.datum);
+  s += `<line x1="${xt}" y1="0" x2="${xt}" y2="${D.harmonogram.length*rowH+10}" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/><text x="${xt+6}" y="14" font-size="14" fill="#c0392b" font-weight="700">dnes</text>`;
+  return `<svg viewBox="0 0 ${W+60} ${D.harmonogram.length*rowH+40}" width="100%">${s}</svg>`;
+}
+
+function tonnage() {
+  const W = 1100, x0 = 220, barH = 46; let s = '';
+  const max = Math.max(...D.faze.map(f => f.t_celkem));
+  const X = v => x0 + v / max * (W - x0 - 80);
+  const lay = [['t_modelovano','modelováno','#b8c7cf'],['t_schvaleno','schváleno','#007f86'],['t_vyrobeno','vyrobeno','#12355b']];
+  D.faze.forEach((f, i) => {
+    const y = i * 150 + 20;
+    s += `<text x="0" y="${y+20}" font-size="20" font-weight="700" fill="#12355b">${f.nazev}</text><text x="0" y="${y+46}" font-size="16" fill="#5b6b78">${fmt(f.t_celkem)} t celkem</text>`;
+    lay.forEach(([k, lab, c], j) => {
+      const yy = y + j * (barH - 8);
+      s += `<rect x="${x0}" y="${yy}" width="${X(f.t_celkem)-x0}" height="${barH-16}" rx="5" fill="#eef3f5"/><rect x="${x0}" y="${yy}" width="${X(f[k])-x0}" height="${barH-16}" rx="5" fill="${c}"/>`;
+      s += `<text x="${X(f.t_celkem)+10}" y="${yy+22}" font-size="16" fill="#17212b">${lab} ${fmt(f[k])} t</text>`;
+    });
+  });
+  return `<svg viewBox="0 0 ${W+120} 320" width="100%">${s}</svg>`;
+}
+
+function drawings() {
+  const keys = [['rozpracovano','rozpracováno','#d7e5ea'],['kontrola','ke kontrole','#d08b2c'],['schvaleno','schváleno','#007f86'],['vydano','vydáno do výroby','#12355b']];
+  const W = 1100, x0 = 320; let s = '';
+  const max = Math.max(...D.vykresy.map(v => keys.reduce((a, [k]) => a + v[k], 0)));
+  D.vykresy.forEach((v, i) => {
+    const y = i * 70 + 10; let x = x0; const tot = keys.reduce((a, [k]) => a + v[k], 0);
+    s += `<text x="0" y="${y+28}" font-size="19" fill="#17212b">${v.typ}</text>`;
+    keys.forEach(([k,,c]) => { const w = v[k] / max * (W - x0 - 60); if (w > 0) { s += `<rect x="${x}" y="${y+6}" width="${w}" height="34" fill="${c}"/>`; if (w > 30) s += `<text x="${x+w/2}" y="${y+29}" text-anchor="middle" font-size="15" fill="${k==='rozpracovano'?'#17212b':'#fff'}">${v[k]}</text>`; } x += w; });
+    s += `<text x="${x+10}" y="${y+29}" font-size="16" fill="#5b6b78">${tot} ks</text>`;
+  });
+  let lx = x0; keys.forEach(([,lab,c]) => { s += `<rect x="${lx}" y="232" width="16" height="16" fill="${c}"/><text x="${lx+22}" y="246" font-size="15" fill="#5b6b78">${lab}</text>`; lx += lab.length*8.5 + 50; });
+  return `<svg viewBox="0 0 ${W+40} 260" width="100%">${s}</svg>`;
+}
+
+const rfiOpen = D.dotazy.filter(d => d.stav !== 'vyřešeno');
+const slides = [
+  `<section class="title"><span class="kick">Kontrolní den · ${dcz(D.datum)}</span><h1>${D.zakazka}<br>stav zakázky</h1><p>${D.popis}<br>Klient: ${D.klient}</p><p class="disclaimer" style="color:#a9c6cf;margin-top:60px">Fiktivní zakázka a syntetická data – ukázka workshopu „Claude pro stavaře“.</p></section>`,
+  `<section><span class="kick">Shrnutí</span><h2>Výroba fáze 1 běží, fáze 2 čeká na schválení výkresů</h2>
+    <div class="kpis">
+      <div><small>Vymodelováno</small><b>${fmt(Tm/T*100,0)} %</b><small>${fmt(Tm)} t z ${fmt(T)} t</small><div class="meter"><i style="width:${Tm/T*100}%"></i></div></div>
+      <div><small>Výkresy schváleny</small><b>${fmt(Ts/T*100,0)} %</b><small>${fmt(Ts)} t z ${fmt(T)} t</small><div class="meter"><i style="width:${Ts/T*100}%"></i></div></div>
+      <div><small>Vyrobeno</small><b>${fmt(Tv/T*100,0)} %</b><small>${fmt(Tv)} t z ${fmt(T)} t</small><div class="meter"><i style="width:${Tv/T*100}%"></i></div></div>
+    </div>
+    <p style="margin-top:34px"><span class="status s-ok">V termínu</span> montáž F1 od 16. 11. &nbsp; <span class="status s-warn">Riziko</span> schválení F2 do 6. 11. &nbsp; <span class="status s-bad">${rfiOpen.length} otevřené dotazy</span></p>${foot(2)}</section>`,
+  `<section><span class="kick">Harmonogram</span><h2>Kde jsme v čase</h2>${gantt()}${foot(3)}</section>`,
+  `<section><span class="kick">Tonáž</span><h2>${fmt(T)} t oceli ve dvou fázích</h2>${tonnage()}<p class="disclaimer">Hmotnosti z reportu Tekla Structures (export 30. 10.), bez spojovacího materiálu.</p>${foot(4)}</section>`,
+  `<section><span class="kick">Výkresy</span><h2>Stav dílenské dokumentace</h2>${drawings()}${foot(5)}</section>`,
+  `<section><span class="kick">Otevřené dotazy</span><h2>Potřebujeme od vás rozhodnutí</h2><table><thead><tr><th>Číslo</th><th>Dotaz</th><th>Kdo</th><th>Termín</th><th>Stav</th></tr></thead><tbody>${
+    D.dotazy.map(d => `<tr><td><b>${d.c}</b></td><td>${d.text}</td><td>${d.kdo}</td><td>${dcz(d.do)}</td><td><span class="status ${d.stav==='vyřešeno'?'s-ok':d.stav==='po termínu'?'s-bad':'s-warn'}">${d.stav}</span></td></tr>`).join('')}</tbody></table>${foot(6)}</section>`,
+  `<section><span class="kick">Změny a další kroky</span><h2>Co se změnilo a co nás čeká</h2><div class="two"><div><h3 style="color:#007f86">Změny od minulého KD</h3><ul>${D.zmeny.map(z => `<li>${z}</li>`).join('')}</ul></div>
+    <div><h3 style="color:#007f86">Další kroky</h3><table><tbody>${D.dalsi_kroky.map(k => `<tr><td>${k[0]}</td><td>${k[1]}</td><td><b>${k[2]}</b></td></tr>`).join('')}</tbody></table></div></div>${foot(7)}</section>`,
+];
+const stage = document.getElementById('stage');
+stage.innerHTML = slides.join('');
+const secs = [...stage.querySelectorAll('section')];
+let cur = Math.min(secs.length - 1, Math.max(0, (parseInt(location.hash.slice(1)) || 1) - 1));
+function show(i) { cur = Math.max(0, Math.min(secs.length - 1, i)); secs.forEach((s, j) => s.classList.toggle('on', j === cur)); document.getElementById('count').textContent = `${cur+1} / ${secs.length}`; history.replaceState(null, '', '#' + (cur + 1)); }
+function fit() { const k = Math.min(innerWidth / 1280, innerHeight / 720); stage.style.transform = `translate(-50%, -50%) scale(${k})`; }
+addEventListener('resize', fit); fit(); show(cur);
+addEventListener('keydown', e => { if (['ArrowRight','PageDown',' '].includes(e.key)) show(cur + 1); if (['ArrowLeft','PageUp'].includes(e.key)) show(cur - 1); });
+document.getElementById('next').onclick = () => show(cur + 1); document.getElementById('prev').onclick = () => show(cur - 1);
+stage.addEventListener('click', e => { if (e.clientX > innerWidth / 2) show(cur + 1); else show(cur - 1); });
+</script>
+</body>
+</html>

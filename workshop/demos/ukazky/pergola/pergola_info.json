@@ -1,0 +1,20 @@
+{
+  "pitch_deg": 5.755857243792693,
+  "pitch_pct": 10.079797097099224,
+  "front_post_h_cm": 200.0,
+  "back_post_h_cm": 233.33766853504272,
+  "clearance_front_cm": 201.7,
+  "gap_polycarb_to_soffit_cm": 3.0,
+  "side_overhang_post_cm": 52.099999999999994,
+  "side_overhang_concrete_cm": 46.099999999999994,
+  "side_overhang_cladding_cm": 37.79999999999998,
+  "side_overhang_rafter_cm": 30.400000000000006,
+  "front_overhang_post_cm": 40.48330840311746,
+  "front_overhang_concrete_cm": 35.48330840311746,
+  "front_overhang_cladding_cm": 27.18330840311745,
+  "front_overhang_rafter_cm": 10.025208644961026,
+  "front_overhang_last_batten_cm": 10.025208644961026,
+  "install_back_beam_to_soffit_cm": 20.162331464957276,
+  "install_lift_required_cm": 20.0,
+  "install_clearance_cm": 0.16233146495727624
+}

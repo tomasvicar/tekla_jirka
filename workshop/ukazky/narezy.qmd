@@ -1,0 +1,48 @@
+---
+title: "Dělení 12m tyčí"
+subtitle: "Ze seznamu dílů nářezový plán s prořezem pily, využitím a zbytky."
+toc: false
+---
+
+[← Všechny ukázky](../ukazky.qmd){.demo-back}
+
+::: {.demo-summary}
+Seznam dílů zkopírujete z exportu Tekly nebo z Excelu a vložíte do stránky. Nástroj díly
+roztřídí podle profilu a rozdělí do obchodních délek tyčí. Počítá s prořezem pily
+a zarovnáním konců. Ukáže, kolik tyčí objednat, jaké je využití materiálu a které zbytky
+jsou dost dlouhé na další použití. Plán vytisknete do PDF pro dílnu nebo stáhnete jako CSV.
+:::
+
+<div class="demo-steps"><div><small>01 / ZADÁNÍ</small><p>Seznam dílů: pozice, profil, délka, počet.</p></div><div><small>02 / PRÁCE AGENTA</small><p>Algoritmus dělení (1D bin packing), vizualizace, tisk.</p></div><div><small>03 / VÝSLEDEK</small><p>Nářezový plán v prohlížeči, CSV a PDF.</p></div></div>
+
+<iframe class="demo-frame tall" src="../demos/ukazky/narezy/index.html" title="Nářezový plán z obchodních délek" loading="lazy"></iframe>
+
+<div class="demo-actions"><a href="../demos/ukazky/narezy/index.html" target="_blank" rel="noopener">Otevřít nářezový plán</a><a href="../demos/ukazky/narezy/index.html" download>Stáhnout HTML</a></div>
+
+**Co předvést:** změňte délku `V1` z 5 985 na **5 990 mm**. Dva kusy se pak do 12 m tyče
+nevejdou (2 × 5 990 + prořez + zarovnání > 12 000) a počet tyčí IPE 160 vyskočí z 23 na 40.
+Takovou věc v Excelu snadno přehlédnete.
+
+## Zadání pro agenta
+
+```default
+Potřebuju nářezový plán. Udělej HTML stránku, kam vložím seznam dílů
+(pozice; profil; délka v mm; počet), třeba zkopírovaný z Excelu.
+Pro každý profil rozděl díly do tyčí 12 000 mm. Počítej s prořezem pily 3 mm
+a zarovnáním 10 mm na každém konci, všechno ať jde změnit.
+Minimalizuj počet tyčí, při stejném počtu ať je zbytek co nejdelší.
+Ukaž každou tyč jako pruh s barevnými díly, stejné tyče seskup („8 ×“).
+Nahoru dej souhrn: tyčí, využití, zbytky delší než 1 m. Přidej export CSV a tisk.
+Výsledek zkontroluj: součet dílů v plánu musí sedět se vstupem.
+```
+
+## Co si ohlídat
+
+- **Součty kusů.** Spočítejte kusy jedné pozice v plánu a porovnejte je se vstupem.
+  Agent tuto kontrolu umí přidat i do stránky, stačí o ni požádat.
+- **Heuristika, ne optimum.** Algoritmus je rychlý a pro dílnu stačí, ale nemusí najít
+  matematicky nejlepší řešení. Pro srovnání je uvedena spodní mez (teoretické minimum tyčí).
+- **Dílenská praxe:** minimální upínací délka, přídavky na obrábění, směr válcování nebo
+  požadavek na díly ze stejné tavby. To všechno musíte agentovi říct, sám to nedomyslí.
+- Data z vaší Tekly připravíte ve cvičení [Data z Tekly](../cviceni.qmd). Report dílů
+  se dá rovnou vložit sem.
