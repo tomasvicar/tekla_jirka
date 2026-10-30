@@ -28,6 +28,7 @@ Uživatel je konstruktér, **neprogramuje**. Mluv česky a jednoduše. Pravidla 
 
 ## 3. Nasaď
 
+- Kopírování a hledání cest děláš ty, ne uživatel. Cesty ber z `CLAUDE.md`, a když tam nejsou, najdi je čtením disku.
 - Hlavní kopii ulož do `makra/<NN_Nazev>.cs`.
 - Zkopíruj ji do složky maker testovacího modelu (`<model>\macros\modeling\`, viz `CLAUDE.md`).
 - Řekni uživateli přesně:

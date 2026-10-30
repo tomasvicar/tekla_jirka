@@ -117,33 +117,53 @@ Teď pokračujte na [kancelářská cvičení](kancelar.qmd).
 **MCP** (Model Context Protocol) je „USB pro nástroje“: připojí Clauda k dalšímu programu,
 třeba k otevřené Tekle. Pro kancelářská cvičení a práci s reporty ho **nepotřebujete**.
 
-Servery MCP se zapisují do souboru:
+Instalaci i úpravu konfigurace udělá agent. Řekněte mu (záložka **Code**):
 
 ```default
-%APPDATA%\Claude\claude_desktop_config.json
+Nainstaluj MCP server pro Teklu:
+1. Z https://github.com/tempalg1n/tekla-mcp-server/releases stáhni poslední vydání
+   TeklaMcp.Server pro Teklu <2026> (zip končící -tekla<2026>.zip, ne mock).
+2. Rozbal ho do C:\Nastroje\TeklaMcp a ověř, že tam je TeklaMcp.Server.exe a vedle něj .dll.
+3. Do %APPDATA%\Claude\claude_desktop_config.json přidej do "mcpServers" server "tekla"
+   s cestou k TeklaMcp.Server.exe a env TEKLA_MCP_READ_ONLY = "1". Ostatní obsah
+   zachovej, soubor předtím zazálohuj.
+4. Než soubor uložíš, ukaž mi změnu a počkej na můj souhlas.
+5. Ověř, že je JSON platný, a řekni mi, co mám restartovat.
 ```
 
-Otevřete ho v aplikaci přes **Settings → Developer → Edit Config** (v novějších verzích
-**Settings → Extensions**). Zápis vypadá zhruba takto:
+Výsledný zápis má vypadat takto:
 
 ```json
 {
   "mcpServers": {
     "tekla": {
       "command": "C:\\Nastroje\\TeklaMcp\\TeklaMcp.Server.exe",
-      "args": [],
       "env": { "TEKLA_MCP_READ_ONLY": "1" }
     }
   }
 }
 ```
 
-- Cesty musí být **celé** a se **zdvojenými zpětnými lomítky** `\\`.
-- Po úpravě Claude **úplně ukončete** (i z ikony vedle hodin) a spusťte znovu.
-- Když server nenaběhne, chyby jsou v `%APPDATA%\Claude\logs\mcp*.log`.
+**Zkontrolujte:** cesta je celá, zpětná lomítka jsou zdvojená (`\\`) a je tam `TEKLA_MCP_READ_ONLY`.
 
-Který server pro Teklu použít, jak ho nastavit jen pro čtení a na co si dát pozor,
-je na stránce [Živá Tekla](tekla.qmd).
+**Co musíte udělat sami:**
+
+- povolit agentovi stažení a zápis mimo složku projektu,
+- schválit změnu konfigurace,
+- Claude Desktop **úplně ukončit** (i z ikony vedle hodin) a spustit znovu.
+
+Když server nenaběhne, řekněte agentovi, ať přečte `%APPDATA%\Claude\logs\mcp*.log` a vysvětlí chybu.
+
+::: {.callout-note collapse="true"}
+## Náhradní postup ručně
+Zip z [Releases](https://github.com/tempalg1n/tekla-mcp-server/releases) rozbalte do
+`C:\Nastroje\TeklaMcp\`. Pak v Claude Desktop otevřete **Settings → Developer → Edit Config**
+(v novějších verzích **Settings → Extensions**). Do `claude_desktop_config.json` vložte blok výše
+a aplikaci restartujte.
+:::
+
+Jak server používat jen pro čtení, s ukázkovými dotazy a na co si dát pozor, najdete
+na stránce [Živá Tekla](tekla.qmd#mcp).
 
 ## Když to nefunguje
 

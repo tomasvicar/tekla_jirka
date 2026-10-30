@@ -35,6 +35,16 @@ a jmenuje se `CLAUDE.md`. Hodnoty v `< >` doplňte podle svého počítače.
 4. Modelových souborů (`.db1`, `.db2`, složky modelů) se přímo nedotýkej. Makra jen zapisuj do složky maker; spouštím je já.
 5. Nic nemaž a nepřepisuj ve `knihovna/` bez mého souhlasu.
 
+## Nastavení dělá agent, ne já
+
+- Cesty (model, složky maker, `XS_MACRO_DIRECTORY`, logy) zjisti sám čtením disku a zapiš je sem.
+  Co nenajdeš, označ „NEOVĚŘENO“ a zeptej se.
+- Makra kopíruj do složky maker sám. Mně napiš jen, co mám v Tekle kliknout.
+- Konfiguraci (`%APPDATA%\Claude\claude_desktop_config.json`, `.claude/settings.json`) měň takto:
+  nejdřív záloha souboru, pak mi ukaž změnu a počkej na souhlas, nakonec ověř platnost JSON.
+  Potom mi řekni, co mám restartovat.
+- Já sám: zálohu a kopii modelu, schvalování povolení, restart Claude Desktop a spuštění makra v Tekle.
+
 ## Kostra makra (ověřená konvence)
 
 - Jeden soubor `.cs` = jedno makro, název česky bez diakritiky, např. `04_Soucet_hmotnosti.cs`.

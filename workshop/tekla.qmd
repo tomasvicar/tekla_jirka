@@ -63,6 +63,8 @@ a spustí, takže nepotřebujete Visual Studio. Claude ho napíše, vy ho spust�
 | Logy Tekly *(ověřit)* | `%LOCALAPPDATA%\Trimble\Tekla Structures\<verze>\Logs` (2026), u starších verzí `<model>\logs` |
 
 Dnes ukládáme makra do složky **testovacího modelu**. V seznamu se tak objeví jen v kopii.
+Cesty nemusíte hledat ručně, v kroku A1 je najde agent. Ručně v Tekle uděláte jen
+spuštění makra a *Reload catalog*.
 
 ### A1 · Připravte projekt (3 min)
 
@@ -80,12 +82,33 @@ Do složky podklady/ jsem stáhl CLAUDE_tekla.md, SKILL.md a tři makra .cs.
 1. Zkopíruj CLAUDE_tekla.md do hlavní složky jako CLAUDE.md a přečti si ho.
 2. SKILL.md dej do .claude/skills/tekla-makro/SKILL.md.
 3. Makra .cs dej do složky makra/.
-4. V CLAUDE.md vyplň: Tekla Structures <2025 nebo 2026>, prostředí <Czech/Default>,
-   testovací model <C:\TeklaStructuresModels\Hala_KOPIE>.
-Ukaž mi výslednou strukturu složek. Nic dalšího zatím nedělej.
+4. Zjisti na tomto počítači (jen čtením, nic neměň):
+   - nainstalovanou verzi Tekla Structures (C:\Program Files\Tekla Structures\),
+   - složku testovacího modelu: v C:\TeklaStructuresModels najdi model,
+     jehož název obsahuje KOPIE,
+   - složku maker toho modelu (<model>\macros\modeling, když chybí, navrhni ji vytvořit),
+   - sdílenou složku maker (XS_MACRO_DIRECTORY, obvykle
+     C:\ProgramData\Trimble\Tekla Structures\<verze>\environments\common\macros\modeling),
+   - kde Tekla ukládá logy (%LOCALAPPDATA%\Trimble\Tekla Structures\<verze>\Logs
+     nebo <model>\logs).
+5. Nalezené cesty a verzi doplň do CLAUDE.md. Co jsi nenašel, označ "NEOVĚŘENO".
+Ukaž mi výslednou strukturu složek a vyplněnou část CLAUDE.md.
 ```
 
-**Zkontrolujte:** v CLAUDE.md je vaše verze Tekly a cesta ke **kopii** modelu, ne k ostrému modelu.
+**Zkontrolujte:** v CLAUDE.md je vaše verze Tekly a cesta ke **kopii** modelu, ne k ostrému
+modelu. Pokud agent našel víc modelů, řekněte mu, který je ten správný.
+
+**Co musíte udělat sami:** stáhnout soubory tlačítky výše, povolit agentovi čtení mimo
+složku projektu a mít připravenou kopii modelu se zálohou (krok 0).
+
+::: {.callout-note collapse="true"}
+## Náhradní postup ručně
+- Složku modelu najdete v Tekle přes *File → Open*, cesta je vidět u modelu.
+- Hodnotu `XS_MACRO_DIRECTORY` najdete v *File → Settings → Advanced options*
+  (do vyhledávání napište název volby).
+- Makro do `<model>\macros\modeling\` zkopírujete v Průzkumníku souborů.
+- Skill patří do `<projekt>\.claude\skills\tekla-makro\SKILL.md`.
+:::
 
 ### Cvičení 1 · Výpis vybraných dílů do CSV, jen čtení (7 min) {#cviceni-1}
 
@@ -97,7 +120,8 @@ pěti větami, co dělá. Pak ho zkopíruj do složky maker testovacího modelu
 
 Claude se zeptá na povolení zapisovat mimo složku projektu. Zkontrolujte cestu a povolte.
 
-V Tekle vyberte **3–5 dílů** a spusťte makro **01_Vypis_vybranych_dilu**. Pak:
+**Co musíte udělat sami:** v Tekle vyberte **3–5 dílů** a spusťte makro
+**01_Vypis_vybranych_dilu** (když v katalogu chybí, použijte *Reload catalog*). Pak:
 
 ```default
 Makro doběhlo a vytvořilo CSV v <model>\vystupy\. Načti ho a ukaž mi tabulku.
@@ -194,36 +218,58 @@ Tento server nevyvíjí Trimble ani Anthropic. Na workshopu ho používáme **je
 padají na časový limit.
 :::
 
-### B1 · Instalace (5 min)
+### B1 · Instalace: udělá ji agent (5 min)
 
-1. Otevřete [Releases](https://github.com/tempalg1n/tekla-mcp-server/releases) a stáhněte zip
-   pro **svou** verzi Tekly, např. `TeklaMcp.Server-v0.9.0-tekla2026.zip`
-   (pro 2025: `…-tekla2025.zip`).
-2. Rozbalte ho do `C:\Tools\TeklaMcp-tekla2026\`. Všechny soubory `.dll` nechte vedle `.exe`.
-3. Ukončete Claude Desktop **úplně**, včetně ikony v oznamovací oblasti.
-4. Otevřete Claude Desktop → **Settings → Developer → Edit Config**. Otevře se soubor
-   `%APPDATA%\Claude\claude_desktop_config.json`. Vložte do něj:
+Řekněte agentovi (záložka **Code**, složka `tekla-automatizace`):
+
+```default
+Nainstaluj MCP server pro Teklu:
+1. Z https://github.com/tempalg1n/tekla-mcp-server/releases stáhni poslední vydání
+   TeklaMcp.Server pro Teklu <2026> (zip končící -tekla<2026>.zip, ne mock).
+2. Rozbal ho do C:\Nastroje\TeklaMcp a ověř, že tam je TeklaMcp.Server.exe
+   a vedle něj soubory .dll.
+3. Do %APPDATA%\Claude\claude_desktop_config.json přidej do "mcpServers" server "tekla"
+   s cestou k TeklaMcp.Server.exe a env TEKLA_MCP_READ_ONLY = "1".
+   Ostatní obsah souboru zachovej. Předtím si udělej zálohu souboru.
+4. Než soubor uložíš, ukaž mi změnu a počkej na můj souhlas.
+5. Ověř, že je JSON platný, a řekni mi, co mám restartovat.
+```
+
+Výsledný zápis v konfiguraci má vypadat takto:
 
 ```json
 {
   "mcpServers": {
     "tekla": {
-      "command": "C:\\Tools\\TeklaMcp-tekla2026\\TeklaMcp.Server.exe",
-      "env": {
-        "TEKLA_MCP_READ_ONLY": "1"
-      }
+      "command": "C:\\Nastroje\\TeklaMcp\\TeklaMcp.Server.exe",
+      "env": { "TEKLA_MCP_READ_ONLY": "1" }
     }
   }
 }
 ```
 
-- Ve formátu JSON se zpětná lomítka v cestě píšou **zdvojeně** (`\\`).
-- `TEKLA_MCP_READ_ONLY=1` nechá zapnutých jen asi 50 nástrojů pro čtení. Zápisy server
-  zablokuje i tehdy, kdyby se o ně pokusil.
-- Pokud v souboru už nějaké `mcpServers` máte, přidejte jen blok `"tekla": {…}`.
+- `TEKLA_MCP_READ_ONLY=1` zapne jen asi 50 nástrojů pro čtení. Server zápisy zablokuje
+  i v případě, že by se o ně pokusil.
+- Zpětná lomítka v cestě jsou v JSON **zdvojená** (`\\`). Agent to ohlídá, ale přesto se podívejte.
 
-5. Spusťte Teklu a otevřete **kopii** modelu. Pak znovu spusťte Claude Desktop.
-   Server definovaný v `claude_desktop_config.json` je dostupný v chatu i v záložce **Code**.
+**Co musíte udělat sami:**
+
+1. Povolit agentovi stažení a zápis mimo složku projektu. Před povolením si přečtěte cestu.
+2. Schválit ukázanou změnu konfigurace.
+3. Spustit Teklu a otevřít **kopii** modelu (se zálohou z kroku 0).
+4. Claude Desktop **úplně ukončit**, včetně ikony vedle hodin, a znovu spustit.
+   Pak otevřít nový chat. Server z `claude_desktop_config.json` je dostupný v chatu i v záložce **Code**.
+
+::: {.callout-note collapse="true"}
+## Náhradní postup ručně
+1. Z [Releases](https://github.com/tempalg1n/tekla-mcp-server/releases) stáhněte
+   `TeklaMcp.Server-v<verze>-tekla2026.zip` (nebo `-tekla2025.zip`).
+2. Rozbalte zip do `C:\Nastroje\TeklaMcp\`. Soubory `.dll` nechte vedle `.exe`.
+3. Ukončete Claude Desktop, pak ho otevřete a zvolte **Settings → Developer → Edit Config**.
+   Do souboru `claude_desktop_config.json` vložte blok výše. Pokud tam už nějaké `mcpServers` máte,
+   přidejte jen část `"tekla": {…}`.
+4. Uložte soubor a Claude Desktop restartujte.
+:::
 
 **Zkontrolujte:**
 
@@ -233,7 +279,12 @@ a běží server v režimu jen pro čtení?
 ```
 
 Odpověď musí ukázat cestu ke **kopii** modelu a `serverReadOnly: true`.
-Když se server nepřipojí, podívejte se do `%APPDATA%\Claude\logs\mcp*.log`.
+Když se server nepřipojí, řekněte agentovi:
+
+```default
+Server tekla se nepřipojil. Přečti nejnovější %APPDATA%\Claude\logs\mcp*.log,
+najdi chybu, vysvětli mi ji jednoduše a navrhni opravu. Nic neměň bez mého souhlasu.
+```
 
 ### B2 · Ptejte se modelu (8 min)
 
@@ -270,13 +321,18 @@ ukládá se do knihovny a funguje i bez Clauda.
 
 ### B3 · Zápisy povolit později, s náhledem {#mcp-zapisy}
 
-Až server na kopii ověříte, můžete zápisy povolit:
+Až server na kopii ověříte, můžete zápisy povolit. Řekněte agentovi:
 
-1. V `claude_desktop_config.json` smažte řádek `"TEKLA_MCP_READ_ONLY": "1"` a Claude Desktop restartujte.
-2. Server provádí změny ve dvou krocích. Nejdřív **náhled** (`apply=false`): vrátí plán
-   a nic nezmění. Teprve po vašem souhlasu přijde `apply=true`.
-3. Změněné objekty dostanou UDA `MCP_ORIGIN`. Potvrzené změny vrátíte v Tekle přes **Ctrl+Z**.
-4. Nechte Clauda ptát se před každým voláním Tekly. Do `.claude/settings.json` v projektu přidejte:
+```default
+Chci MCP serveru tekla povolit zápisy:
+1. V %APPDATA%\Claude\claude_desktop_config.json odeber u serveru "tekla"
+   proměnnou TEKLA_MCP_READ_ONLY. Nejdřív zálohuj soubor a ukaž mi změnu.
+2. Do .claude/settings.json v tomto projektu přidej do permissions.ask pravidlo
+   "mcp__tekla__*", ať se mě ptáš před každým voláním Tekly.
+3. Řekni mi, co mám restartovat.
+```
+
+Výsledné pravidlo v `.claude/settings.json`:
 
 ```json
 {
@@ -285,6 +341,15 @@ Až server na kopii ověříte, můžete zápisy povolit:
   }
 }
 ```
+
+Jak pak zápisy fungují:
+
+- Server provádí změny ve dvou krocích. Nejdřív **náhled** (`apply=false`): vrátí plán
+  a nic nezmění. Teprve po vašem souhlasu přijde `apply=true`.
+- Změněné objekty dostanou UDA `MCP_ORIGIN`. Potvrzené změny vrátíte v Tekle přes **Ctrl+Z**.
+
+**Co musíte udělat sami:** schválit obě změny, restartovat Claude Desktop, mít otevřenou
+kopii se zálohou a u každého zápisu si přečíst náhled, než povolíte `apply=true`.
 
 ```default
 Na vybraných dílech chci nastavit USER_FIELD_1 = "KONTROLA". Ukaž mi jen náhled
