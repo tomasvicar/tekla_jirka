@@ -7,54 +7,31 @@ toc: false
 [← Všechny ukázky](../ukazky.qmd){.demo-back}
 
 ::: {.demo-summary}
-Šest posuvníků: rozpětí, délka, osová vzdálenost rámů, výška okapu, sklon střechy a rozteč vaznic.
-Rámy, vaznice, paždíky, štítové sloupky a ztužidla se překreslí hned a vedle se přepočítá
-tabulka hmotností a spotřeba oceli na m² půdorysu. Hodí se na první schůzku s investorem
-nebo na rychlý odhad tonáže před nabídkou.
+Posuvníky měníte rozpětí, délku, rámy, výšku a sklon. Hala se hned překreslí a tabulka
+ukáže hmotnost a kg/m² půdorysu. Hodí se na schůzku s investorem.
 :::
-
-<div class="demo-steps"><div><small>01 / ZADÁNÍ</small><p>Popis haly a pravidla pro odhad profilů.</p></div><div><small>02 / PRÁCE AGENTA</small><p>3D scéna (Three.js), geometrie prutů, tabulka, export CSV.</p></div><div><small>03 / VÝSLEDEK</small><p>Jedna HTML stránka, funguje i offline.</p></div></div>
 
 <iframe class="demo-frame" src="../demos/ukazky/hala/index.html" title="Parametrický 3D koncept ocelové haly" loading="lazy" allow="fullscreen"></iframe>
 
 <div class="demo-actions"><a href="../demos/ukazky/hala/index.html" target="_blank" rel="noopener">Otevřít halu na celou obrazovku</a><a href="../demos/ukazky/hala/hala_offline.html" download>Stáhnout jako jeden soubor (offline)</a></div>
 
-**Co předvést:** zvětšete rozpětí z 24 na 30 m a sledujte, jak se změní profil příčle
-a kg/m². Potom zapněte opláštění a zkuste osovou vzdálenost rámů 7,5 m. Vaznice přejdou na
-větší profil.
+**Vyzkoušejte:** zvětšete rozpětí z 24 na 30 m a sledujte profil příčle a kg/m².
 
 ## Zadání pro agenta
 
 ```default
-Vytvoř jednu HTML stránku s 3D náhledem ocelové haly (Three.js, verzi připni,
-knihovnu ulož vedle stránky). Vlevo posuvníky: rozpětí 12–36 m, délka 18–96 m,
-osová vzdálenost rámů 4,5–8 m, výška okapu 4–12 m, sklon střechy 3–15°,
-maximální rozteč vaznic. Vykresli dvojkloubové rámy z profilů I, vaznice,
-štítové sloupky po max. 6 m, paždíky po cca 2 m a X-ztužidla v krajních polích.
-Pod posuvníky tabulka: prvek, profil, ks, délka, kg, celkem a kg/m² půdorysu.
+Vytvoř HTML stránku s 3D náhledem ocelové haly. Posuvníky: rozpětí, délka,
+osová vzdálenost rámů, výška okapu, sklon střechy, rozteč vaznic.
+Vykresli rámy, vaznice, štítové sloupky, paždíky a ztužidla.
+Pod posuvníky tabulka: prvek, profil, ks, délka, kg a kg/m² půdorysu.
 Profily volíme hrubě: příčel IPE s výškou ≈ rozpětí/55, sloup o číslo větší.
-Na stránku viditelně napiš, že jde o koncept, ne statický návrh. Přidej export CSV.
-```
-
-Další kola v rozhovoru byla krátká:
-
-```default
-Spotřeba oceli mi vychází 46 kg/m², to je na lehkou halu bez jeřábu moc.
-Zkontroluj pravidlo pro sloupy.
-```
-
-```default
-Přidej přepínač opláštění (průhledné panely) a udělej screenshot,
-ať vidím, že střecha sedí na vaznicích.
+Viditelně napiš, že jde o koncept, ne statický návrh. Přidej export CSV.
 ```
 
 ## Co si ohlídat
 
-- **Nejde o statický návrh.** Profily určuje hrubé pravidlo bez zatížení, bez posudku a bez náběhů.
-  Číslo v t a kg/m² je odhad pro rozpočet a pro kontrolu řádu, ne podklad pro objednávku.
-- **Porovnejte s realitou.** Vezměte halu, kterou jste už dělali, nastavte stejné rozměry
-  a porovnejte tonáž s reportem z Tekly. Rozdíl ±20 % u takového odhadu je normální.
-  Pokud je rozdíl větší, řekněte agentovi, ať pravidlo upraví podle vašich zkušeností.
-- **Přirážka 10 % na přípoje** je paušál. U rámových rohů s náběhy bývá vyšší.
-- Druhým krokem může být stejná geometrie jako **makro pro Teklu** (sloupy a nosníky
-  v modelu, viz [Živá Tekla](../tekla.qmd)) nebo jako [IFC](ifc.qmd).
+- **Koncept, ne statický návrh.** Profily určuje hrubé pravidlo bez zatížení a posudku.
+  Tonáž je odhad pro rozpočet, ne podklad pro objednávku.
+- **Porovnejte s realitou:** nastavte rozměry haly, kterou jste dělali, a porovnejte s reportem z Tekly.
+  Rozdíl ±20 % je u odhadu normální.
+- **Přirážka 10 % na přípoje** je paušál, u náběhů bývá vyšší.

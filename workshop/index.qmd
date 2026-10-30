@@ -11,72 +11,49 @@ Od složky zakázky přes kusovník z Tekly až k makru: AI agent dělá práci,
 :::
 
 ::: {.lead}
-Individuální workshop pro projektanta a detailera v Tekla Structures, zhruba 2,5–3 hodiny.
-Nepotřebujete umět programovat. Claude bude psát a spouštět skripty, vy mu řeknete,
-co chcete, a výsledek zkontrolujete.
+Workshop pro detailera v Tekla Structures, asi 2,5–3 hodiny. Programovat nemusíte.
 :::
 
 ## Chatbot, nebo agent?
 
-**Chatbot** (např. Claude v prohlížeči) odpovídá textem. Poradí, jak na to, ale práci
-uděláte vy: zkopírujete kód, spustíte ho, opravíte chybu a zkusíte to znovu.
-
-**Agent** pracuje přímo s vašimi soubory. Dostane úkol, sám si přečte podklady,
-napíše a spustí skript, podívá se na chybu, opraví ji a uloží výsledek.
-Než něco změní, zeptá se vás.
+**Chatbot** poradí, ale práci uděláte vy. **Agent** pracuje přímo s vašimi soubory:
+napíše a spustí skript, opraví chybu a uloží výsledek. Než něco změní, zeptá se.
 
 | Zadání | Chatbot | Agent |
 | --- | --- | --- |
-| „Sečti hmotnosti z kusovníku podle profilů.“ | Návod nebo vzorec do Excelu | Hotový Excel se součty a kontrolním řádkem |
-| „Přejmenuj PDF výkresy podle čísla výkresu.“ | Popis postupu | Seznam navržených názvů, po schválení přejmenované soubory |
-| „Co se změnilo mezi revizí B a C?“ | Obecná rada | Tabulka přibylo / ubylo / změněno |
+| „Sečti hmotnosti z kusovníku podle profilů.“ | Vzorec do Excelu | Hotový Excel se součty |
+| „Přejmenuj PDF výkresy podle čísla výkresu.“ | Popis postupu | Návrh názvů, po schválení přejmenuje |
 
-Na workshopu používáme **Claude Desktop, záložku Code**. Je to agent v běžném okně
-Windows, bez terminálu.
-
-## Co si odnesete
-
-- Na svém počítači máte **funkčního agenta** (Claude Desktop) a víte, co smí a co ne.
-- Umíte ho použít na **běžné kancelářské věci**: složky zakázek, třídění a přejmenování
-  souborů, PDF výkresy, Excel, dopisy.
-- Umíte **bez rizika zpracovat data z Tekly**: exportovaný report → Excel, souhrny hmotností,
-  podklad k nabídce, porovnání revizí, kontrola chybějících údajů.
-- Viděli jste, jak Claude napíše **makro pro živou Teklu** a jak funguje propojení přes MCP.
-- Víte, **kolik to stojí** a na co si dát pozor: data klientů, NDA, zálohy modelu, licence.
+Používáme **Claude Desktop, záložku Code**: agent v běžném okně Windows, bez terminálu.
 
 ## Tři úrovně práce s Teklou
 
 | Úroveň | Co Claude vidí | Riziko pro model |
 | --- | --- | --- |
-| **1. Soubory** | Exportované reporty, PDF, Excel | Žádné, model se neotevírá |
-| **2. Makra** | Napíše C# makro, vy ho spustíte v Tekle | Malé, na kopii modelu |
-| **3. MCP** | Mluví s otevřenou Teklou přímo z chatu | Větší, začínáme jen čtením |
+| **1. Soubory** | Exportované reporty, PDF, Excel | Žádné |
+| **2. Makra** | Napíše makro, vy ho spustíte | Malé, na kopii modelu |
+| **3. MCP** | Mluví přímo s otevřenou Teklou | Větší, začínáme jen čtením |
 
-Začínáme úrovní 1 a dál jdeme, až když jsou předchozí kroky jasné.
+Začínáme úrovní 1.
 
 ## Program
 
 ::: {.table-scroll}
 | Čas | Co | |
 | --- | --- | --- |
-| 15 min | Co je AI agent: chatbot vs. agent, jak pracuje | [prezentace](slides/index.qmd) |
-| 20 min | Instalace Claude Desktop, první spuštění, `CLAUDE.md`, oprávnění | [Instalace](instalace.qmd) |
-| 40 min | Kancelář: složky zakázky, třídění a přejmenování souborů, PDF, Excel | [Kancelář](kancelar.qmd) |
-| 40 min | Data z Tekly: report → Excel, hmotnosti, nabídka, porovnání revizí | [Data z Tekly](cviceni.qmd) |
-| 30 min | Živá Tekla: makro jen pro čtení → změna na kopii, MCP | [Živá Tekla](tekla.qmd) |
+| 15 min | Co je AI agent | [prezentace](slides/index.qmd) |
+| 20 min | Instalace, první úkol, `CLAUDE.md`, oprávnění | [Instalace](instalace.qmd) |
+| 40 min | Kancelář: složky, přejmenování, PDF, Excel | [Kancelář](kancelar.qmd) |
+| 40 min | Data z Tekly: report → Excel, hmotnosti, revize | [Data z Tekly](cviceni.qmd) |
+| 30 min | Živá Tekla: makro a MCP | [Živá Tekla](tekla.qmd) |
 | 15 min | Co dalšího jde | [Ukázky](ukazky.qmd) |
-| 10 min | Cena, soukromí, NDA, zálohy, licence Tekly | [Praktické info](prakticke.qmd) |
+| 10 min | Cena, soukromí, zálohy, licence | [Praktické info](prakticke.qmd) |
 : {.schedule}
 :::
 
 ## Než začneme
 
-::: {.callout-important}
-## Připravte si předem
-**Předplatné Claude Pro** (bezplatný tarif agenta neobsahuje), **záložní kopii testovacího
-modelu** a pár **exportovaných reportů z Tekly**. Podrobnosti jsou na stránce
-[Příprava](priprava.qmd). Instalaci uděláme společně.
-:::
+Připravte si placený Claude, zálohu testovacího modelu a pár reportů z Tekly,
+viz [Příprava](priprava.qmd). Instalaci uděláme společně.
 
-Všechna cvičná data na tomto webu jsou **smyšlená**. Žádná skutečná data klientů
-do cvičení nepatří.
+Všechna cvičná data na webu jsou **smyšlená**.

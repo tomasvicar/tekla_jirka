@@ -52,7 +52,8 @@ $link-color: #007f86;
 /* živý editor */
 .live { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; height: 450px; font-size: .55em; }
 .live textarea { width: 100%; height: 100%; box-sizing: border-box; font-family: "Cascadia Code", Consolas, monospace;
-  font-size: 1.05em; border: 2px solid #d7e5ea; border-radius: 10px; padding: .6em; resize: none; background: #f8fafb; }
+  font-size: 1.05em; border: 2px solid #d7e5ea; border-radius: 10px; padding: .6em; resize: none; background: #f8fafb;
+  font-variant-ligatures: none; font-feature-settings: "calt" 0, "liga" 0; }
 .live .live-out, .live iframe { width: 100%; height: 100%; box-sizing: border-box; border: 2px solid #007f86;
   border-radius: 10px; padding: .4em .9em; overflow: auto; background: #fff; }
 .live iframe { padding: 0; }

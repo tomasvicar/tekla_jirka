@@ -7,51 +7,28 @@ toc: false
 [← Všechny ukázky](../ukazky.qmd){.demo-back}
 
 ::: {.demo-summary}
-IFC, které posíláte architektovi, TZB nebo výrobně, je to, co o vašem modelu uvidí ostatní.
-Claude napsal skript (knihovna `ifcopenshell`), který IFC přečte, sečte délky a hmotnosti
-podle typu, profilu a fáze a zkontroluje data: chybějící fáze, jinou ocel než u ostatních
-prvků stejného názvu, obecné názvy typu „Member“. Problémové prvky vyznačí v náhledu
-a vypíše jejich GUID, podle kterého je najdete v Tekle.
+Skript přečte IFC, sečte délky a hmotnosti podle profilů a fází a najde chyby v datech:
+chybějící fázi, jinou ocel, obecné názvy. Problémové prvky vyznačí v náhledu i s GUID pro Teklu.
+Model je syntetický a pět chyb v něm je záměrně. Report našel všechny.
 :::
-
-<div class="demo-steps"><div><small>01 / ZADÁNÍ</small><p>IFC soubor a pravidla, co musí každý prvek mít.</p></div><div><small>02 / PRÁCE AGENTA</small><p>Skript: čtení IFC, souhrny, kontroly, náhled.</p></div><div><small>03 / VÝSLEDEK</small><p>HTML report, který jde poslat dál.</p></div></div>
 
 <iframe class="demo-frame tall" src="../demos/ukazky/ifc/hala_lipnik_report.html" title="Report kontroly IFC modelu" loading="lazy"></iframe>
 
-<div class="demo-actions"><a href="../demos/ukazky/ifc/hala_lipnik_report.html" target="_blank" rel="noopener">Otevřít report</a><a href="../demos/ukazky/ifc/hala_lipnik.ifc" download>Stáhnout IFC</a><a href="../demos/ukazky/ifc/report_ifc.py" download>Skript reportu</a><a href="../demos/ukazky/ifc/make_ifc.py" download>Skript modelu</a></div>
-
-Model je **syntetický**. Je to malá hala 18 × 30 m (90 prvků), kterou také vygeneroval skript.
-Pět chyb do něj bylo vloženo záměrně: tři vaznice bez fáze, jeden sloup z S235 místo S355
-a jeden prvek s obecným názvem. Report našel všech pět.
+<div class="demo-actions"><a href="../demos/ukazky/ifc/hala_lipnik_report.html" target="_blank" rel="noopener">Otevřít report</a><a href="../demos/ukazky/ifc/hala_lipnik.ifc" download>Stáhnout IFC</a><a href="../demos/ukazky/ifc/report_ifc.py" download>Skript reportu</a></div>
 
 ## Zadání pro agenta
 
 ```default
-V této složce je hala.ifc exportovaná z Tekly. Napiš skript (uv, ifcopenshell),
-který vytvoří jeden HTML report:
-1) počet prvků, délky a hmotnosti podle typu (sloup, nosník, prut), podle profilu
-   a materiálu a podle fáze,
-2) kontrolu dat: každý prvek má fázi a materiál, materiál je stejný jako
-   u ostatních prvků se stejným názvem, žádné obecné názvy, délka v property
-   setu odpovídá geometrii, žádné duplicitní značky,
-3) izometrický náhled os prvků, problémové prvky červeně, s popiskem při najetí myší,
-4) tabulku nálezů s GUID, abych je našel v Tekle.
-IFC soubor nijak neměň.
-```
-
-```default
-Celkovou hmotnost porovnej s reportem z Tekly (hmotnosti.csv). Kde se liší o víc
-než 3 %, vypiš profily a zkus vysvětlit proč.
+V této složce je hala.ifc z Tekly. Napiš skript, který vytvoří HTML report:
+počty, délky a hmotnosti podle typu, profilu, materiálu a fáze;
+kontrolu, že každý prvek má fázi a materiál stejný jako prvky se stejným
+názvem a žádný obecný název; náhled s problémovými prvky červeně;
+tabulku nálezů s GUID. IFC soubor nijak neměň.
 ```
 
 ## Co si ohlídat
 
-- **Hmotnost z IFC je jiná než v Tekle.** Skript počítá plochu profilu × délku extruze.
-  Neví o zkráceních na přípojích, výřezech, svarech ani šroubech. Porovnání s reportem
-  z Tekly je proto nejlepší kontrola: malý rozdíl je v pořádku, velký znamená chybu.
-- **Pravidla jsou vaše.** Co musí prvek mít (fáze, třída, UDA, povrchová úprava),
-  určujete vy. Formálně se to dá zapsat jako IDS a kontrolovat nástrojem `ifctester`.
-- **Názvy property setů** se liší podle nastavení exportu z Tekly. Dejte agentovi vzorový
-  soubor a nechte ho nejdřív vypsat, jaké Psety v něm jsou.
-- Tekla sama doporučuje po exportu IFC porovnat počty objektů a projít log exportu.
-  Report tuto kontrolu nenahrazuje, jen ji usnadní.
+- **Hmotnost z IFC není hmotnost z Tekly.** Skript nezná zkrácení, výřezy ani šrouby.
+  Porovnejte celek s reportem z Tekly; velký rozdíl znamená chybu.
+- **Pravidla určujete vy:** co musí každý prvek mít (fáze, třída, UDA).
+- **Názvy property setů** závisí na nastavení exportu. Nechte agenta nejdřív vypsat, co v souboru je.

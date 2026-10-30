@@ -1,17 +1,12 @@
 ---
 title: "Postup nasazení"
-subtitle: "Od průzkumu přes test až k první práci u kamaráda · krok za krokem"
+subtitle: "Od průzkumu přes test k první práci u kamaráda"
 ---
 
-Tahle stránka je **plán pro toho, kdo Clauda nastavuje** (ne pro účastníka workshopu).
-Shrnuje, v jakém pořadí postupovat, co při kterém kroku ověřit a kde jsou podrobnosti.
-Podklady ke všemu jsou v sekci [Průzkum](pruzkum.qmd).
+Plán pro toho, **kdo Clauda nastavuje** (ne pro účastníka). Podklady: [Průzkum](pruzkum.qmd).
 
-::: {.callout-warning}
-## Stav k 30. 10. 2026
-Kroky 1–2 (průzkum, materiály) jsou hotové. **Makra a MCP server zatím nikdo z nás neověřil
-na živé Tekle** – to je úkol kroku 3. Do té doby berte stránku [Živá Tekla](tekla.qmd) jako návrh.
-:::
+**Stav k 30. 10. 2026:** kroky 1–2 hotové. Makra a MCP zatím **nikdo neověřil na živé Tekle**
+(krok 3), stránka [Živá Tekla](tekla.qmd) je zatím návrh.
 
 ## Přehled
 
@@ -27,68 +22,55 @@ na živé Tekle** – to je úkol kroku 3. Do té doby berte stránku [Živá Te
 
 ## 3 · Test nanečisto {#test}
 
-Tekla běží **jen na Windows** – na Fedoře potřebujeme virtuálku
-(podrobně [průzkum 07](pruzkum/07-trial-a-testovaci-prostredi.md)).
+Tekla běží jen na Windows, tedy ve virtuálce ([průzkum 07](pruzkum/07-trial-a-testovaci-prostredi.md)).
 
 1. **MCP bez Tekly (30 min, rovnou na Fedoře).** Server
    [tempalg1n/tekla-mcp-server](https://github.com/tempalg1n/tekla-mcp-server) má
-   zkušební režim s falešným modelem. Ověříme propojení Claude ↔ MCP dřív, než řešíme Windows.
+   režim s falešným modelem. Ověří propojení Claude ↔ MCP.
 2. **Windows 11 VM (2–3 h).** Windows 11 Enterprise evaluation (90 dní zdarma),
    virt-manager/KVM: Q35, OVMF se Secure Boot, swtpm (TPM 2.0), ovladače virtio-win;
    6–8 vCPU, 16 GB RAM, ~150 GB disk. **Snapshot.**
-3. **Tekla 2026 trial (1–2 h).** 30 dní, Open API v trialu funguje, nejde prodloužit
-   a **váže se na počítač** → nainstalovat, **snapshot před aktivací**, aktivovat až na finální VM.
-   Pokud je 3D pohled bez GPU nepoužitelný: *File → Settings → Switches → Use legacy rendering*.
+3. **Tekla 2026 trial (1–2 h).** 30 dní, Open API funguje, **váže se na počítač** →
+   **snapshot před aktivací**.
+   Pomalé 3D bez GPU: *File → Settings → Switches → Use legacy rendering*.
 4. **Claude Desktop ve VM (30 min)** – podle stránky [Instalace](instalace.qmd).
-5. **Makra (1 h)** – cvičení 1–3 ze stránky [Živá Tekla](tekla.qmd); zapsat, jak Tekla hlásí
-   chyby, zda funguje dialog s potvrzením a zda jedno Ctrl+Z vrátí celou změnu.
-6. **MCP (1–2 h)** – nejdřív `TEKLA_MCP_READ_ONLY=1`, dotazy na model; pak náhled zápisu;
-   nakonec jedna reálná změna na kopii modelu.
-7. **Zapsat** každý ruční krok a každý zádrhel → opravit stránky webu.
+5. **Makra (1 h)** – cvičení 1–3 z [Živé Tekly](tekla.qmd); zapsat hlášení chyb, zda funguje
+   potvrzovací dialog a zda jedno Ctrl+Z vrátí celou změnu.
+6. **MCP (1–2 h)** – nejdřív `TEKLA_MCP_READ_ONLY=1` a dotazy na model, pak náhled zápisu,
+   nakonec jedna změna na kopii modelu. Nastavení přes agenta podle [Instalace](instalace.qmd#mcp).
+7. **Zapsat** zádrhele → opravit web.
 
-**Plán B:** když Tekla ve VM nepůjde rozumně používat, uděláme krátký read-only test přímo
-u kamaráda na kopii modelu (bez zápisů), místo placení cloudové VM s GPU.
+**Plán B:** když Tekla ve VM nepůjde používat, krátký read-only test u kamaráda na kopii modelu.
 
 ## 4 · Otázky na kamaráda {#otazky}
 
-- **Verze Tekly** (2025 / 2026, service pack) a **prostředí** (CZ environment?).
-- **Licence:** Diamond / Graphite / Carbon? (Diamond+ má i Trimbleho
-  [Tekla Model Assistant](prakticke.qmd#trimble) – může být jednodušší cesta nebo doplněk.)
-- Pracuje sám, nebo s kolegou na **sdíleném modelu** (Model Sharing)? Spravuje mu PC firemní IT?
-- Co říkají **smlouvy s klienty / NDA** o posílání dat třetím stranám?
-- **Které úkoly ho nejvíc zdržují** – konkrétně, s odhadem minut týdně
-  (podle toho vybereme první automatizace, viz [průzkum 11](pruzkum/11-napady-na-automatizace.md)).
-- Ať připraví **2–3 exportované reporty** a **zálohu testovacího modelu**
-  (*Save as → Save and create backup copy*).
+- **Verze Tekly** se service packem a **prostředí**.
+- **Licence:** Diamond / Graphite / Carbon? (vyšší mají i [AI od Trimble](prakticke.qmd#trimble))
+- **Sdílený model** s kolegou? Spravuje mu PC firemní IT?
+- Co říkají **smlouvy / NDA** o posílání dat třetím stranám?
+- **Co ho nejvíc zdržuje** (minut týdně)
+  ([průzkum 11](pruzkum/11-napady-na-automatizace.md)).
+- Ať připraví věci podle [Přípravy](priprava.qmd).
 
 ## 5 · Instalace u kamaráda {#instalace}
 
-1. **Tarif:** na zkoušku **Claude Pro**. Pro ostrou práci firmy o 2 lidech **Team se 2 místy
-   Standard** (minimum jsou 2 místa, Claude Code v ceně, DPA, netrénuje se) –
-   viz [Praktické info](prakticke.qmd#cena). V Pro vypnout *Model improvement*.
-2. **Claude Desktop** z claude.com/download, **Git for Windows** → [Instalace](instalace.qmd).
-3. Projektová složka `C:\Users\<jmeno>\Claude\stavar-workshop` s `podklady\` a `vystupy\`,
-   do ní [`CLAUDE.md`](files/CLAUDE.md).
-4. Pro Teklu zvlášť složka projektu maker s [`CLAUDE_tekla.md`](files/CLAUDE_tekla.md)
+1. **Tarif:** na zkoušku Pro, ostře Team se 2 místy, viz [Kolik to stojí](prakticke.qmd#cena).
+2. **Claude Desktop, složka, `CLAUDE.md`, Git** podle [Instalace](instalace.qmd).
+3. Pro Teklu zvlášť složka projektu maker s [`CLAUDE_tekla.md`](files/CLAUDE_tekla.md)
    (přejmenovat na `CLAUDE.md`) a skillem [`tekla-makro`](files/skills/tekla-makro/SKILL.md).
-5. Režim oprávnění **Manual / Ask**, nikdy Bypass.
-6. MCP **až po úspěšném testu** v kroku 3, a to v read-only režimu.
+4. Režim oprávnění **Manual / Ask**, nikdy Bypass.
+5. MCP **až po úspěšném testu** v kroku 3, jen read-only.
 
 ## 6 · První sezení {#sezeni}
 
-Podle osnovy na [úvodní stránce](index.qmd):
-co je agent → [kancelář](kancelar.qmd) → [data z Tekly](cviceni.qmd) →
-[živá Tekla](tekla.qmd) → [ukázky](ukazky.qmd) → [praktické info](prakticke.qmd).
-Prezentace: [slajdy](slides/index.qmd).
+Podle [programu](index.qmd), [slajdy](slides/index.qmd).
 
-**Pravidla, která mu mají utkvět:** záloha před každou prací s AI · nejdřív číst, pak měnit ·
-změny jen na kopii · výsledek vždy zkontrolovat (AI nezná ČSN/EN) · fungující postupy ukládat
-jako skill nebo makro.
+**Má si zapamatovat:** záloha před prací s AI · nejdřív číst, pak měnit · změny jen na kopii ·
+výsledek vždy zkontrolovat.
 
 ## 7 · Další týdny {#dal}
 
-- Každý týden **jedna malá automatizace** z jeho seznamu otravných úkolů.
-- Fungující makra do sdílené knihovny (`XS_MACRO_DIRECTORY`), postupy jako skilly.
-- Do `CLAUDE.md` dopisovat pravidla **až po skutečné chybě**, ať zůstane krátký.
-- Sledovat Construsoft CZ (webinář **19. 11. 2026** o AI a automatizaci v Tekle) a vývoj
-  Trimbleho Tekla Model Assistant – viz [průzkum 12](pruzkum/12-cz-sk-zdroje.md).
+- Každý týden **jedna malá automatizace** z jeho seznamu.
+- Makra do sdílené knihovny (`XS_MACRO_DIRECTORY`), postupy jako skilly.
+- Do `CLAUDE.md` dopisovat pravidla **až po skutečné chybě**.
+- Sledovat Construsoft CZ a Tekla Model Assistant ([průzkum 12](pruzkum/12-cz-sk-zdroje.md)).

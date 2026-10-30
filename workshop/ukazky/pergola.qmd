@@ -7,60 +7,32 @@ toc: false
 [← Všechny ukázky](../ukazky.qmd){.demo-back}
 
 ::: {.demo-summary}
-**„Podle tohoto návrhu jsem pergolu skutečně postavil.“**
-Lektor s pomocí agenta připravil 3D návrh dřevěné pergoly u domu. Agent spočítal spotřebu
-barvy, sestavil nákupní seznam a přesný seznam řeziva pro e-mail dodavateli.
-Je to malá konstrukce, ale postup je stejný jako u větších: model, výkaz materiálu
-a podklady pro dodavatele.
+S agentem vznikl 3D návrh dřevěné pergoly, seznam řeziva pro dodavatele a spotřeba barvy.
+Autor workshopu ji podle podkladů postavil. Množství barvy i dřeva sedělo.
 :::
 
-::: {.demo-banner}
-**Zkušenost z realizace:** vypočtené množství barvy vyšlo přesně a seznam dřeva i ostatní
-nákupní podklady seděly. Výsledek tedy nezůstal jen na obrazovce.
-:::
-
-## Z návrhu na zahradu
-
-![Průběh stavby pergoly podle návrhu připraveného s agentem. Fotografie lektora.](../assets/ukazky/pergola/realizace.jpg){width=100% fig-alt="Skutečná dřevěná konstrukce pergoly před domem v průběhu stavby"}
-
-## Prozkoumejte návrh
+![Stavba pergoly podle návrhu připraveného s agentem.](../assets/ukazky/pergola/realizace.jpg){width=100% fig-alt="Skutečná dřevěná konstrukce pergoly před domem v průběhu stavby"}
 
 <iframe class="demo-frame" src="../demos/ukazky/pergola/viewer.html" title="Interaktivní 3D návrh pergoly u domu" loading="lazy" allow="fullscreen"></iframe>
 
 <div class="demo-actions"><a href="../demos/ukazky/pergola/viewer.html" target="_blank" rel="noopener">Otevřít 3D návrh naplno</a><a href="../demos/ukazky/pergola/parts.html" target="_blank" rel="noopener">Seznam řeziva</a></div>
 
-V nabídce **Ovládání** můžete skrýt krytinu nebo dům a prohlédnout si samotnou konstrukci:
-patky, sloupky, vaznice, krokve, latě a pásky.
+V nabídce **Ovládání** skryjete krytinu nebo dům. Návrh otevírejte přes web, offline se nenačte.
 
-## Co agent připravil
-
-- **3D návrh:** pergola u domu a to, jak do sebe zapadají jednotlivé části.
-- **Seznam řeziva pro dodavatele:** průřezy, délky a počty kusů, připravené do e-mailu.
-- **Spotřeba barvy** z natírané plochy a **nákupní seznam**.
-
-## Zadání pro agenta (zjednodušená rekonstrukce)
-
-Skutečný návrh vznikal v řadě kratších zadání. Shrnuté vypadala zhruba takto:
+## Zadání pro agenta (zjednodušeně)
 
 ```default
-Navrhni dřevěnou pergolu k domu podle přiložených fotek a zaměřených rozměrů terasy,
-cca 7 × 3,6 m. Sloupy a průvlaky z KVH hranolů 12 × 12, krokve a latě,
-krytina z polykarbonátu se sklonem kolem 6° od domu. Udělej 3D model,
-který si otočím v prohlížeči, i s domem, abych viděl, jak to bude vypadat.
-Ke každému prvku spočítej délky a počty. Připrav plán řezání z obchodních
-délek 5 m a 8 m a seznam pro dodavatele do e-mailu. Spočítej natíranou
-plochu a spotřebu barvy.
+Navrhni dřevěnou pergolu k domu podle přiložených fotek a rozměrů terasy,
+cca 7 × 3,6 m, KVH hranoly 12 × 12, polykarbonát se sklonem 6°.
+Udělej 3D model i s domem, který si otočím v prohlížeči. Spočítej délky
+a počty prvků, plán řezání z délek 5 a 8 m, seznam pro dodavatele do e-mailu
+a spotřebu barvy.
 ```
-
-Seznam řeziva obsahuje i **plán řezání z obchodních délek**. Je to stejná úloha jako
-[dělení 12m tyčí](narezy.qmd), jen ve dřevě.
 
 ## Co si ohlídat
 
-- **Statika i tady platí.** Průřezy krokví a kotvení sloupků posuďte, i když jde
-  „jen“ o pergolu. Rozhoduje sníh a vítr, ne vzhled modelu.
-- **Seznam řeziva porovnejte s modelem**: kusy jedné pozice spočítejte v 3D náhledu.
-- **Obchodní délky a prořez** si ověřte u dodavatele. Agent zná jen to, co mu řeknete.
+- **Statika platí i tady.** Krokve a kotvení posuďte na sníh a vítr.
+- **Seznam řeziva porovnejte s modelem** na jedné pozici.
+- **Obchodní délky a prořez** ověřte u dodavatele.
 
-Ukázka je převzatá s laskavým svolením z workshopu *AI agenti v laboratoři*
-(Tomáš Vičar, návrh `pergola_2`). Three.js r163 je přiložen lokálně (licence MIT).
+Převzato z workshopu *AI agenti v laboratoři* (Tomáš Vičar). Three.js r163 přiložen lokálně (licence MIT).

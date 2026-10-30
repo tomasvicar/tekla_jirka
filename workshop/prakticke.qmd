@@ -3,169 +3,117 @@ title: "Praktické info"
 subtitle: "Cena, soukromí, NDA, zálohy a licence Tekly"
 ---
 
-*Stav k říjnu 2026. Ceny a podmínky se často mění, před nákupem je ověřte na odkazech.*
+*Stav k říjnu 2026, ceny a podmínky se mění.*
 
 ## Jak zadat úkol
 
-Řekněte **z jakého souboru vycházet, co vytvořit a jak poznáte, že je to správně**:
+Řekněte, **z čeho vycházet, co vytvořit a jak poznat, že je to správně**:
 
 ```default
-Z podklady/kusovnik_revC.csv udělej Excel s hmotností podle profilů a podle fází.
-Přidej řádek CELKEM. Ulož do vystupy/hmotnosti_revC.xlsx.
-Ověř, že součet sedí s celkovou hmotností v původním reportu, a napiš mi obě čísla.
+Z podklady/kusovnik_revC.csv udělej Excel s hmotností podle profilů a fází.
+Přidej řádek CELKEM a ulož do vystupy/hmotnosti_revC.xlsx.
+Ověř, že součet sedí s původním reportem, a napiš mi obě čísla.
 ```
 
 | Co se děje | Co zkusit |
 | --- | --- |
-| Udělal něco jiného | Zastavte ho (**Esc**) a zopakujte, co přesně chcete. |
-| Dvakrát po sobě oprava nepomohla | `/clear`, nová konverzace a lepší zadání, ne třetí oprava. |
-| Větší úkol nebo makro | Režim **Plan**: nejdřív postup, pak teprve práce. |
-| Výsledek vypadá podezřele | Ať vypíše vstupní hodnoty; jeden součet ověřte sami. |
+| Udělal něco jiného | **Esc** a zopakujte, co přesně chcete. |
+| Dvě opravy nepomohly | `/clear` a lepší zadání, ne třetí oprava. |
+| Větší úkol nebo makro | Režim **Plan**: nejdřív postup. |
 | Opakuje stejnou chybu | Zapište pravidlo do `CLAUDE.md`. |
-
-Claude je **šikovný junior**: rychlý, ochotný, občas sebejistě chybuje.
-Ptejte se ho *„Proč jsi to udělal takhle?“* a *„Co by se mohlo pokazit?“*
 
 ## Kolik to stojí {#cena}
 
-Claude Code je jen v placených tarifech. Ceny jsou v USD bez DPH
-([claude.com/pricing](https://claude.com/pricing)):
+Agent (Claude Code) je jen v placených tarifech. Ceny v USD bez DPH
+([claude.com/pricing](https://claude.com/pricing), ověřeno 30. 10. 2026):
 
 | Tarif | Cena | Pro koho |
 | --- | --- | --- |
-| **Pro** | 20 USD/měs. (17 USD při ročním placení) | Zkoušení a běžná práce jednoho člověka |
-| **Max 5×** | 100 USD/měs. | Když s Pro pravidelně narážíte na limit |
-| **Max 20×** | 200 USD/měs. | Celodenní intenzivní práce |
-| **Team** Standard / Premium | 25 / 125 USD za místo a měsíc (20 / 100 ročně) | Firma, práce pro klienty (viz níže) |
+| **Pro** | 20 USD/měs. | Vyzkoušení, jeden člověk |
+| **Max** | 100 nebo 200 USD/měs. | Když Pro pravidelně nestačí |
+| **Team Standard** | 25 USD za místo a měsíc (20 ročně), **min. 2 místa**, Claude Code v ceně | Firma, práce pro klienty |
 
-- **Limity:** chat i Claude Code čerpají ze **společného limitu**, který se obnovuje
-  v okně několika hodin, a navíc je **týdenní strop**. Při vyčerpání je třeba počkat
-  (aktuální limity viz [support.claude.com](https://support.claude.com)).
-- Agent při jednom úkolu oslovuje model mnohokrát, takže **jeden dlouhý úkol spotřebuje
-  víc než jedna otázka v chatu**. Šetří `/clear` mezi nesouvisejícími úkoly a konkrétní zadání.
-- **Team pro malou firmu:** minimum jsou **2 místa** a místo Standard **zahrnuje Claude Code**
-  a má víc využití než Pro (ověřeno na [claude.com/pricing](https://claude.com/pricing), 30. 10. 2026).
-  Pro **dvoučlennou firmu** to znamená cca **50 USD/měs.** (40 při ročním placení) za Team
-  oproti 40 USD za 2× Pro – za malý příplatek firemní podmínky (viz [Soukromí](#soukromi)).
-- **Doporučení:** na **vyzkoušení** stačí jeden **Pro**. Pro **ostrou práci na zakázkách**
-  ve firmě o 2 lidech je rozumnější **Team se 2 místy Standard** než dvě samostatná Pro.
-  Na Max / Premium přejděte, jen když limit opakovaně brzdí práci.
+- **Doporučení:** na zkoušku **Pro**. Ostře ve firmě o 2 lidech **Team se 2 místy**:
+  50 USD/měs. (40 ročně) místo 40 za 2× Pro, za to firemní podmínky ([Soukromí](#soukromi)).
+- **Limity:** chat i agent čerpají ze společného limitu, který se obnovuje po několika
+  hodinách, plus týdenní strop. Šetří `/clear` mezi úkoly a konkrétní zadání.
 
 ## Soukromí a data klientů {#soukromi}
 
-**Všechno, co Claude přečte, se posílá společnosti Anthropic:** zadání, obsah otevřených
-souborů i výsledky nástrojů (včetně dat z Tekly přes MCP)
-([data usage](https://code.claude.com/docs/en/data-usage)).
+**Všechno, co Claude přečte, se posílá společnosti Anthropic**: zadání, soubory
+i data z Tekly ([data usage](https://code.claude.com/docs/en/data-usage)).
 
-| | Pro / Max (spotřebitelské) | Team / Enterprise (firemní) |
+| | Pro / Max | Team |
 | --- | --- | --- |
-| Trénink na vašich datech | Jen když je zapnuté **Model improvement** | **Ne** ([Commercial Terms](https://www.anthropic.com/legal/commercial-terms)) |
-| Uchování | 30 dní (se zapnutým Model improvement až 5 let) | 30 dní |
-| Smlouva o zpracování (DPA, GDPR) | Ne | Ano, součást obchodních podmínek |
-| Práce pro klienty | Běžně se dělá, ale podmínky jsou nejasné a riziko nese uživatel (viz níže) | Ano, výslovně |
+| Trénink na vašich datech | Jen se zapnutým **Model improvement** | Ne |
+| Smlouva o zpracování (DPA, GDPR) | Ne | Ano |
+| Práce pro klienty | Šedá zóna, riziko nesete vy | Ano, čisté papíry |
 
-- **Vypněte Model improvement:**
-  [claude.ai/settings/data-privacy-controls](https://claude.ai/settings/data-privacy-controls).
-  Neposílejte zpětnou vazbu (palec nahoru/dolů) u konverzací s daty klientů; ta se uchovává 5 let.
-- **Podmínky pro EU – co v nich je:** spotřebitelské podmínky pro EHP
-  ([Consumer Terms](https://www.anthropic.com/legal/consumer-terms)) platí pro *spotřebitele*
-  (osoby jednající mimo své podnikání). V článku 11 o vyloučení záruk a odpovědnosti je věta
-  *„Non-commercial use only“* – běžná formulace spotřebitelských smluv, jejímž hlavním smyslem je,
-  že **Anthropic neručí za vaše obchodní ztráty**. Zároveň podmínky počítají s tím, že Claude Pro
-  používají i firmy („Claude Pro use for individuals or entities“). Používat Pro v práci je
-  běžné; jednoznačný zákaz to není, ale je to šedá zóna a riziko nesete vy.
-- **Reálné rozdíly pro práci s klienty:** Pro **nemá DPA**, takže se nehodí na osobní údaje
-  klientů (GDPR), a trénink je ve výchozím stavu zapnutý. Kdo chce „čisté papíry“
-  (DPA, firemní podmínky, žádný trénink), zvolí **Team** – od 2 míst, tedy přesně pro firmu
-  o 2 lidech, za cca 10 USD/měs. navíc oproti 2× Pro. Přesný výklad je věc právníka.
-- **Posílejte co nejméně:** jen reporty, které úkol opravdu potřebuje, bez jmen klientů,
-  smluv a rohových razítek. Z modelu raději filtrované souhrny než celý model.
-- Text uvnitř cizích modelů a IFC (názvy dílů, atributy) je **nedůvěryhodný vstup**.
-  Mohly by v něm být schované pokyny pro AI
+- V Pro **vypněte Model improvement**
+  ([nastavení](https://claude.ai/settings/data-privacy-controls)) a u dat klientů
+  neposílejte zpětnou vazbu (palec nahoru/dolů).
+- **Spotřebitelské podmínky** ([Consumer Terms](https://www.anthropic.com/legal/consumer-terms))
+  mají v článku o odpovědnosti větu *„Non-commercial use only“*. Hlavně tím Anthropic
+  neručí za vaše obchodní ztráty. Jasný zákaz to není, ale je to šedá zóna.
+  Pro nemá DPA, takže se nehodí na osobní údaje klientů.
+  **Team** má firemní podmínky ([Commercial Terms](https://www.anthropic.com/legal/commercial-terms)),
+  DPA a netrénuje se. Přesný výklad je věc právníka.
+- **Posílejte co nejméně**, bez jmen klientů a smluv.
+- Text v cizích modelech a IFC může skrývat pokyny pro AI
   ([bezpečnost](https://code.claude.com/docs/en/security)).
 
 ### NDA a souhlas klienta
 
-Běžné NDA a subdodavatelské smlouvy zakazují předávat informace o projektu třetím stranám.
-Poslání dat do AI služby se za to dá považovat. Například britská RICS požaduje
-**předchozí písemný souhlas klienta**
+NDA často zakazují předávat data třetím stranám, a to může zahrnovat i AI službu
 ([RICS](https://www.rics.org/profession-standards/rics-standards-and-guidance/conduct-competence/responsible-use-of-ai/client-information-note)).
-
-- Před použitím na zakázce si **přečtěte NDA / smlouvu**.
-- Když si nejste jistí, **zeptejte se klienta písemně**.
-- Hodí se jednostránková „AI politika“: jaký nástroj, jaká data posíláte, jak dlouho se uchovávají.
-  Claude vám ji pomůže napsat.
+Přečtěte si smlouvu a když si nejste jistí, zeptejte se klienta písemně.
 
 ## Zálohy modelu Tekla {#zalohy}
 
-- **Před každou prací s AI na modelu:** *File → Save as → **Save and create backup copy***.
-  Záloha se uloží do `TeklaStructuresModels\backup\<model>\<datum-čas>` a zachová GUID
-  ([Tekla: ukládání modelu](https://support.tekla.com/doc/tekla-structures/2026/mod_saving_model_with_different_name_or_location)).
-- Obyčejné *Save as* vytvoří nový model s novými GUID a **zálohou není**.
-- Zkoušejte na **kopii**, nikdy na sdíleném (multi-user) nebo produkčním modelu.
-- **Undo v Tekle** vrátí jeden krok makra, ale není to záloha.
-- `/rewind` v Claude vrací jen soubory, které Claude upravil sám. **Změny v modelu
-  (makro, MCP) nevrátí.**
+- **Před každou prací s AI na modelu:** *File → Save as → Save and create backup copy*.
+  Záloha zachová GUID
+  ([Tekla](https://support.tekla.com/doc/tekla-structures/2026/mod_saving_model_with_different_name_or_location)).
+- Obyčejné *Save as* **zálohou není** (nové GUID).
+- Zkoušejte jen na kopii, ne na sdíleném modelu.
+- Undo v Tekle vrátí jen krok makra a `/rewind` změny v modelu nevrátí. Ani jedno není záloha.
 
 ## Licence Tekly {#licence}
 
-Podle licenčních podmínek Tekly ([EULA 2024](https://tekla.com/assets/documents/TrimbleTeklaEULA2024%20(eng-us).pdf))
+Podle [EULA](https://tekla.com/assets/documents/TrimbleTeklaEULA2024%20(eng-us).pdf)
 a [zásad pro vývojáře](https://developer.tekla.com/policy):
 
-- **Makra a nástroje pro vlastní potřebu** přes Open API vytvářet smíte.
-- **Předávat nebo prodávat** je klientům či jiným firmám smíte jen v rámci
-  **Tekla Partners Program**.
-- Za vlastní nástroje a jejich použití **odpovídáte sami** (čl. 4.12).
+- Makra pro **vlastní potřebu** psát smíte.
+- **Prodávat nebo předávat** je jiným firmám jen v rámci Tekla Partners Program.
+- Za vlastní nástroje **odpovídáte sami**.
 
 ## Výsledky kontroluje člověk {#kontrola}
 
-- Licenční podmínky Tekly výslovně říkají, že výsledky musí ověřit
-  **příslušně kvalifikovaná osoba** (čl. 9.2). U změn od AI to platí dvojnásob.
-- **Claude nezná spolehlivě ČSN a Eurokódy.** Jazykový model se hodí na odborné dotazy
-  jen „v kombinaci s ověřením podle normových předpisů“
+- Výsledky musí ověřit **kvalifikovaná osoba** (EULA Tekly, čl. 9.2).
+- **Claude spolehlivě nezná ČSN ani Eurokódy**
   ([K. Toman, ČVUT 2025](https://concrete.fsv.cvut.cz/phdworkshop/proceedings/2025/pdf/Toman_Krystof.pdf)).
-- Statiku, dimenzování ani posouzení od Clauda nepřebírejte. Na **data, souhrny, kontroly
-  a automatizaci** se hodí dobře.
-- U každého výstupu chtějte **kontrolu**: součet proti originálu, počet řádků, ruční ověření
-  jednoho prvku.
+  Statiku od něj nepřebírejte. Na data, souhrny a kontroly se hodí dobře.
+- U každého výstupu chtějte kontrolu, např. součet proti originálu.
 
 ## AI přímo od Trimble {#trimble}
 
-Trimble má vlastní AI asistenty přímo v Tekle, jen pro licence **Diamond / Graphite / Carbon**
-(podle nástroje):
-
-- **Trimble Assistant – User Assistant:** odpovídá na dotazy podle manuálů Tekly
-  ([nápověda](https://support.tekla.com/doc/tekla-structures/not-version-specific/trimble_assistant_for_tekla)).
-- **Developer Assistant:** píše makra přes Open API (preview, Diamond)
-  ([nápověda](https://support.tekla.com/doc/tekla-structures/not-version-specific/developer_assistant)).
-- **Tekla Model Assistant** (preview, TS 2025 SP9 / 2026 SP2): agent v postranním panelu,
-  který čte výběr a umí vytvářet a upravovat prvky, spouštět filtry, reporty a makra
-  ([nápověda](https://support.tekla.com/doc/tekla-structures/2026/mod_tekla_model_assistant)).
-
-Pokud takovou licenci máte, stojí za to porovnat. Claude navíc zvládá všechno kolem:
-Excel, PDF, e-maily, složky, porovnání revizí a vlastní nástroje.
+Trimble má vlastní AI v Tekle pro vyšší licence:
+[Trimble Assistant](https://support.tekla.com/doc/tekla-structures/not-version-specific/trimble_assistant_for_tekla)
+(dotazy k manuálům),
+[Developer Assistant](https://support.tekla.com/doc/tekla-structures/not-version-specific/developer_assistant)
+(píše makra) a
+[Tekla Model Assistant](https://support.tekla.com/doc/tekla-structures/2026/mod_tekla_model_assistant)
+(agent v panelu, TS 2025 SP9 / 2026 SP2). Pokud je máte, porovnejte.
 
 ## Kde se dozvědět víc
 
-- **Construsoft CZ** (distributor Tekly, Přerov): webinář
-  **19. 11. 2026 „Výkresy na pár kliknutí? Automatizace a AI v Tekla Structures“**
-  ([registrace](https://www.construsoft.com/cs/webinar/vykresy-na-par-kliknuti-automatizace-ai-v-tekla-structures)),
-  záznam z 25. 6. 2026 [„Modelování a tvorba výkresové dokumentace s využitím AI“](https://www.construsoft.com/cs/webinar/modelovani-tvorba-vykresove-dokumentace-s-vyuzitim-ai),
-  [všechny webináře](https://www.construsoft.com/cs/webinare).
-- **Tekla Warehouse:** než necháte Clauda něco psát, podívejte se, jestli to už neexistuje
-  ([warehouse.tekla.com](https://warehouse.tekla.com)).
-- **Kurzy zdarma:** [Anthropic Academy](https://anthropic.skilljar.com/) (Claude 101),
-  [Claude Code for Everyone](https://ccforeveryone.com/) (neoficiální, anglicky).
-- **Doporučené postupy:** [Best practices for Claude Code](https://code.claude.com/docs/en/best-practices).
+- **Construsoft CZ:** [webinář 19. 11. 2026 o AI v Tekle](https://www.construsoft.com/cs/webinar/vykresy-na-par-kliknuti-automatizace-ai-v-tekla-structures).
+- [Tekla Warehouse](https://warehouse.tekla.com): možná už nástroj existuje.
+- [Anthropic Academy](https://anthropic.skilljar.com/).
 
 ## Pojmy v kostce {#pojmy}
 
-- **`CLAUDE.md`:** trvalá pravidla pro projekt. Když Claude dvakrát udělá stejnou chybu,
-  zapište pravidlo sem. Jsou to **pokyny, ne zámek**; skutečnou ochranu dávají oprávnění.
-- **Git:** historie pracovní složky. *„Ulož aktuální stav do gitu.“*,
-  *„Vrať se k poslední funkční verzi.“* Příkazy znát nemusíte.
-- **Skill:** uložený recept na opakovaný postup, např. „souhrn reportu“.
-  *„Z toho, co jsme právě udělali, udělej skill.“*
-- **MCP:** propojení Clauda s dalším programem, např. s Teklou. Viz [Živá Tekla](tekla.qmd).
-- **Kontext:** text, který má Claude právě k dispozici. Je omezený, proto dlouhé konverzace
-  slábnou. Důležité věci ukládejte do souborů a začínejte nové konverzace.
+- **`CLAUDE.md`:** trvalá pravidla pro složku. Jsou to pokyny, ne zámek.
+- **Git:** historie složky. *„Ulož stav do gitu.“*, *„Vrať se k poslední funkční verzi.“*
+- **Skill:** uložený recept na opakovaný postup. *„Z tohohle udělej skill.“*
+- **MCP:** propojení Clauda s jiným programem, např. s Teklou.
+- **Kontext:** co má Claude právě „v hlavě“. Dlouhé konverzace slábnou, začínejte nové.
