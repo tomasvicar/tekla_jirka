@@ -34,6 +34,8 @@ website:
         text: Živá Tekla
       - href: ukazky.qmd
         text: Ukázky
+      - href: napady.qmd
+        text: Nápady
       - href: prakticke.qmd
         text: Praktické info
       - href: slides/index.qmd

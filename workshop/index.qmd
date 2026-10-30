@@ -34,7 +34,7 @@ Používáme **Claude Desktop, záložku Code**: agent v běžném okně Windows
 | **2 Makra** | Napíše makro, vy ho spustíte | Střední, jen na kopii modelu |
 | **3 MCP** | Mluví přímo s otevřenou Teklou | Větší, začínáme jen čtením |
 
-Začínáme úrovní 1.
+Začínáme úrovní 1. Co všechno může agent udělat, najdete v [Nápadech](napady.qmd).
 
 ## Program
 

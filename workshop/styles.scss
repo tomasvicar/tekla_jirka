@@ -191,3 +191,10 @@ code { overflow-wrap: anywhere; }
 @media (max-width: 767.98px) {
   #quarto-document-content table { display: block; overflow-x: auto; max-width: 100%; }
 }
+
+/* napady.qmd: štítky úrovně a ověření */
+.lvl { display: inline-block; min-width: 1.5em; text-align: center; border-radius: 999px; font-size: .8rem; font-weight: 700; color: #fff; padding: 0 .4em; }
+.lvl.l1 { background: #2e7d32; }
+.lvl.l2 { background: #c77700; }
+.lvl.l3 { background: #b23a48; }
+.ok { display: inline-block; border: 1px solid #2e7d32; color: #2e7d32; border-radius: 999px; font-size: .72rem; font-weight: 600; padding: 0 .45em; white-space: nowrap; }

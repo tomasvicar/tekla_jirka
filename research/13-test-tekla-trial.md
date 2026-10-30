@@ -25,7 +25,10 @@ Průběžný zápis testu (začato 30. 10. 2026). Cíl: ověřit na reálné Tek
 | Claude Desktop – přihlášení, Code tab | ✅ | Desktop 4.4212 už přihlášený (Max). Výběr složky → dialog **„Trust this workspace?“** → *Trust workspace* |
 | A1 – příprava projektu (řekni agentovi) | ✅ ~6 min | rozbalil balíček, přejmenoval CLAUDE.md, našel verzi, model, logy, `XS_MACRO_DIRECTORY`, offline CHM; **17 XML dokumentací API** v `C:\Program Files\Tekla Structures\2026.0\bin\` zkopírováno do `reference/`; v novém modelu chyběla `macros\modeling` → zeptal se a založil |
 | Vymodelovat jednoduchou halu (makro 04) | ✅ | agent napsal, ověřil API v XML a nasadil makro; v Tekle po *Reload catalog* nalezeno, dvojklik → potvrzovací dialog → **51 z 51 dílů** (20× HEA200, 31× IPE300) |
-| MCP tempalg1n přes „řekni agentovi“ | ⏳ | |
+| MCP B1 – instalace (řekni agentovi) | ✅ ~3 min | agent stáhl `TeklaMcp.Server` v0.9.0 pro Teklu 2026, **ověřil SHA256**, rozbalil do `C:\Nastroje\TeklaMcp`, zazálohoval `claude_desktop_config.json`, ukázal diff a počkal na souhlas; sám vysvětlil úplné ukončení Claude (ikona u hodin → Quit) |
+| MCP – spojení | ✅ | po restartu Claude: `tekla_get_connection_info` → model `KOPIE_test`, `serverReadOnly: true`, server sestavený pro 2026.0, DLL z `...\2026.0\bin` → **funguje s Teklou 2026 SP1** (autor testoval jen 2021/2023) |
+| MCP B2 – dotazy | ✅ | souhrn modelu: 51 dílů, **12 926,1 kg** (ruční kontrola 20×253,5 + 31×253,4 ≈ 12 926), rozpad podle profilu, materiálu i fáze (`tekla_group_weight_by`, `attr:PHASE` funguje) |
+| MCP B3 – zápis s náhledem | ✅ | agent odebral READ_ONLY, vytvořil `.claude/settings.json` s `ask: mcp__tekla__*`; po restartu: náhled `apply=false` (20 sloupů třída 1→5, model beze změny) → souhlas → zápis → agent zpětně ověřil; **jedno Ctrl+Z vrátilo změnu** (ověřeno makrem 01) |
 | Cvičení 1 – výpis (makro 01) | ✅ | agent makro před nasazením sám **přeložil proti DLL Tekly** a nasadil; nabídl tlačítko „Doběhlo“. CSV 51 řádků, `;` + desetinná čárka; HEA200 42,26 kg/m, IPE300 42,23 kg/m (sedí s tabulkami). Agent sám upozornil, že nosníky nejsou zkrácené na sloupech |
 | Cvičení 2 – kontrola modelu | ⏭ přeskočeno | pro začátečníka zbytečně složité (zjišťovat výchozí profil přes Inquire) → zjednodušit/vypustit |
 | Cvičení 3 – změna třídy (makro 03) | ✅ | dialog „Změním 51 vybraných dílů… Pokračovat?“ → 51 z 51; **jedno Ctrl+Z vrátilo třídu i UDA u všech dílů** (ověřeno makrem 01 před/po) |
@@ -52,6 +55,9 @@ Průběžný zápis testu (začato 30. 10. 2026). Cíl: ověřit na reálné Tek
 - Ovládání pohledu: Ctrl+šipky otáčí 3D pohled.
 
 ### Postup / web – co upravit
+- **MCP pravidlo `ask: mcp__tekla__*` je moc upovídané:** ptá se i na čistě čtecí nástroje (connection info, souhrn). Okno povolení u zápisu ukazuje celý seznam změn a tlačítko *Allow once* je aktivní až po **dorolování na konec** („Scroll to the end to allow this“). Pro začátečníka: stačí server s náhledem (`apply=false` → agent se zeptá česky) a pravidlo `ask` dát jen na zapisovací nástroje, nebo ho vynechat.
+- Po zápisu přes MCP agent model **neuloží** – upozorní „uložte Ctrl+S, nebo vraťte Ctrl+Z“. Dobré, na webu zmínit.
+- MCP i makra fungují s Teklou 2026 SP1 → varování „netestováno na živé Tekle“ na webu nahradit „ověřeno 30. 10. 2026 na Tekle 2026 SP1 (trial)“.
 - **Chyby maker:** kompilační chyba je jen v okně CompileError, ne v logu → (1) agent má makro vždy předem přeložit proti DLL Tekly (dělá to sám), (2) makra mají chyby za běhu zapisovat do `vystupy\makro_chyby.txt`, který si agent přečte, (3) když se okno přece objeví: **Win+Shift+S a vložit obrázek Claudovi (Ctrl+V)** – jednodušší než kopírovat text.
 - **Ctrl+Z po makru 03 funguje** (jeden krok vrátí celou změnu) – „NEOVĚŘENO“ z webu odstranit.
 - Cvičení 2 (kontrola výchozích profilů) je pro začátečníky moc složité.
