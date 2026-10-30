@@ -48,7 +48,7 @@ The Desktop app also has a normal **Chat** tab and **Cowork** for non-coding wor
 {
   "mcpServers": {
     "tekla": {
-      "command": "C:\\Tools\\TeklaMcp\\TeklaMcpServer.exe",
+      "command": "C:\\Tools\\TeklaMcp\\TeklaMcp.Server.exe",
       "args": [],
       "env": { "SOME_VAR": "value" }
     }
