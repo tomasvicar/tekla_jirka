@@ -28,12 +28,13 @@ Podívej se na makra/05_Export_PDF.cs. Chci jinou strukturu složek:
 Uprav nastavení nahoře v souboru, vysvětli mi změny, makro zkontroluj a nasaď.
 ```
 
-V Tekle **zavřete otevřený výkres** a spusťte makro **05_Export_PDF**
+V Tekle **zavřete otevřený výkres** a spusťte makro **05_Export_PDF** (po úpravě má na konci `_v2`)
 ([jak spustit makro](../tekla.qmd#makra)).
 
 ::: {.callout-note}
 **Vyzkoušeno 30. 10. 2026 na Tekle 2026 SP1:** makro vytisklo 4 výkresy (2 sestavy, 2 dílce)
-do složek `PDF_export\2026-10-30\Sestavy` a `Dilce`, soubory se jmenují podle značky (`A.1.pdf`).
+do složek `PDF_export\2026-10-30\Sestavy` a `Dilce`. Po úpravě přes Clauda (zadání výše)
+tisklo do `PDF_export\Z2026-021_Hala\04_Vykresy\02_Sestavy\A01.pdf`, `03_Dilce\P01.pdf` atd.
 Poprvé ho zkuste na pár výkresech: *„Nastav v makru JEN_VYBRANE na true.“* Pak tiskne jen
 výkresy vybrané v seznamu.
 :::

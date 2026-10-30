@@ -31,6 +31,9 @@ Uživatel **neprogramuje**. Mluv česky a jednoduše. Pravidla a cesty jsou v `C
 
 - Ulož do `makra/<NN_Nazev>.cs` a zkopíruj do `<model>\macros\modeling\` (cesta v `CLAUDE.md`;
   když složka chybí, zeptej se a založ ji).
+- **Upravené makro nasaď pod novým názvem** (`05_Export_PDF_v2.cs`, `_v3` …). Tekla si
+  zkompilované makro pamatuje a po změně souboru by spustila starou verzi (ověřeno 30. 10. 2026).
+  Starou verzi ze složky maker smaž až po souhlasu.
 - Řekni uživateli: otevřít **kopii**, vybrat díly, **Applications & components** (panel vpravo)
   → **≡** → **Catalog management** → **Reload catalog**, vyhledat název makra, **dvojklik**.
   A co má vidět, když je vše v pořádku.

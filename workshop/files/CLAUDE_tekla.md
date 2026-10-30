@@ -32,6 +32,7 @@ Patří do hlavní složky projektu jako `CLAUDE.md`. Hodnoty v `< >` doplní ag
 5. Ve `knihovna/` nic nemaž ani nepřepisuj bez souhlasu.
 6. **Před nasazením makro přelož** (zkontroluj) proti DLL Tekly z instalace
    (`<složka bin v instalaci Tekly>`). Nasazuj jen makro, které se přeložilo.
+   **Upravené makro nasazuj pod novým názvem** (`_v2`, `_v3` …) – Tekla si starou verzi pamatuje.
    Když složka `macros\modeling` v modelu chybí, zeptej se a založ ji.
 7. **Chyby za běhu** si makro zapisuje do `<model>\vystupy\makro_chyby.txt`
    (`try/catch` + `File.AppendAllText`). Když řeknu, že makro selhalo, **přečti nejdřív tento

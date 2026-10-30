@@ -64,6 +64,9 @@ Když jste to chtěli, klikněte **Allow once** (povolit). Když nevíte, **Deny
 2. **≡** (vpravo nahoře v panelu) → **Catalog management** → **Reload catalog**.
 3. Vyhledejte název makra a spusťte ho **dvojklikem**.
 
+Když Claude makro **upraví**, uloží ho pod novým názvem (např. `…_v2`). Tekla si totiž
+pamatuje starou verzi. Spouštějte vždy tu s nejvyšším číslem (nebo Teklu restartujte).
+
 []{#hala}
 
 ### Cvičení 1 · Vymodelujte halu (10 min) {#cviceni-1}

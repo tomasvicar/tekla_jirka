@@ -40,6 +40,8 @@ Průběžný zápis testu (začato 30. 10. 2026). Cíl: ověřit na reálné Tek
 
 | Makro 05 – export všech výkresů do PDF | ✅ | dialog „Vytisknout 4 výkresů do PDF? Dílce 2, Sestavy 2, složka …\PDF_export\2026-10-30“ → **4 PDF vytištěna** (`Dilce\P.1.pdf`, `P.2.pdf`, `Sestavy\A.1.pdf`, `A.2.pdf`), přehled `prehled_exportu.txt`: 4 vytištěno, 0 chyb. **API tisk funguje i v trialu**, i když tlačítko Print v Document manageru je šedé. PDF = skutečný dílenský výkres (A3 na šířku, kusovník, razítko) |
 
+| Makro 05 – úprava struktury přes agenta | ✅ | zadání ze stránky Export do PDF (kořen `Z2026-021_Hala\04_Vykresy`, složky 01_Rozmisteni/02_Sestavy/03_Dilce, názvy `A01.pdf`) → agent upravil nastavení, přeložil, nasadil; **Tekla ale spustila starou verzi** (cache přeložených maker – Reload catalog nestačí) → po uložení pod novým názvem `05_Export_PDF_v2.cs` vytištěno `02_Sestavy\A01.pdf, A02.pdf`, `03_Dilce\P01.pdf, P02.pdf` |
+
 ## Zjištění
 
 ### Claude Desktop
@@ -61,6 +63,9 @@ Průběžný zápis testu (začato 30. 10. 2026). Cíl: ověřit na reálné Tek
 - Ovládání pohledu: Ctrl+šipky otáčí 3D pohled.
 
 ### Postup / web – co upravit
+- **Tekla si pamatuje přeložená makra:** po úpravě souboru a *Reload catalog* běží stará verze → upravené makro nasazovat pod novým názvem (`_v2`), nebo restart Tekly. Doplněno do CLAUDE_tekla.md, skillu, tekla.qmd a pdf-export.qmd.
+- Obrazovka VM zhasíná po 5 min → `powercfg /change monitor-timeout-ac 0`.
+- Pozor při ovládání Claude Desktopu: v levém seznamu jsou i relace jiných projektů/počítačů (Remote Control) – klik na „New“ nahoře může otevřít cizí relaci; nový chat v projektu přes **+** u názvu projektu.
 - **MCP pravidlo `ask: mcp__tekla__*` je moc upovídané:** ptá se i na čistě čtecí nástroje (connection info, souhrn). Okno povolení u zápisu ukazuje celý seznam změn a tlačítko *Allow once* je aktivní až po **dorolování na konec** („Scroll to the end to allow this“). Pro začátečníka: stačí server s náhledem (`apply=false` → agent se zeptá česky) a pravidlo `ask` dát jen na zapisovací nástroje, nebo ho vynechat.
 - Po zápisu přes MCP agent model **neuloží** – upozorní „uložte Ctrl+S, nebo vraťte Ctrl+Z“. Dobré, na webu zmínit.
 - MCP i makra fungují s Teklou 2026 SP1 → varování „netestováno na živé Tekle“ na webu nahradit „ověřeno 30. 10. 2026 na Tekle 2026 SP1 (trial)“.
