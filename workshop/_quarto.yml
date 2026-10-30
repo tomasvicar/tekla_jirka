@@ -1,0 +1,51 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "slides/index.qmd"
+    - "ukazky/*.qmd"
+  resources:
+    - data/**
+    - files/**
+    - slides/*.js
+    - assets/**
+    - demos/**
+
+website:
+  title: "Claude pro stavaře"
+  navbar:
+    background: "#12355b"
+    foreground: "#ffffff"
+    left:
+      - href: index.qmd
+        text: Úvod
+      - href: instalace.qmd
+        text: Instalace
+      - href: kancelar.qmd
+        text: Kancelář
+      - href: cviceni.qmd
+        text: Data z Tekly
+      - href: tekla.qmd
+        text: Živá Tekla
+      - href: ukazky.qmd
+        text: Ukázky
+      - href: prakticke.qmd
+        text: Praktické info
+      - href: slides/index.qmd
+        text: Prezentace
+  page-footer:
+    left: "Claude pro stavaře · interní workshop"
+    right: "Vytvořeno v [Quartu](https://quarto.org)"
+  search: false
+
+format:
+  html:
+    theme: [cosmo, styles.scss]
+    toc: true
+    toc-depth: 2
+    toc-title: "Na této stránce"
+    link-external-newwindow: true
+    smooth-scroll: true
+
+lang: cs

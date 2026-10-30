@@ -1,0 +1,105 @@
+/*-- scss:defaults --*/
+$presentation-font-size-root: 32px;
+$presentation-heading-font: "Aptos Display", "Segoe UI", "Helvetica Neue", sans-serif;
+$presentation-heading-color: #12355b;
+$presentation-heading-font-weight: 650;
+$presentation-font: "Aptos", "Segoe UI", "Helvetica Neue", sans-serif;
+$presentation-slide-text-color: #17212b;
+$presentation-title-slide-text-align: left;
+$link-color: #007f86;
+
+/*-- scss:rules --*/
+.reveal .slides section { text-align: left; }
+.reveal h2 { border-bottom: 2px solid #d7e5ea; padding-bottom: .2em; }
+.reveal table { font-size: .72em; }
+.reveal pre code { font-size: .8em; white-space: pre-wrap; }
+.reveal .section-slide h1 { color: #12355b; }
+.insight-box {
+  background: #eef6f7;
+  border-left: 6px solid #007f86;
+  border-radius: 8px;
+  padding: .6em .9em;
+}
+.small-note { font-size: .6em; color: #60717b; }
+
+/* sekční slajdy s ilustrací vpravo */
+.reveal .slides section.section-illus h1 { max-width: 52%; font-size: 2.3em; margin-top: 2.6em; }
+.reveal .slides section.section-illus p { max-width: 50%; color: #40515e; }
+
+/* karty "co všechno jde" */
+.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; font-size: .55em; margin-top: .4em; }
+.cards > div { background: #eef7f8; border-radius: 12px; padding: .5em .7em; border-top: 4px solid #007f86; }
+.cards > div:nth-child(3n+2) { border-top-color: #d48a16; background: #fff7ea; }
+.cards > div:nth-child(3n) { border-top-color: #326ba8; background: #eef3fa; }
+.cards b { display: block; font-size: 1.25em; color: #12355b; margin-bottom: .15em; }
+.cards .ico { font-size: 1.7em; line-height: 1; display: block; margin-bottom: .15em; }
+
+/* další slovo */
+.nw { font-size: .7em; }
+.nw-text { font-size: 1.5em; min-height: 2.6em; padding: .3em .5em; background: #f3f6f8; border-radius: 10px; }
+.nw-new { background: #ffe3b3; border-radius: 6px; padding: 0 .15em; }
+.nw-bars { margin: .5em 0; min-height: 6.5em; }
+.nw-row { display: grid; grid-template-columns: 7em 1fr 4em; align-items: center; width: 100%;
+  border: 0; background: none; padding: .12em 0; cursor: pointer; font: inherit; color: inherit; text-align: left; }
+.nw-row:hover .nw-bar { background: #d48a16; }
+.nw-bar { height: .9em; background: #007f86; border-radius: 4px; }
+.nw-p { text-align: right; color: #60717b; }
+.nw-done { color: #60717b; padding: .5em 0; }
+.nw button.btn-w, .tk button.btn-w { font: inherit; font-size: .9em; border: 2px solid #007f86; background: #fff;
+  color: #007f86; border-radius: 999px; padding: .15em .8em; cursor: pointer; margin-right: .3em; }
+.nw button.btn-w:hover { background: #007f86; color: #fff; }
+
+/* živý editor */
+.live { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; height: 450px; font-size: .55em; }
+.live textarea { width: 100%; height: 100%; box-sizing: border-box; font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 1.05em; border: 2px solid #d7e5ea; border-radius: 10px; padding: .6em; resize: none; background: #f8fafb; }
+.live .live-out, .live iframe { width: 100%; height: 100%; box-sizing: border-box; border: 2px solid #007f86;
+  border-radius: 10px; padding: .4em .9em; overflow: auto; background: #fff; }
+.live iframe { padding: 0; }
+.live .live-out h1, .live .live-out h2 { font-size: 1.5em; border: 0; margin: .3em 0; }
+.live-label { font-size: .62em; color: #60717b; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+/* kalkulačka tokenů */
+.tk { font-size: .62em; }
+.tk label { display: grid; grid-template-columns: 15em 1fr 4em; align-items: center; gap: .6em; margin: .2em 0; }
+.tk input[type=range] { width: 100%; accent-color: #007f86; }
+.tk-sum { margin: .6em 0 .4em; }
+.tk-row { display: grid; grid-template-columns: 11em 1fr 6em; align-items: center; gap: .6em; margin: .25em 0; }
+.tk-bar { height: 1em; background: #d48a16; border-radius: 4px; min-width: 2px; }
+.tk-c { text-align: right; font-weight: 700; color: #12355b; }
+
+/* vložené ukázky */
+.embed { width: 100%; height: 540px; border: 2px solid #d7e5ea; border-radius: 12px; background: #fff; }
+.vs { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; font-size: .68em; }
+.vs > div { border-radius: 12px; padding: .5em .9em; }
+.vs .bot { background: #f3f6f8; }
+.vs .agent { background: #eef7f8; border: 2px solid #007f86; }
+.vs .vs-h { display: block; margin: .1em 0 .3em; font-size: 1.3em; font-weight: 700; color: #12355b; }
+.vs .you { color: #b94032; font-weight: 700; }
+
+/* přehled nástrojů */
+.tools { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; font-size: .56em; margin: .3em 0 .8em; }
+.tools > div { border: 2px solid #c9d6dd; border-radius: 14px; padding: .6em .7em; background: #fff;
+  display: flex; flex-direction: column; gap: .35em; }
+.tools > div.hl { border-color: #007f86; background: #eef7f8; box-shadow: 0 6px 18px rgba(0,127,134,.18); }
+.tools b { font-size: 1.2em; color: #12355b; border-bottom: 1px solid #d7e5ea; padding-bottom: .25em; }
+.tools span { background: #f3f6f8; border-radius: 8px; padding: .25em .5em; text-align: center; font-weight: 600; }
+.tools .hl span { background: #fff; }
+.tools i { color: #60717b; font-size: .9em; text-align: center; margin-top: auto; }
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; font-size: .55em; margin-bottom: .5em; }
+.three > div { border: 2px solid #c9d6dd; border-radius: 14px; padding: .5em .8em; line-height: 1.45; }
+.three > div.hl { border-color: #007f86; background: #eef7f8; }
+.three b { display: block; font-size: 1.25em; color: #12355b; }
+.three em { color: #007f86; font-weight: 700; font-style: normal; }
+
+/* titulní slajd: text vlevo, ilustrace vpravo dole */
+.reveal .quarto-title-block .title, .reveal #title-slide .title { max-width: 62%; font-size: 2.4em; }
+.reveal #title-slide .subtitle, .reveal #title-slide .quarto-title-authors { max-width: 55%; }
+.reveal table { font-size: .8em; }
+.reveal figcaption { font-size: .5em; color: #60717b; }
+.nw { font-size: .85em; }
+.tools { font-size: .62em; }
+.three { font-size: .6em; }
+.interface-slides { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.interface-slides img { width: 100%; height: 300px; object-fit: contain; background: #f3f6f8; border-radius: 10px; }
+.interface-slides span { display: block; text-align: center; font-size: .6em; color: #60717b; }

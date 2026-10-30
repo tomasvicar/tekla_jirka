@@ -1,0 +1,13 @@
+[project]
+name = "ai-agent-stavar-workshop"
+version = "0.1.0"
+description = "Workshop: Claude (AI agent) pro stavaře – kancelář a Tekla Structures; web a prezentace v Quartu"
+requires-python = ">=3.11"
+dependencies = [
+    "quarto-cli>=1.9.38",
+    "numpy>=2.0",
+    "pandas>=2.2",
+]
+
+[tool.uv]
+package = false

@@ -1,0 +1,9 @@
+_site/
+.quarto/
+*_files/
+.venv/
+__pycache__/
+/.luarc.json
+
+/.quarto/
+**/*.quarto_ipynb

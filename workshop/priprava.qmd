@@ -1,0 +1,82 @@
+---
+title: "Příprava"
+subtitle: "Co mít připravené před workshopem (asi 20 minut)"
+---
+
+Instalaci uděláme společně. Předem stačí zařídit předplatné a připravit pár souborů
+z Tekly. Čím víc z toho bude hotové, tím víc času zbude na skutečnou práci.
+
+## 1. Předplatné Claude Pro
+
+1. Založte si účet na [claude.ai](https://claude.ai) (stačí e-mail).
+2. Kupte tarif **Pro** (přehled tarifů: [claude.com/pricing](https://claude.com/pricing)).
+   Měsíčně stojí asi 20 USD bez DPH a dá se kdykoli zrušit.
+3. Rovnou v [nastavení soukromí](https://claude.ai/settings/data-privacy-controls) vypněte **Model improvement**
+   (vaše konverzace se pak nepoužijí k tréninku).
+
+**Hotovo, když:** se přihlásíte na claude.ai a vidíte u účtu tarif Pro.
+
+::: {.callout-note}
+## Proč ne zdarma a proč ne hned Team?
+Bezplatný tarif **agenta (Claude Code) neobsahuje**. Pro zkoušení stačí **Pro**.
+Pro práci na zakázkách klientů zvažte firemní tarif **Team**. Důvody jsou na stránce
+[Praktické info](prakticke.qmd#soukromi).
+:::
+
+## 2. Počítač
+
+- **Windows 10 (verze 1809 a novější) nebo Windows 11**, aspoň 4 GB RAM. Ideálně ten počítač,
+  na kterém běží Tekla.
+- **Práva správce nejsou nutná** pro samotný Claude Desktop. Pro **Git for Windows** se
+  hodí. Pokud počítač spravuje firemní IT, domluvte se předem, že si můžete nainstalovat
+  dva programy (Claude Desktop a Git).
+- Zjistěte, zda firemní pravidla používání AI nástrojů nějak neomezují.
+
+## 3. Tekla: verze a licence
+
+Poznamenejte si (najdete v *Nápověda → O aplikaci* / *Help → About*):
+
+- **verzi Tekly** včetně service packu, např. *2025 SP5* nebo *2026 SP2*,
+- **typ licence**: Carbon, Graphite, nebo Diamond (Diamond a Graphite mají
+  i vlastní AI asistenty Trimble, viz [Praktické info](prakticke.qmd#trimble)),
+- **prostředí** (environment), např. *Czech* nebo *Default*.
+
+## 4. Záložní kopie testovacího modelu
+
+Pro část s živou Teklou potřebujeme **model, na kterém nevadí chyba**. Ideálně
+starší, uzavřenou zakázku nebo malý cvičný model.
+
+1. Otevřete model v Tekle.
+2. **File → Save as → Save and create backup copy** (*Soubor → Uložit jako → Uložit
+   a vytvořit záložní kopii*).
+3. Pro zkoušení pak použijte **samostatnou kopii** modelu, ne sdílený (multi-user) model.
+
+::: {.callout-warning}
+Obyčejné *Save as* vytvoří nový model s jinými identifikátory (GUID) a **není to záloha**.
+Nikdy nezkoušejte agenta na sdíleném nebo produkčním modelu.
+:::
+
+## 5. Několik exportovaných reportů
+
+Ze stejného modelu vyexportujte 2–3 reporty, které běžně používáte, např.:
+
+- kusovník / materiálový výpis (*Assembly list*, *Part list*, *Material list*),
+- přehled hmotností podle fází nebo profilů,
+- pokud to jde, **dvě revize** stejného reportu (před a po změně).
+
+Formát může být `.csv`, `.xlsx` nebo `.txt`. Uložte je do jedné složky, třeba
+`Dokumenty\tekla-reporty`. Pro jistotu si **odstraňte nebo přepište jména klientů**.
+
+::: {.callout-tip}
+## Nic z toho nemáte?
+Nevadí. Na webu jsou připravená **smyšlená data** (kusovníky, revize, složky zakázek)
+a všechna cvičení s nimi fungují. Vlastní reporty jsou jen bonus.
+:::
+
+## Kontrolní seznam
+
+- [ ] Claude Pro zaplacený, *Model improvement* vypnuté
+- [ ] Notebook nebo PC s Windows, případně souhlas IT s instalací
+- [ ] Zapsaná verze Tekly, licence a prostředí
+- [ ] Záložní kopie testovacího modelu
+- [ ] 2–3 exportované reporty (bez jmen klientů)
