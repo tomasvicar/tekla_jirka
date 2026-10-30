@@ -3,9 +3,10 @@ title: "Instalace a první spuštění"
 subtitle: "Claude Desktop na Windows, záložka Code, bez psaní příkazů"
 ---
 
-Uděláme to společně, asi za 20 minut. Potřebujete [placený Claude](priprava.qmd).
+Zvládnete to i sami, asi za 30 minut. Potřebujete [placený Claude](priprava.qmd).
 Nástroje nainstaluje agent sám, vy jen schvalujete. Když menu vypadá trochu jinak,
-hledejte podobný název.
+hledejte podobný název. Když se zaseknete: **Win+Shift+S** (výřez obrazovky), pak
+**Ctrl+V** do chatu s Claudem a napište *„Co mám udělat?“*
 
 ## Krok 1: stáhnout a přihlásit
 
@@ -20,54 +21,49 @@ hledejte podobný název.
 
 Složka je „šuplík“ v počítači, ve kterém leží soubory. Claude bude pracovat jen v ní.
 
-1. V Průzkumníku (žlutá ikona složky na liště) vytvořte novou složku, např.
-   `C:\Users\<jmeno>\Claude\stavar-workshop`.
-2. Klikněte na [`CLAUDE.md`](files/CLAUDE.md){download="CLAUDE.md"}. Soubor se uloží do
-   *Stažené soubory*; odtud ho myší **přetáhněte** do nové složky.
-   Jsou v něm pravidla, která Claude čte na začátku každé práce.
-
-Nevybírejte složku s modely Tekly, celé *Dokumenty* ani plochu.
+1. Otevřete Průzkumník (žlutá ikona složky na liště) a vlevo klikněte na **Dokumenty**.
+2. Do prázdného místa klikněte pravým tlačítkem → **Nový** → **Složka** a pojmenujte ji `stavar-workshop`.
+3. Klikněte na [`CLAUDE.md`](files/CLAUDE.md){download="CLAUDE.md"}. Soubor se uloží do
+   *Stažené soubory*, přesune ho Claude v kroku 4. Jsou v něm pravidla, která Claude čte
+   na začátku každé práce.
 
 ## Krok 3: záložka Code
 
 1. V Claude Desktop klikněte nahoře vlevo na ikonu **`</>`** (záložka **Code**).
 2. Klikněte na **Choose a folder** a vyberte složku `stavar-workshop`.
 3. Vyskočí otázka *Trust this workspace?* (Důvěřujete této složce?). Klikněte **Trust workspace**.
-4. U pole pro psaní nechte režim **Auto** (je nastavený sám).
 
 **Uvidíte** pole pro zadání a nad ním název vaší složky.
 
-### Režimy oprávnění
+**Režim** u pole pro psaní nechte **Auto**: běžné věci udělá sám, u rizikových se zeptá.
+*Manual* se ptá na všechno. *Bypass permissions* nikdy.
 
-Oprávnění určují, na co se vás Claude ptá, než něco udělá.
-
-| Režim | Co dělá | Pro workshop |
-| --- | --- | --- |
-| **Auto** | Běžné věci dělá sám, u rizikových a u souborů mimo složku se zeptá | **Doporučeno** |
-| **Manual** | Ptá se na úplně všechno, i na čtení | Moc otázek pro začátek |
-| **Bypass permissions** | Na nic se neptá | **Nikdy** |
-
-Bezpečí zajišťuje hlavně to, že pracujeme **na kopiích**, s historií v gitu a se zálohou modelu.
-Když se Claude ptá a nerozumíte, klikněte *Deny* a napište:
-*„Vysvětli mi jednoduše, co chceš udělat.“*
+**Okénko se souhlasem:** Claude se někdy zeptá v okénku (anglicky), jestli smí něco udělat,
+např. sáhnout do Stažených souborů. Když jste to chtěli, klikněte **Allow once** (povolit).
+Když nevíte, **Deny** a napište: *„Vysvětli mi jednoduše, co chceš udělat.“*
 
 ## Krok 4: zadání A – pravidla a nástroje
 
 Řekněte agentovi (zkopírujte text do pole a stiskněte Enter):
 
 ```default
-Přečti si CLAUDE.md a řekni mi vlastními slovy, jaká pravidla máš.
-Pak zkontroluj, jestli mám Git for Windows a uv. Co chybí, nainstaluj přes winget,
-kde to jde, s --scope user.
-Ve složce vytvoř podsložky podklady a vystupy a založ v ní git.
+Přesuň CLAUDE.md ze složky Stažené soubory sem.
+Přečti si ho a řekni mi vlastními slovy, jaká pravidla máš.
+Pak zkontroluj, jestli mám Git a uv. Co chybí, nainstaluj přes winget s --scope user.
+Tady ve složce vytvoř podsložky podklady a vystupy a zapni git.
 ```
 
-Git a uv jsou pomocné programy: git pamatuje historii složky, uv spouští skripty.
+Slova, kterým nerozumíte, jsou pokyny pro Clauda. Vy jen kopírujete.
+(Git a uv jsou pomocné programy: git pamatuje historii složky, uv spouští skripty.)
 
-**Co uděláte vy:** když vyskočí modré okno Windows *Chcete povolit…? Ano / Ne*, klikněte *Ano*.
+**Co uděláte vy:** když vyskočí modré okno Windows *Chcete povolit…? Ano / Ne*, klikněte **Ano**.
+Když chce **heslo správce** a vy ho nemáte, klikněte **Ne** a napište Claudovi:
+*„Nemám práva správce. Zkus to jinak.“* Když to nepůjde, požádejte IT.
 
 **Pak Claude úplně zavřete:** vpravo dole u hodin klikněte na šipku **^**, pravým tlačítkem
-na ikonu Claude → **Quit**. Spusťte ho znovu. Jinak nové programy neuvidí.
+na ikonu Claude → **Quit**. Spusťte ho znovu, jinak nové programy neuvidí.
+Klikněte znovu na **`</>`** (Code). Složka bude vlevo v seznamu, nebo ji vyberte přes
+**Choose a folder**.
 
 ## Krok 5: zadání B – první úkol
 

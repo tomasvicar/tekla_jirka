@@ -31,7 +31,7 @@ lang: cs
 1. **Co je AI agent** a čím se liší od chatbota
 2. **Claude Desktop**: oprávnění, zálohy
 3. **Co jde udělat**: kancelář, data z Tekly, jak zadávat
-4. **Claude a Tekla**: 1 Soubory · 2 Makra · 3 MCP
+4. **Claude a Tekla**: 1 Soubory · 2 Makra · 3 MCP (volitelné)
 5. **Prakticky**: cena, soukromí, limity
 ::::
 :::: {.column width="42%"}
@@ -134,15 +134,13 @@ Aplikace na vašem počítači, model v cloudu.
 
 ## Oprávnění: kolik toho smí sám
 
-| Režim | Co dělá | Na workshopu |
-| --- | --- | --- |
-| **Auto** | sám posoudí, co je bezpečné; u rizikových kroků se zeptá | **nechte, je výchozí** |
-| **Manual** | ptá se na každý příkaz | moc otázek |
-| **Plan** | jen čte a navrhne postup | větší úkoly |
-| **Bypass permissions** | na nic se neptá | **nikdy** |
+::: {.insight-box}
+Nechte **Auto**: běžné věci udělá sám, u rizikových se zeptá. *Manual* se ptá na všechno. *Bypass permissions* **nikdy**.
+:::
 
+- Složky v *Dokumentech*: `stavar-workshop` (kancelář, data) a `tekla-makra` (makra, MCP).
 - Po výběru složky: „Trust this workspace?“ → **Trust workspace**.
-- Soubor mimo složku: zeptá se. **Always allow** platí jen do zavření konverzace.
+- Okénko se souhlasem: chtěli jste to → **Allow once**. Nevíte → **Deny** a *„Vysvětli mi jednoduše, co chceš udělat.“*
 - Jistota = **kopie souborů, git a záloha modelu**.
 
 ## Bezpečně
@@ -301,8 +299,8 @@ Tři úrovně: 1 Soubory · 2 Makra · 3 MCP.
 | Úroveň | Jak to funguje | Riziko pro model | Kdy |
 | --- | --- | --- | --- |
 | **1 · Soubory** | Tekla uloží report → Claude z něj udělá Excel/PDF | **žádné** | **hned** |
-| **2 · Makra** | makro = malý program pro Teklu; Claude ho napíše, vy spustíte | **střední**: kopie modelu | druhý krok |
-| **3 · MCP** | propojení: Claude se ptá otevřené Tekly | **žádné** při čtení | **jen čtení** |
+| **2 · Makra** | makro = malý program pro Teklu; Claude ho napíše, vy spustíte | **malé**: jen kopie modelu | druhý krok |
+| **3 · MCP** | propojení: Claude se ptá otevřené Tekly | **žádné**: jen čtení | **volitelné**, až budete mít zkušenosti |
 
 ::: {.insight-box}
 Nejvíc práce ušetří obvykle úroveň **1**. Tekla sama neporovná dvě revize kusovníku; skript ano.
@@ -310,7 +308,7 @@ Nejvíc práce ušetří obvykle úroveň **1**. Tekla sama neporovná dvě revi
 
 ## Úroveň 2: makro, které napíše Claude
 
-1. *„Napiš makro, které vypíše vybrané díly. **Nic neměň.**“*
+1. Ve složce `tekla-makra`: *„Napiš makro, které vypíše vybrané díly. **Nic neměň.**“*
 2. Claude makro **sám zkontroluje** a uloží do složky maker Tekly.
 3. V Tekle: panel **Applications & components** → **≡** → **Catalog management** → **Reload catalog**.
 4. Makro najděte podle názvu a spusťte **dvojklikem**.
@@ -322,13 +320,13 @@ Změny modelu až **na kopii**. **Jedno Ctrl+Z** vrátí celou změnu z makra.
 Makra pro sebe licence Tekly dovoluje; prodávat je lze jen přes Tekla Partners Program. [Návod →](../tekla.qmd)
 :::
 
-## Úroveň 3: MCP
+## Úroveň 3: MCP (volitelné)
 
 ![](figures/anim_mcp_flow.gif){width=68% fig-align="center"}
 
 - **MCP** = propojení, přes které se Claude **ptá otevřené Tekly**. Používáme [`tekla-mcp-server`](https://github.com/tempalg1n/tekla-mcp-server).
 - Pro začátek **jen čtení**: souhrn, hmotnosti. **Změny modelu dělejte makry.**
-- Změny přes MCP: pro pokročilé, později.
+- Volitelné, **až budete mít zkušenosti**.
 
 ::: {.small-note}
 Trimble má vlastní **Tekla Model Assistant** (preview), jen pro licence Diamond / Graphite / Carbon.
@@ -359,18 +357,17 @@ Cena, soukromí, limity.
 
 ::: columns
 :::: {.column width="50%"}
-**Pro / Max**: od 20 USD / měs.
+**Pro**: od 20 USD / měs.
 
-- na vyzkoušení s cvičnými daty
+- **jen na vyzkoušení** se smyšlenými daty
+- podmínky Pro **nedovolují práci pro firmu**
 - vypnout *Model improvement*
-- podmínky pro spotřebitele (čl. 11): **komerční použití nedovolují**
-- bez smlouvy o zpracování (DPA)
 ::::
 :::: {.column width="50%"}
 **Team**: 25 USD / místo / měs., od 2 míst
 
 - **práce pro klienty → Team**
-- obchodní podmínky, **DPA**
+- obchodní podmínky a smlouva o zpracování dat (DPA)
 - data se k trénování nepoužívají
 ::::
 :::
@@ -380,7 +377,7 @@ Do cloudu jde vše, co Claude přečte. Posílejte **co nejméně**; NDA klienta
 :::
 
 ::: {.small-note}
-Ceny bez DPH podle claude.com/pricing (říjen 2026). Nejde o právní radu.
+Zdroje: claude.com/pricing (říjen 2026, bez DPH), spotřebitelské podmínky Anthropic čl. 11. Nejde o právní radu.
 :::
 
 ## Kontext a limity
@@ -392,6 +389,7 @@ Ceny bez DPH podle claude.com/pricing (říjen 2026). Nejde o právní radu.
 :::: {.column width="45%"}
 - Každý krok posílá modelu **celou konverzaci** znovu.
 - Delší konverzace = **rychleji vyčerpaný limit** (po pár hodinách se obnoví, plus týdenní strop).
+- Na **Pro** se limit může vyčerpat před koncem: počkejte, Claude ukáže kdy.
 - **Dlouhá ≠ lepší**: zapomíná, opakuje chyby.
 - Důležité zapsat do `CLAUDE.md`, pak **nová konverzace**.
 ::::

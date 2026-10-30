@@ -1,13 +1,14 @@
 ---
 title: "Živá Tekla"
-subtitle: "Claude píše makra pro otevřený model v Tekle · 30 minut"
+subtitle: "Claude píše makra pro otevřený model v Tekle · 40 minut (MCP volitelné)"
 ---
 
 Claude pracuje s **otevřeným modelem v Tekle**:
 
-- **Makro** (úroveň 2): krátký program, který Claude napíše a vy v Tekle spustíte
-  jedním dvojklikem. **Začneme tady.**
-- **MCP** (úroveň 3): Claude se Tekly ptá přímo z chatu. Na konci.
+- **Makro** (úroveň 2, riziko malé, jen kopie modelu): krátký program, který Claude
+  napíše a vy v Tekle spustíte dvojklikem. **Začneme tady.**
+- **MCP** (úroveň 3, riziko žádné, jen čtení): Claude se Tekly ptá přímo z chatu.
+  Volitelné.
 
 ::: {.callout-note}
 Vyzkoušeno 30. 10. 2026 na Tekle 2026 SP1 (zkušební verze).
@@ -23,16 +24,18 @@ Vyzkoušeno 30. 10. 2026 na Tekle 2026 SP1 (zkušební verze).
 ## Makra {#makra}
 
 **Makro** je soubor `.cs`, malý program pro Teklu. Claude ho napíše, zkontroluje
-a uloží, kam patří. Vy ho jen spustíte.
+a nasadí. **Nasadit** = Claude makro uloží do složky maker vaší Tekly, aby ho Tekla viděla.
+Vy ho jen spustíte.
 
-### A1 · Příprava projektu (5 min)
+### A1 · Příprava projektu (8 min)
 
-1. V Průzkumníku souborů vytvořte **složku** (místo na disku pro soubory)
-   `C:\Users\<jméno>\tekla-automatizace`.
+1. V Průzkumníku otevřete **Dokumenty** → pravé tlačítko → **Nový** → **Složka**,
+   název `tekla-makra`. Bude vedle složky `stavar-workshop`, má vlastní pravidla pro Clauda.
 2. V Claude otevřete záložku **Code** a tuto složku vyberte. Na otázku
    „Trust this workspace?“ klikněte **Trust workspace**.
 3. Stáhněte balíček. Je to **ZIP** (několik souborů zabalených do jednoho):
-   pravidla pro Clauda, návod na makra a tři hotová makra.
+   pravidla pro Clauda, návod na makra, makra 01–03 ke cvičením a 05 – export výkresů
+   do PDF, viz ukázka [Export do PDF](ukazky/pdf-export.qmd).
 
 [Stáhnout balíček (ZIP)](files/tekla_balicek.zip){.btn-pill .solid download="tekla_balicek.zip"}
 
@@ -49,7 +52,9 @@ Přesuň tekla_balicek.zip ze Stažených souborů do této složky a rozbal ho.
 4. Doplň to do CLAUDE.md, co nenajdeš, označ NEOVĚŘENO. Ukaž mi výsledek.
 ```
 
-Claude se zeptá, jestli smí číst složku modelu. Povolte.
+Claude se zeptá v okénku, jestli smí číst složku modelu.
+Když jste to chtěli, klikněte **Allow once** (povolit). Když nevíte, **Deny** a napište:
+*Vysvětli mi jednoduše, co chceš udělat.*
 
 **Zkontrolujte:** v CLAUDE.md je vaše verze Tekly a cesta ke **kopii**, ne k ostrému modelu.
 
@@ -59,7 +64,9 @@ Claude se zeptá, jestli smí číst složku modelu. Povolte.
 2. **≡** (vpravo nahoře v panelu) → **Catalog management** → **Reload catalog**.
 3. Vyhledejte název makra a spusťte ho **dvojklikem**.
 
-### Cvičení 1 · Vymodelujte halu (7 min) {#hala}
+[]{#hala}
+
+### Cvičení 1 · Vymodelujte halu (10 min) {#cviceni-1}
 
 Otevřete prázdnou kopii (`KOPIE_test`). Řekněte agentovi:
 
@@ -71,10 +78,9 @@ Pojistka KOPIE, dotaz s počtem dílů, jedno CommitChanges. Pak ho nasaď.
 
 Spusťte **04_Jednoducha_konstrukce** a potvrďte dotaz.
 
-**Uvidíte:** 51 dílů (20 sloupů, 31 nosníků). **Ctrl+šipky** otáčí 3D pohled.
-Ctrl+Z by ji smazalo, nechte ji na další cvičení.
+**Uvidíte:** 51 dílů (20 sloupů, 31 nosníků). Halu nechte na další cvičení.
 
-### Cvičení 2 · Výpis vybraných dílů do CSV (6 min) {#cviceni-1}
+### Cvičení 2 · Výpis vybraných dílů do CSV (8 min) {#cviceni-2}
 
 **CSV** je jednoduchá tabulka, otevře ji Excel. Makro model jen čte.
 
@@ -92,7 +98,7 @@ V Tekle vyberte několik dílů, spusťte **01_Vypis_vybranych_dilu** a napište
 **Zkontrolujte:** Claude ukáže tabulku. Jeden díl porovnejte v Tekle (dvojklik na díl):
 profil a materiál sedí.
 
-### Cvičení 3 · Změna třídy, jen na kopii (6 min) {#cviceni-3}
+### Cvičení 3 · Změna třídy, jen na kopii (8 min) {#cviceni-3}
 
 Teď makro model **mění**. Mimo `KOPIE` neběží a před změnou se zeptá.
 
@@ -107,10 +113,7 @@ Ukaž mi, co jsi změnil, a makro nasaď.
 
 Model se sám **neuloží**. Změnu chcete nechat? **Ctrl+S**. Nechcete? **Ctrl+Z**.
 
-[]{#cviceni-2}
-V balíčku je i makro **02_Kontrola_modelu** (najde díly bez materiálu). Vyzkoušejte ho později.
-
-### Uložte do knihovny (2 min) {#cviceni-4}
+### Cvičení 4 · Uložte do knihovny (3 min) {#cviceni-4}
 
 ```default
 Ověřená makra ulož do knihovna/ a vytvoř knihovna/README.md (název, co dělá,
@@ -122,10 +125,13 @@ co jsme se dnes naučili.
 
 - **Okno s chybou** (např. *CompileError*): stiskněte **Win+Shift+S**, vyberte okno myší
   a v chatu s Claudem dejte **Ctrl+V**. Claude chybu přečte z obrázku a opraví.
-- **Chyby za běhu** si makra zapisují do `vystupy\makro_chyby.txt` ve složce modelu.
-  Stačí napsat „makro selhalo“, Claude si soubor přečte sám.
+- **Jiná chyba:** napište „makro selhalo“, Claude si log přečte sám.
 
-## Úroveň 3 · MCP {#mcp}
+## Úroveň 3 · MCP (volitelné) {#mcp}
+
+::: {.callout-tip}
+Volitelné, až budete mít zkušenosti. Pro samostudium doporučujeme skončit u maker.
+:::
 
 **MCP server** je malý program, přes který se Claude ptá otevřené Tekly přímo z chatu.
 Používáme komunitní [tempalg1n/tekla-mcp-server](https://github.com/tempalg1n/tekla-mcp-server)
@@ -161,19 +167,15 @@ Kolik váží ocel v jednotlivých fázích?
 
 U haly z cvičení 1 vyjde 51 dílů a asi 12 900 kg. Jedno číslo ověřte v Tekle sami.
 
-MCP je na rychlé otázky. **Změny modelu dělejte makry.**
-
 []{#mcp-zapisy}
 
 ::: {.callout-note collapse="true"}
 ## Pro pokročilé: změny modelu přes MCP
-Server umí i měnit model: nejdřív ukáže náhled, změní až po souhlasu. Agent v konfiguraci
-odebere `TEKLA_MCP_READ_ONLY` a vy restartujete Claude. Funguje, Ctrl+Z vrací, ale okna
-s povolením jsou pro začátek matoucí. Režim **Bypass permissions** nikdy nepoužívejte.
+Server umí model i měnit (nejdřív ukáže náhled). Agent odebere `TEKLA_MCP_READ_ONLY`,
+vy restartujete Claude. Ctrl+Z vrací, ale okna s povolením jsou pro začátek matoucí.
 :::
 
 ## Alternativy {#alternativy}
 
-- **[teknovizier/tekla_mcp_server](https://github.com/teknovizier/tekla_mcp_server):** umí
-  i výkresy, složitější instalace.
-- **Tekla Model Assistant** od Trimble: v Tekle, zatím zkušební, viz [Praktické info → Trimble](prakticke.qmd#trimble).
+- [teknovizier/tekla_mcp_server](https://github.com/teknovizier/tekla_mcp_server): umí i výkresy.
+- **Tekla Model Assistant** od Trimble, viz [Praktické info](prakticke.qmd#trimble).

@@ -22,14 +22,21 @@ Ověř, že součet sedí s původním reportem, a napiš mi obě čísla.
 | Dělá něco jiného | **Esc** (stop), pak napište znovu, co chcete. |
 | Vrátit jeho úpravy souborů | *„Vrať se k poslední verzi v gitu.“* |
 | Na obrazovce je chyba | **Win+Shift+S**, vyberte okno s chybou, pak **Ctrl+V** do chatu s Claudem. |
-| Dvě opravy nepomohly | `/clear` (nový čistý chat) a lepší zadání, ne třetí oprava. |
+| Dvě opravy nepomohly | Do pole pro psaní napište `/clear` a Enter (nový čistý chat). Pak lepší zadání, ne třetí oprava. |
 | Zasekl se nebo nevidí nový program | Ikona u hodin → pravé tlačítko → **Quit**, pak spustit znovu. |
 | Přidat soubor do zadání | Napište `@` a jméno souboru. |
 | Opakuje stejnou chybu | *„Zapiš si to jako pravidlo do CLAUDE.md.“* |
 
-**Oprávnění:** nechte režim **Auto** (výchozí). Běžné věci dělá sám, u rizikových
-a u souborů mimo složku se zeptá. *Always allow* u souboru mimo složku platí jen do zavření chatu.
-**Bypass permissions nikdy.** Bezpečí dávají kopie, git a záloha modelu.
+**Režimy oprávnění** (přepínač u pole pro psaní):
+
+| Režim | Co dělá | Pro workshop |
+| --- | --- | --- |
+| **Auto** | Běžné věci udělá sám, u rizikových a u souborů mimo složku se zeptá | **Doporučeno** |
+| **Manual** | Ptá se na všechno, i na čtení | Moc otázek |
+| **Plan** | Jen navrhne postup, nic nemění | Na velké úkoly |
+| **Bypass permissions** | Na nic se neptá | **Nikdy** |
+
+*Always allow* u souboru mimo složku platí jen do zavření chatu. Bezpečí dávají kopie, git a záloha modelu.
 
 ## Kolik to stojí {#cena}
 
@@ -40,35 +47,34 @@ Agent (Claude Code) je jen v placených tarifech. Ceny v USD bez DPH
 | --- | --- | --- |
 | **Pro** | 20 USD/měs. | Vyzkoušení, jeden člověk |
 | **Max** | od 100 USD/měs. | Když Pro pravidelně nestačí |
-| **Team Standard** | 25 USD za místo a měsíc (20 při ročním placení), **min. 2 místa**, Claude Code v ceně | Firma, práce pro klienty |
+| **Team Standard** | 25 USD za místo a měsíc (ročně 20), **min. 2 místa** | Firma, práce pro klienty |
 
-- **Doporučení:** na zkoušku **Pro**. Ostře ve firmě o 2 lidech **Team se 2 místy**
-  (50 USD/měs., ročně 40) s firemními podmínkami ([Soukromí](#soukromi)).
+- **Doporučení:** na zkoušku **Pro**, práce pro klienty **Team se 2 místy** (50 USD/měs.), viz [Soukromí](#soukromi).
 - **Limity:** chat i agent mají společný limit, obnovuje se po několika hodinách
-  (plus týdenní strop). Šetří `/clear` mezi úkoly.
+  (plus týdenní strop). Když dojde, počkejte, Claude ukáže kdy. Šetří `/clear` mezi úkoly.
 
 ## Soukromí a data klientů {#soukromi}
 
 **Všechno, co Claude přečte, se posílá společnosti Anthropic**: zadání, soubory
 i data z Tekly ([data usage](https://code.claude.com/docs/en/data-usage)).
 
-| | Pro / Max | Team |
-| --- | --- | --- |
-| Trénink na vašich datech | Jen se zapnutým **Model improvement** | Ne |
-| Smlouva o zpracování (DPA, GDPR) | Ne | Ano |
-| Práce pro klienty | Ne, podmínky ji nedovolují | Ano |
-
-- V Pro **vypněte Model improvement**
-  ([nastavení](https://claude.ai/settings/data-privacy-controls)).
-- **Pro a Max** mají podmínky pro spotřebitele. V EU
-  ([Consumer Terms](https://www.anthropic.com/legal/consumer-terms), čl. 11 *Non-commercial use only*)
-  **komerční použití výslovně nedovolují**: *„You agree that you will not use our Services
-  for any commercial or business purposes“*. Pro tedy jen na vyzkoušení se smyšlenými daty.
-- **Práci pro klienty dělejte v Team** (od 2 míst): firemní podmínky
-  ([Commercial Terms](https://www.anthropic.com/legal/commercial-terms)), DPA, netrénuje se.
+- V Pro **vypněte Model improvement** ([nastavení](https://claude.ai/settings/data-privacy-controls)),
+  jinak se na vašich datech může model učit.
+- **Pro jen na vyzkoušení se smyšlenými daty**: podmínky Pro nedovolují práci pro firmu.
+  **Práci pro klienty dělejte v Team** (od 2 lidí): firemní podmínky, DPA, netrénuje se.
 - **Posílejte co nejméně**, bez jmen klientů a smluv.
 - Text v cizích modelech a IFC může skrývat pokyny pro AI
   ([bezpečnost](https://code.claude.com/docs/en/security)).
+
+::: {.callout-note collapse="true"}
+## Zdroje: podmínky Pro a Team
+
+- **Pro a Max** mají podmínky pro spotřebitele
+  ([Consumer Terms](https://www.anthropic.com/legal/consumer-terms), v EU čl. 11 *Non-commercial use only*):
+  *„You agree that you will not use our Services for any commercial or business purposes“*.
+- **Team** má firemní podmínky ([Commercial Terms](https://www.anthropic.com/legal/commercial-terms))
+  a smlouvu o zpracování dat (DPA, GDPR).
+:::
 
 ### NDA a souhlas klienta
 
@@ -79,9 +85,9 @@ Nejste-li si jistí, zeptejte se klienta písemně.
 ## Zálohy modelu Tekla {#zalohy}
 
 - **Před každou prací s AI na modelu:** *File → Save as → Save and create backup copy*.
-  Záloha zachová GUID
+  Záloha zachová ID dílů
   ([Tekla](https://support.tekla.com/doc/tekla-structures/2026/mod_saving_model_with_different_name_or_location)).
-- Obyčejné *Save as* **zálohou není** (nové GUID).
+- Obyčejné *Save as* **zálohou není**: díly dostanou nová ID.
 - Zkoušejte jen na kopii, ne na sdíleném modelu.
 - Ctrl+Z v Tekle vrátí poslední změnu z makra, ale zálohu nenahradí.
 

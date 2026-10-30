@@ -38,6 +38,8 @@ Průběžný zápis testu (začato 30. 10. 2026). Cíl: ověřit na reálné Tek
 | Tisk do PDF v trialu | ❌ nejde | *Document manager → Ctrl+A → pravé tlačítko → Print (Shift+P)* → dialog „Print drawings“: PDF file, složka `.\Plotfiles`, název `A2 - BEAM.pdf`, volby *Include revision mark*, *Output to single file*, prefix/suffix; **tlačítko Print je v trialu šedé** |
 | Makra s ZapisChybu (kolo 2) | ✅ | upravená makra 01 a 03 se v Tekle přeložila a běží |
 
+| Makro 05 – export všech výkresů do PDF | ✅ | dialog „Vytisknout 4 výkresů do PDF? Dílce 2, Sestavy 2, složka …\PDF_export\2026-10-30“ → **4 PDF vytištěna** (`Dilce\P.1.pdf`, `P.2.pdf`, `Sestavy\A.1.pdf`, `A.2.pdf`), přehled `prehled_exportu.txt`: 4 vytištěno, 0 chyb. **API tisk funguje i v trialu**, i když tlačítko Print v Document manageru je šedé. PDF = skutečný dílenský výkres (A3 na šířku, kusovník, razítko) |
+
 ## Zjištění
 
 ### Claude Desktop

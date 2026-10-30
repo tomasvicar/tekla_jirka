@@ -1,15 +1,13 @@
 ---
 title: "Kancelář: zakázka bez chaosu"
-subtitle: "Složky, názvy souborů, PDF výkresy a Excel · přibližně 40 minut"
+subtitle: "Složky, názvy souborů, PDF výkresy a Excel · 45 minut"
 ---
 
 Složka zakázky plná souborů `final_final2.pdf` a starých revizí.
 Claude ji uklidí (na kopii) a sestaví předávací protokol.
-Texty v rámečcích kopírujte do Clauda (záložka **Code**, složka z [instalace](instalace.qmd)).
+Texty v rámečcích kopírujte do Clauda (záložka **Code**, složka `stavar-workshop` z [instalace](instalace.qmd)).
 
-**Pojmy:** **ZIP** je zabalená složka (jeden soubor, uvnitř víc souborů).
-**CSV** je tabulka uložená jako obyčejný text, otevře ji Excel.
-**Excel** (`.xlsx`) je tabulka s listy a vzorci. **PDF** je dokument k prohlížení a tisku, např. výkres.
+[**Pojmy:**]{#pojmy} **ZIP** = zabalená složka, **CSV** = jednoduchá tabulka (otevře ji Excel), **PDF** = dokument k tisku, např. výkres.
 
 [Stáhnout složku zakázky (ZIP)](data/kancelar/zakazka_neporadek.zip){.btn-pill .solid} [Stáhnout seznam zakázek (CSV)](data/kancelar/seznam_zakazek.csv){.btn-pill} [Ukázkové výsledky](#vysledky){.btn-pill .muted}
 
@@ -21,16 +19,12 @@ Přesuň ze složky Stažené soubory zakazka_neporadek.zip a seznam_zakazek.csv
 
 Data jsou smyšlená: hala Modřice (Z2026-014) a dvě cizí zakázky.
 
-::: {.callout-warning}
-## Bezpečně se soubory
-- **Pracujte na kopii.** Originály v `podklady/` zůstanou, výsledky jdou do `vystupy/`.
-- **Nejdřív plán, pak souhlas.**
-- **Uložte verzi v gitu.** **Git** si pamatuje historii verzí složky, jako „uložit pozici“ ve hře.
-  Claude se k ní umí vrátit. Více v [Praktických informacích](prakticke.qmd#zalohy).
-:::
-
 ::: {.callout-tip}
-**Když něco nejde:** Win+Shift+S (výřez obrazovky), pak Ctrl+V do chatu s Claudem.
+## Než začnete
+- Claude pracuje **na kopiích**: originály zůstanou v `podklady/`, výsledky jdou do `vystupy/`.
+- **Git** = „uložit pozici“ jako ve hře; Claude se k ní umí vrátit ([více](prakticke.qmd#zalohy)).
+- **Výsledek uvidíte:** napište *Otevři mi složku vystupy v Průzkumníku.* Soubor otevřete dvojklikem.
+- **Zaseknete se?** Win+Shift+S (výřez obrazovky), Ctrl+V do chatu a *Co mám udělat?*
 :::
 
 ## 1 · Co ve složce je (6 min)
@@ -99,7 +93,7 @@ Ověř, že počet stran PDF sedí s protokolem.
 
 ## Navíc: skill „nová zakázka“ (7 min)
 
-**K čemu:** novou zakázku založíte jedním příkazem `/nova-zakazka`, vždy stejně.
+**K čemu:** novou zakázku založíte vždy stejně: do pole pro psaní napište `/nova-zakazka` a Enter.
 **Skill** je uložený postup (recept) pro Clauda.
 
 ```default
@@ -125,7 +119,7 @@ termín a cena víceprací. Ulož do vystupy/kancelar/email_klientovi.txt, nepos
 
 ## Ukázkové výsledky {#vysledky}
 
-Váš Claude soubory pojmenuje po svém. **Počty a revize mají sedět.**
+Odkazy jsou **ukázka, Claude je může pojmenovat jinak** (třeba `.csv` místo `.xlsx`). **Počty a revize mají sedět.**
 
 | Krok | Soubor |
 | --- | --- |

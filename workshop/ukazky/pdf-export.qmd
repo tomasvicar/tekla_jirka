@@ -1,0 +1,82 @@
+---
+title: "Všechny výkresy do PDF"
+subtitle: "Vytisknout výkresy z Tekly a uložit je rovnou do složek zakázky."
+toc: false
+---
+
+[← Všechny ukázky](../ukazky.qmd){.demo-back}
+
+::: {.demo-summary}
+Tisknout výkresy po jednom a ručně je třídit do složek trvá dlouho a snadno se splete revize.
+Jsou dvě cesty: **makro** (malý program pro Teklu) vytiskne vše rovnou do složek,
+nebo Tekla vytiskne vše do jedné složky a **Claude soubory roztřídí**.
+:::
+
+## Cesta A – makro vytiskne vše rovnou do složek
+
+Makro `05_Export_PDF.cs` je v balíčku ze stránky [Živá Tekla](../tekla.qmd#makra)
+(postup A1). Vytiskne všechny výkresy do složky modelu:
+`PDF_export\<dnešní datum>\Sestavy`, `Dilce`, `Vykresy_rozmisteni`, `Prefabrikaty`, `Ostatni`.
+Před tiskem ukáže, kolik výkresů půjde do které složky, a zeptá se.
+Neaktuální výkresy přeskočí a na konci vypíše, co se nepovedlo.
+
+Řekněte agentovi:
+
+```default
+Podívej se na makra/05_Export_PDF.cs. Chci jinou strukturu složek:
+<popište, jak to chcete, např. "02_Sestavy", "03_Dilce", název souboru A01_rev-B.pdf>.
+Uprav nastavení nahoře v souboru, vysvětli mi změny, makro zkontroluj a nasaď.
+```
+
+V Tekle **zavřete otevřený výkres** a spusťte makro **05_Export_PDF**
+([jak spustit makro](../tekla.qmd#makra)).
+
+::: {.callout-note}
+**Vyzkoušeno 30. 10. 2026 na Tekle 2026 SP1:** makro vytisklo 4 výkresy (2 sestavy, 2 dílce)
+do složek `PDF_export\2026-10-30\Sestavy` a `Dilce`, soubory se jmenují podle značky (`A.1.pdf`).
+Poprvé ho zkuste na pár výkresech: *„Nastav v makru JEN_VYBRANE na true.“* Pak tiskne jen
+výkresy vybrané v seznamu.
+:::
+
+## Cesta B – Tekla vytiskne do jedné složky, Claude roztřídí
+
+**1. Tisk v Tekle** (názvy v menu se mohou mírně lišit):
+
+1. **Drawings & Reports** → **Document manager** (seznam výkresů).
+2. **Ctrl+A** vybere všechny výkresy → pravé tlačítko myši → **Print**.
+3. Zvolte **PDF file** a složku. Výchozí je `Plotfiles` ve složce modelu.
+   Soubory se jmenují třeba `A2 - SLOUP.pdf`.
+4. Uložte i seznam výkresů s revizemi jako tabulku (report z Tekly).
+   Z něj Claude pozná aktuální revize. Přesný postup jsme neověřili, poradí Claude.
+
+Na ukázkovém projektu si roztřídění vyzkoušíte i bez Tekly:
+
+[Stáhnout ukázku (ZIP)](../data/pdf_export.zip){.btn-pill .solid download="pdf_export.zip"}
+[Ukázkový protokol](../demos/ukazky/pdf-export/predavaci_protokol.xlsx){.btn-pill}
+[Výsledné složky](../demos/ukazky/pdf-export/strom.txt){.btn-pill}
+
+**2. Řekněte agentovi:**
+
+```default
+Přesuň pdf_export.zip ze Stažených souborů do podklady/ a rozbal ho.
+Roztřiď PDF z tisk_z_tekly do vystupy/Z2026-021_Hala_Lipnik/04_Vykresy/:
+01_Vykresy_rozmisteni, 02_Sestavy, 03_Dilce. Aktuální revizi ber ze
+seznam_vykresu.csv, starší revize dej do _Archiv. Nejdřív ukaž plán, originály neměň.
+```
+
+Po souhlasu:
+
+```default
+Za každou složku udělej jedno spojené PDF do 00_Komplet a předávací protokol
+predavaci_protokol.xlsx. Na list Problémy napiš, co chybí nebo nesedí.
+```
+
+**Zkontrolujte:** 4 výkresy rozmístění, 11 sestav, 6 dílců, 7 starých revizí v archivu.
+V protokolu **21 výkresů**. Problémy: chybí revize A výkresu **A.12**, **A.10** je
+neaktuální, `A5 - ZTUZIDLO (1).pdf` je kopie a dva soubory nejsou PDF.
+
+## Co si ohlídat
+
+- **Revize.** Jeden výkres otevřete a porovnejte revizi v razítku se seznamem v Tekle.
+- **Počty.** Kolik výkresů je v Document manageru, tolik má být PDF.
+- **Neaktuální výkresy** před předáním aktualizujte a vytiskněte znovu.

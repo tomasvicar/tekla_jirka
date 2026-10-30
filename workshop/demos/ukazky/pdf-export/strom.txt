@@ -1,0 +1,38 @@
+﻿Z2026-021_Hala_Lipnik/
+└── 04_Vykresy/
+    ├── 00_Komplet/  (3 PDF)
+    │   ├── 01_Vykresy_rozmisteni_komplet.pdf
+    │   ├── 02_Sestavy_komplet.pdf
+    │   └── 03_Dilce_komplet.pdf
+    ├── 01_Vykresy_rozmisteni/  (4 PDF)
+    │   ├── G01_KOTEVNI_PLAN_revB.pdf
+    │   ├── G02_PUDORYS_SLOUPU_revA.pdf
+    │   ├── G03_STRECHA.pdf
+    │   └── G04_REZY_A_POHLEDY.pdf
+    ├── 02_Sestavy/  (11 PDF)
+    │   ├── A01_SLOUP.pdf
+    │   ├── A02_SLOUP.pdf
+    │   ├── A03_PRICLE_revA.pdf
+    │   ├── A04_VAZNICE.pdf
+    │   ├── A05_ZTUZIDLO.pdf
+    │   ├── A06_ZTUZIDLO.pdf
+    │   ├── A07_VAZNICE_revA.pdf
+    │   ├── A08_PAZDIK.pdf
+    │   ├── A09_RAM_VRAT.pdf
+    │   ├── A10_SLOUPEK.pdf
+    │   └── A11_VYMENA.pdf
+    ├── 03_Dilce/  (6 PDF)
+    │   ├── P01_PATNI_PLECH.pdf
+    │   ├── P02_CELNI_DESKA_revA.pdf
+    │   ├── P03_VYZTUHA.pdf
+    │   ├── P04_STYCNIKOVY_PLECH.pdf
+    │   ├── P05_ZEBRO.pdf
+    │   └── P06_KOTEVNI_PLECH.pdf
+    └── _Archiv/  (7 PDF)
+        ├── A03_PRICLE.pdf
+        ├── A07_VAZNICE.pdf
+        ├── A12_SLOUPEK.pdf
+        ├── G01_KOTEVNI_PLAN.pdf
+        ├── G01_KOTEVNI_PLAN_revA.pdf
+        ├── G02_PUDORYS_SLOUPU.pdf
+        └── P02_CELNI_DESKA.pdf

@@ -7,9 +7,9 @@ AI agent je pomocník v počítači. Úkol mu napíšete obyčejnou češtinou.
 Sám otevře soubory, udělá práci a výsledek uloží. Vy jen kontrolujete.
 U každého nápadu je věta, kterou mu můžete rovnou napsat, a úroveň:
 
-- [1]{.lvl .l1} **Soubory (bez rizika):** Claude pracuje se soubory ve složce. Model Tekly se nezmění.
-- [2]{.lvl .l2} **Makra v Tekle:** makro je malý program pro Teklu. Claude ho napíše, vy ho spustíte.
-- [3]{.lvl .l3} **MCP:** propojení, přes které se Claude ptá otevřené Tekly přímo. Zatím jen čtení.
+- [1]{.lvl .l1} **Soubory (riziko žádné):** Claude pracuje se soubory ve složce. Model Tekly se nezmění.
+- [2]{.lvl .l2} **Makra v Tekle (riziko malé, jen kopie modelu):** makro je malý program pro Teklu. Claude ho napíše, vy ho spustíte.
+- [3]{.lvl .l3} **MCP (riziko žádné, jen čtení):** propojení, přes které se Claude ptá otevřené Tekly přímo.
 
 [ověřeno]{.ok} = vyzkoušeno 30. 10. 2026 na Tekle 2026 SP1 (zkušební verze).
 Odkaz u názvu vede na cvičení nebo ukázku.
@@ -48,6 +48,7 @@ Nejdřív chtějte návrh, pak teprve změnu.
 | --- | --- | --- | --- |
 | **Předávací protokol** · [cvičení](kancelar.qmd) | Seznam výkresů s revizemi. | [1]{.lvl .l1} | *„Udělej předávací protokol z PDF ve složce.“* |
 | **Čtení razítka** · [cvičení](kancelar.qmd) | Přečte číslo výkresu i z naskenovaného PDF. | [1]{.lvl .l1} | *„Přečti razítka ve skenech a navrhni názvy.“* |
+| **Všechny výkresy do PDF** · [ukázka](ukazky/pdf-export.qmd) | Roztřídí PDF z Tekly do složek zakázky, staré revize do archivu. | [1]{.lvl .l1} | *„Roztřiď PDF z Tekly do složek podle druhu výkresu, staré revize do archivu.“* |
 | **Výkres DXF** · [ukázka](ukazky/patka.qmd) | Nakreslí jednoduchý dílec. DXF otevře každý CAD. | [1]{.lvl .l1} | *„Nakresli patní desku 400 × 400 jako DXF.“* |
 :::
 
@@ -84,9 +85,9 @@ Makro spouštíte vy, v kopii modelu. Celou změnu z makra vrátíte jedním **C
 | --- | --- | --- | --- |
 | **Příprava projektu** · [cvičení](tekla.qmd#makra) [ověřeno]{.ok} | Sám najde, kde má Tekla složky. | [2]{.lvl .l2} | *„Připrav projekt pro makra a najdi cesty Tekly.“* |
 | **Makro od A do Z** · [cvičení](tekla.qmd#makra) [ověřeno]{.ok} | Napíše makro, sám ho zkontroluje a uloží do Tekly. | [2]{.lvl .l2} | *„Napiš makro, zkontroluj ho a nahraj do Tekly.“* |
-| **Výpis dílů** · [cvičení](tekla.qmd#cviceni-1) [ověřeno]{.ok} | Vybrané díly zapíše do tabulky pro Excel. | [2]{.lvl .l2} | *„Makro: vypiš vybrané díly do tabulky.“* |
-| **Změna třídy** · [cvičení](tekla.qmd#cviceni-3) [ověřeno]{.ok} | Změní vybrané díly, předtím se zeptá. | [2]{.lvl .l2} | *„Makro: vybraným dílům nastav třídu 3, nejdřív se zeptej.“* |
-| **Jednoduchá hala** · [cvičení](tekla.qmd#makra) [ověřeno]{.ok} | Vymodeluje 20 sloupů HEA200 a 31 nosníků IPE300. | [2]{.lvl .l2} | *„Makro: síť 3 × 4 pole po 6 m, HEA200 a IPE300.“* |
+| **Výpis dílů** · [cvičení](tekla.qmd#cviceni-2) [ověřeno]{.ok} | Vybrané díly zapíše do tabulky pro Excel. | [2]{.lvl .l2} | *„Makro: vypiš vybrané díly do tabulky.“* |
+| **Změna třídy** · [cvičení](tekla.qmd#cviceni-3) [ověřeno]{.ok} | Změní vybrané díly, předtím se zeptá. | [2]{.lvl .l2} | *„Makro: vybraným dílům nastav třídu 7, nejdřív se zeptej.“* |
+| **Jednoduchá hala** · [cvičení](tekla.qmd#cviceni-1) [ověřeno]{.ok} | Vymodeluje 20 sloupů HEA200 a 31 nosníků IPE300. | [2]{.lvl .l2} | *„Makro: síť 3 × 4 pole po 6 m, HEA200 a IPE300.“* |
 | **Vlastnosti z Excelu** | Vyplní údaje dílů (UDA) podle tabulky. | [2]{.lvl .l2} | *„Makro: vyplň údaje dílů podle tabulky, nejdřív ukaž změny.“* |
 | **Záměna profilu** | Vymění profil, předtím ukáže seznam. | [2]{.lvl .l2} | *„Makro: HEA200 v ose C změň na HEA240.“* |
 | **Knihovna maker** · [cvičení](tekla.qmd#cviceni-4) | Ověřená makra uloží s popisem. | [2]{.lvl .l2} | *„Ulož ověřená makra do knihovny s popisem.“* |

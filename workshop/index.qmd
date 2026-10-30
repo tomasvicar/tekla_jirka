@@ -7,11 +7,12 @@ toc: false
 # Claude pro stavaře
 Od složky zakázky přes kusovník z Tekly až k makru: AI agent dělá práci, vy kontrolujete výsledek.
 
-[Instalace](instalace.qmd){.btn .btn-light} [Data z Tekly](cviceni.qmd){.btn .btn-outline-light} [Prezentace](slides/index.qmd){.btn .btn-outline-light}
+[Instalace](instalace.qmd){.btn .btn-light} [Kancelář](kancelar.qmd){.btn .btn-outline-light} [Data z Tekly](cviceni.qmd){.btn .btn-outline-light}
 :::
 
 ::: {.lead}
-Workshop pro detailera v Tekla Structures, asi 2,5–3 hodiny včetně přestávky. Programovat nemusíte.
+Workshop pro detailera v Tekla Structures, asi 3 hodiny včetně přestávky. Programovat nemusíte.
+Projdete ho s lektorem i sami doma: každý krok je popsaný.
 :::
 
 ## Co je AI agent
@@ -33,8 +34,8 @@ Používáme **Claude Desktop, záložku Code**: běžné okno ve Windows.
 | Úroveň | Co Claude dělá | Riziko pro model |
 | --- | --- | --- |
 | **1 Soubory** | Čte reporty z Tekly, PDF, Excel | Žádné |
-| **2 Makra** | Napíše makro (program pro Teklu), vy ho spustíte | Malé, jen na kopii modelu |
-| **3 MCP** | „Mluví“ přímo s otevřenou Teklou | Začínáme jen čtením |
+| **2 Makra** | Napíše makro (malý program pro Teklu), vy ho spustíte | Malé (jen kopie modelu) |
+| **3 MCP** | „Mluví“ přímo s otevřenou Teklou, jen čte | Žádné (jen čtení) |
 
 Začínáme úrovní 1. Co všechno agent zvládne, najdete v [Nápadech](napady.qmd).
 
@@ -43,20 +44,22 @@ Začínáme úrovní 1. Co všechno agent zvládne, najdete v [Nápadech](napady
 ::: {.table-scroll}
 | Čas | Co | |
 | --- | --- | --- |
-| 15 min | Co je AI agent | [prezentace](slides/index.qmd) |
-| 20 min | Instalace, první úkol, `CLAUDE.md`, oprávnění | [Instalace](instalace.qmd) |
-| 40 min | Kancelář, kroky 1–4 (5 a Navíc volitelné) | [Kancelář](kancelar.qmd) |
+| 15 min | Úvod: co je AI agent | [prezentace](slides/index.qmd) |
+| 30 min | Instalace a první úkol | [Instalace](instalace.qmd) |
+| 45 min | Kancelář, kroky 1–4 (zbytek Navíc) | [Kancelář](kancelar.qmd) |
 | 10 min | Přestávka | |
-| 35 min | Data z Tekly, kroky 1–4 (5 volitelný) | [Data z Tekly](cviceni.qmd) |
-| 25 min | Živá Tekla: makra; MCP ukáže lektor nebo příště | [Živá Tekla](tekla.qmd) |
-| 5 min | Ukázky: otevřeme dvě | [Ukázky](ukazky.qmd) |
+| 35 min | Data z Tekly | [Data z Tekly](cviceni.qmd) |
+| 40 min | Živá Tekla: makra | [Živá Tekla](tekla.qmd) |
+| 10 min | Ukázky a Nápady | [Ukázky](ukazky.qmd), [Nápady](napady.qmd) |
 | 10 min | Cena, soukromí, zálohy, licence | [Praktické info](prakticke.qmd) |
 : {.schedule}
 :::
 
+MCP (úroveň 3) je volitelné, až budete mít zkušenosti, viz [Živá Tekla](tekla.qmd#mcp).
+S tarifem Pro se může limit vyčerpat před koncem. Pak počkejte, Claude ukáže, kdy můžete pokračovat.
+
 ## Než začneme
 
-Připravte si placený Claude, zálohu testovacího modelu a pár reportů z Tekly,
-viz [Příprava](priprava.qmd). Instalaci uděláme společně.
+Stačí placený Claude a počítač, viz [Příprava](priprava.qmd).
 
 Všechna cvičná data na webu jsou **smyšlená**.

@@ -28,6 +28,7 @@ toc: false
 <div class="demo-grid">
 <a class="demo-card" href="ukazky/narezy.html"><div class="visual"><img src="assets/ukazky/previews/narezy.jpg" alt="" loading="lazy"><span class="number">05</span></div><div class="copy"><span class="demo-kicker">Výroba · kusovník → nářezový plán</span><h3>Dělení 12m tyčí</h3><p>Ze seznamu dílů nářezový plán s prořezem, využitím materiálu a použitelnými zbytky.</p><span class="action">Spočítat nářezy ↗</span></div></a>
 <a class="demo-card" href="ukazky/ifc.html"><div class="visual"><img src="assets/ukazky/previews/ifc.jpg" alt="" loading="lazy"><span class="number">06</span></div><div class="copy"><span class="demo-kicker">IFC · model → kontrolní report</span><h3>Kontrola IFC před odesláním</h3><p>Množství, hmotnosti podle fází a prvky bez fáze nebo s jinou ocelí, vyznačené v náhledu.</p><span class="action">Otevřít report ↗</span></div></a>
+<a class="demo-card" href="ukazky/pdf-export.html"><div class="visual"><img src="assets/ukazky/previews/pdf-export.jpg" alt="" loading="lazy" style="object-fit:contain;background:#eef3f3"><span class="number">07</span></div><div class="copy"><span class="demo-kicker">Výkresy · Tekla → PDF do složek</span><h3>Všechny výkresy do PDF</h3><p>Makro vytiskne výkresy rovnou do složek, nebo Claude roztřídí hotová PDF a udělá předávací protokol.</p><span class="action">Jak na to ↗</span></div></a>
 </div>
 ```
 
@@ -35,7 +36,7 @@ toc: false
 
 ```{=html}
 <div class="demo-grid">
-<a class="demo-card" href="ukazky/stav-zakazky.html"><div class="visual slides"><img src="assets/ukazky/previews/stav.jpg" alt="" loading="lazy" style="object-fit:contain;padding:1rem"><span class="number">07</span></div><div class="copy"><span class="demo-kicker">Prezentace · data → kontrolní den</span><h3>Stav zakázky pro klienta</h3><p>Harmonogram, tonáž, výkresy a dotazy na sedmi slajdech z jedné tabulky dat.</p><span class="action">Pustit prezentaci ↗</span></div></a>
+<a class="demo-card" href="ukazky/stav-zakazky.html"><div class="visual slides"><img src="assets/ukazky/previews/stav.jpg" alt="" loading="lazy" style="object-fit:contain;padding:1rem"><span class="number">08</span></div><div class="copy"><span class="demo-kicker">Prezentace · data → kontrolní den</span><h3>Stav zakázky pro klienta</h3><p>Harmonogram, tonáž, výkresy a dotazy na sedmi slajdech z jedné tabulky dat.</p><span class="action">Pustit prezentaci ↗</span></div></a>
 </div>
 ```
 

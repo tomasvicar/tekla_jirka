@@ -1,44 +1,25 @@
 ---
 title: "Příprava"
-subtitle: "Co mít hotové před workshopem (asi 20 minut)"
+subtitle: "Co mít hotové předem (asi 10 minut)"
 ---
 
-Instalaci uděláme společně. Předem stačí tyto čtyři věci.
+Instalaci uděláte podle [návodu](instalace.qmd), s lektorem i sami. Předem stačí tři věci.
 
 ## 1. Placený Claude
 
-1. Založte si účet na [claude.ai](https://claude.ai).
-2. Na vyzkoušení kupte tarif **Pro**. Bezplatný tarif agenta nemá. Práci pro klienty
-   podmínky Pro nedovolují, na ni je **Team**, viz [Kolik to stojí](prakticke.qmd#cena).
-3. V [nastavení soukromí](https://claude.ai/settings/data-privacy-controls) vypněte **Model improvement**.
-
-**Hotovo, když** na claude.ai vidíte u účtu placený tarif.
+1. Založte si účet na [claude.ai](https://claude.ai) a kupte tarif **Pro** (bezplatný tarif agenta nemá).
+   Pro je jen na vyzkoušení se smyšlenými daty, viz [Kolik to stojí](prakticke.qmd#cena).
+2. V [nastavení soukromí](https://claude.ai/settings/data-privacy-controls) vypněte **Model improvement**.
 
 ## 2. Počítač
 
 - Windows 10 nebo 11, ideálně ten, na kterém běží Tekla.
-- Práva správce nejsou nutná. Pokud PC spravuje firemní IT, domluvte si instalaci
-  Claude Desktop a Gitu.
+- Práva správce nejsou nutná. Když se při instalaci Windows zeptá na **heslo správce**
+  a vy ho nemáte, požádejte firemní IT, ať vám nainstaluje Claude Desktop a Git.
 
-## 3. Tekla: verze a licence
+## 3. Jen pro Živou Teklu
 
-V *Help → About* si zapište **verzi** (např. *2026 SP2*), **licenci**
-(Carbon / Graphite / Diamond, viz [AI od Trimble](prakticke.qmd#trimble)) a **prostředí** (např. *Czech*).
+Tekla Structures a cvičný model, u kterého nevadí chyba, **se zálohou**
+(viz [Zálohy modelu](prakticke.qmd#zalohy)). Ne zakázku klienta.
 
-## 4. Testovací model a reporty
-
-- Starší nebo cvičný model, u kterého nevadí chyba. Udělejte si zálohu,
-  viz [Zálohy modelu](prakticke.qmd#zalohy).
-- 2–3 reporty vyexportované z Tekly (kusovník, hmotnosti), ideálně i **dvě revize**
-  stejného reportu. Stačí tabulka (`.csv`, `.xlsx`) nebo text (`.txt`). S tarifem Pro
-  jen cvičný model, ne zakázku klienta.
-
-Nemáte nic z toho? Nevadí, na webu jsou **smyšlená data** pro všechna cvičení.
-
-## Kontrolní seznam
-
-- [ ] Claude zaplacený, *Model improvement* vypnuté
-- [ ] PC s Windows, případně souhlas IT
-- [ ] Zapsaná verze Tekly, licence a prostředí
-- [ ] Záloha testovacího modelu
-- [ ] 2–3 reporty z cvičného modelu
+Vlastní reporty nepotřebujete, na webu jsou **smyšlená data** pro všechna cvičení.

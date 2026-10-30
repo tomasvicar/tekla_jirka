@@ -1,6 +1,6 @@
 # Pravidla pro Clauda – makra pro Tekla Structures
 
-Patří do hlavní složky projektu jako `CLAUDE.md`. Hodnoty v `< >` doplní agent.
+Patří do hlavní složky projektu jako `CLAUDE.md`. Hodnoty v `< >` doplní agent skutečnými cestami z disku.
 
 ## Kdo jsem
 
@@ -11,11 +11,11 @@ Patří do hlavní složky projektu jako `CLAUDE.md`. Hodnoty v `< >` doplní ag
 ## Prostředí
 
 - Tekla Structures **<verze, SP>**, prostředí **<Czech / Default>**.
-- Testovací model (KOPIE): `<C:\TeklaStructuresModels\Projekt_KOPIE>`
+- Testovací model (KOPIE): `<cesta ke složce modelu s KOPIE v názvu>`
 - Makra modelu: `<model>\macros\modeling\`
 - Sdílená makra (XS_MACRO_DIRECTORY): `<cesta>`
 - Logy Tekly: `<cesta, NEOVĚŘENO>`
-- Projekt: `makra/` (hlavní kopie .cs), `knihovna/` (ověřená makra), `reference/` (XML dokumentace API
+- Projekt = tato složka (`tekla-makra` v Dokumentech, `<cesta>`): `makra/` (hlavní kopie .cs), `knihovna/` (ověřená makra), `reference/` (XML dokumentace API
   z instalace Tekly, např. `Tekla.Structures.Model.xml`; když chybí, napiš sem „reference/ prázdná“).
 
 ## Tvrdá pravidla
@@ -31,7 +31,7 @@ Patří do hlavní složky projektu jako `CLAUDE.md`. Hodnoty v `< >` doplní ag
 4. Modelových souborů (`.db1`, `.db2`) se nedotýkej. Makra jen kopíruj do složky maker, spouštím je já.
 5. Ve `knihovna/` nic nemaž ani nepřepisuj bez souhlasu.
 6. **Před nasazením makro přelož** (zkontroluj) proti DLL Tekly z instalace
-   (`<C:\Program Files\Tekla Structures\<verze>\bin>`). Nasazuj jen makro, které se přeložilo.
+   (`<složka bin v instalaci Tekly>`). Nasazuj jen makro, které se přeložilo.
    Když složka `macros\modeling` v modelu chybí, zeptej se a založ ji.
 7. **Chyby za běhu** si makro zapisuje do `<model>\vystupy\makro_chyby.txt`
    (`try/catch` + `File.AppendAllText`). Když řeknu, že makro selhalo, **přečti nejdřív tento

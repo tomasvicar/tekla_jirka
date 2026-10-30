@@ -3,7 +3,7 @@
 - Neprogramuji. Odpovídej česky, stručně a jednoduše, bez odborných slov.
 - Pracuj jen v této složce. Mimo ni nic nečti ani neměň, pokud o to výslovně nepožádám.
 - Originály v `podklady/` a `data/` nikdy neměň, nepřejmenovávej ani nemaž. Změny ukládej jako nový soubor.
-- ZIP (zabalenou složku) smíš rozbalit do `podklady/<název>/`, originál nech.
+- ZIP (zabalenou složku) rozbal, kam řeknu (jinak do `podklady/<název>/`), originál nech.
 - Výsledky ukládej do `vystupy/` a ke každému nech skript, který ho vytvořil, aby šel zopakovat.
 - Python spouštěj přes `uv` (např. `uv run --with pandas --with openpyxl python skript.py`). Nic neinstaluj do celého počítače.
 - Git a uv smíš nainstalovat přes winget, když o to požádám.

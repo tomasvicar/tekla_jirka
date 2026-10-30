@@ -1,17 +1,15 @@
 ---
 title: "Data z Tekly"
-subtitle: "Exportovaný report → Excel, kontrola, revize, nabídka · 40 minut"
+subtitle: "Exportovaný report → Excel, kontrola, revize, nabídka · 35 minut"
 ---
 
 Pracujeme jen s **exportovanými soubory**. Tekla nemusí běžet a model se nemůže poškodit.
-Text v rámečcích kopírujte do Clauda (záložka **Code**, složka z [instalace](instalace.qmd)).
+Text v rámečcích kopírujte do Clauda (záložka **Code**, složka `stavar-workshop` z [instalace](instalace.qmd)).
 
 **Dnes:** [1 Prohlídka](#prohlidka) → [2 Hmotnosti](#hmotnosti) → [3 Kontrola](#kontrola) →
 [4 Revize A/B](#revize) → [5 Nabídka](#nabidka) → [Navíc](#bonus)
 
-**Pojmy:** **ZIP** je zabalená složka (jeden soubor, uvnitř víc souborů).
-**CSV** je tabulka uložená jako obyčejný text, otevře ji Excel.
-**Excel** (`.xlsx`) je tabulka s listy, vzorci a grafy. **PDF** je dokument k tisku.
+ZIP, CSV a další pojmy: viz [Kancelář](kancelar.qmd#pojmy).
 
 ## Co je v datech
 
@@ -32,8 +30,14 @@ Uvnitř je seznam dílů (part list) a seznam sestav (assembly list) obou reviz�
 ceník `cenik.xlsx` a `README.txt` s popisem sloupců.
 
 ::: {.callout-tip}
-**Když něco nejde:** Win+Shift+S (výřez obrazovky), pak Ctrl+V do chatu s Claudem.
+## Než začnete
+- Originály zůstanou v `podklady/`, výsledky jdou do `vystupy/`.
+- **Git** = „uložit pozici“ jako ve hře; Claude se k ní umí vrátit ([více](prakticke.qmd#zalohy)).
+- **Výsledek uvidíte:** napište *Otevři mi složku vystupy v Průzkumníku.* Soubor otevřete dvojklikem.
+- **Zaseknete se?** Win+Shift+S (výřez obrazovky), Ctrl+V do chatu a *Co mám udělat?*
 :::
+
+Ukázkové soubory níže jsou jen ukázka, Claude je může pojmenovat jinak. **Čísla mají sedět.**
 
 ## 1 · Prohlédněte export (5 min) {#prohlidka}
 
@@ -109,8 +113,6 @@ PDF: v prohlížeči *Tisk → Uložit jako PDF*.
 
 ## Navíc {#bonus}
 
-Pro ty, kdo jsou hotoví dřív.
-
 - **Nářezový plán** (kolik tyčí koupit): *„Z part listu revize B udělej nářezový plán
   pro tyče 12 m (řez 3 mm), zvlášť pro každý profil kromě plechů.“* Vyjde 186 tyčí.
   [Ukázka](demos/tekla_data/narezovy_plan.xlsx)
@@ -121,4 +123,4 @@ Pro ty, kdo jsou hotoví dřív.
   a skill souhrn-z-reportu, vyzkoušej ho na revizi A.“* Má vyjít 50 781,2 kg.
   [Ukázkový SKILL.md](demos/tekla_data/souhrn-z-reportu/SKILL.md)
 
-**Pravidlo:** originál jen čtěte a chyby opravujte v modelu, ne v exportu.
+Chyby opravujte v modelu, ne v exportu.
