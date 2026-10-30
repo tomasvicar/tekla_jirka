@@ -1,0 +1,58 @@
+﻿puvodni_cesta;zakazka;typ;cislo;revize;stav;poznamka
+zakazka_neporadek/cenik_2026.xlsx;;;;;nezarazeno;interní ceník kanceláře, k žádné zakázce nepatří
+zakazka_neporadek/detaily pripoju.pdf;Z2026-014;VYK;V-106;A;aktualni;2 listy
+zakazka_neporadek/dotaz_lavka.eml;Z2026-009;KOR;2026-03-16;;aktualni;
+zakazka_neporadek/FA_2025_0117.pdf;Z2025-031;FAK;FA-2025-0117;;aktualni;
+zakazka_neporadek/FA_2026_0038.pdf;Z2026-009;FAK;FA-2026-0038;;aktualni;
+zakazka_neporadek/FA_2026_0042.pdf;Z2026-014;FAK;FA-2026-0042;;aktualni;
+zakazka_neporadek/faktura 51 Modrice.pdf;Z2026-014;FAK;51-2026;;aktualni;
+zakazka_neporadek/fotky KD 5.3/IMG_20260305_101512.jpg;Z2026-014;FOT;2026-03-05_101512;;aktualni;
+zakazka_neporadek/fotky KD 5.3/IMG_20260305_101547.jpg;Z2026-014;FOT;2026-03-05_101547;;aktualni;
+zakazka_neporadek/fotky KD 5.3/IMG_20260305_102003.jpg;Z2026-014;FOT;2026-03-05_102003;;aktualni;
+zakazka_neporadek/fotky KD 5.3/IMG_20260305_102210.jpg;Z2026-014;FOT;2026-03-05_102210;;aktualni;
+zakazka_neporadek/fotky KD 5.3/Thumbs.db;;;;;smeti;systémový soubor Windows (náhledy)
+zakazka_neporadek/Fwd_ nabídka ocel HM.eml;Z2026-014;KOR;2026-03-04;;aktualni;
+zakazka_neporadek/Hala_Modrice_2026-03-10.ifc;Z2026-014;MOD;2026-03-10;;aktualni;
+zakazka_neporadek/HM_schodiste_V107_A.pdf;Z2026-014;VYK;V-107;A;aktualni;
+zakazka_neporadek/IMG_20260402_083015.jpg;Z2026-009;FOT;2026-04-02_083015;;aktualni;
+zakazka_neporadek/Lavka_L-01_revA.pdf;Z2026-009;VYK;L-01;A;stara_revize;
+zakazka_neporadek/Lavka_L-01_revB.pdf;Z2026-009;VYK;L-01;B;aktualni;
+zakazka_neporadek/Modrice_situace_architekt.dwg;Z2026-014;POD;situace-architekt;;aktualni;
+zakazka_neporadek/nabidka_detailing_Modrice.xlsx;Z2026-014;NAB;detailing;v1;stara_revize;
+zakazka_neporadek/nabidka_detailing_Modrice_v2.xlsx;Z2026-014;NAB;detailing;v2;aktualni;
+zakazka_neporadek/nabidka_ocel_OcelServis_2026-03.xlsx;Z2026-014;NAB;2026-03-04_OcelServis;;aktualni;
+zakazka_neporadek/nabidka_prefa_PD_Bystrc.xlsx;Z2025-031;NAB;prefa;;aktualni;
+zakazka_neporadek/Nová složka/foto_PD_Bystrc_montaz.jpg;Z2025-031;FOT;2025-10-30_montaz;;aktualni;
+zakazka_neporadek/Nová složka/kopie - V-102_sloupy_revC.pdf;Z2026-014;VYK;V-102;C;duplicita;stejný obsah jako V-102_sloupy_revC.pdf
+zakazka_neporadek/Nová složka/L-02 zábradlí.pdf;Z2026-009;VYK;L-02;A;aktualni;
+zakazka_neporadek/Nová složka/PD_Bystrc_P-21_D.pdf;Z2025-031;VYK;P-21;D;aktualni;
+zakazka_neporadek/Nový textový dokument.txt;;;;;smeti;prázdný soubor
+zakazka_neporadek/od Pavla/email od Pavla.txt;Z2026-014;KOR;2026-03-02;;aktualni;
+zakazka_neporadek/od Pavla/kotevni plan_opraveny.pdf;Z2026-014;VYK;V-101;B;aktualni;
+zakazka_neporadek/od Pavla/podklad_architekt_rez_A-A.dwg;Z2026-014;POD;rez-A-A-architekt;;aktualni;"název neobsahuje zakázku; poznáte z obsahu/kontextu"
+zakazka_neporadek/PD_Bystrc_model.ifc;Z2025-031;MOD;2025-11-14;;aktualni;
+zakazka_neporadek/poznamky_telefon.txt;Z2026-014;POZ;2026-03-14;;aktualni;
+zakazka_neporadek/pozvanka KD 12.3.eml;Z2026-014;KOR;2026-03-09;;aktualni;
+zakazka_neporadek/RE_ Hala Modřice - zvýšení haly.eml;Z2026-014;KOR;2026-03-13;;aktualni;
+zakazka_neporadek/Scan_20260312_0001.pdf;Z2026-014;VYK;V-104;A;aktualni;název neříká nic, obsah poznáte z razítka
+zakazka_neporadek/Scan_20260318_0003.pdf;;;;;nezarazeno;interní doklad kanceláře, k žádné zakázce nepatří
+zakazka_neporadek/Smlouva_o_dilo_Modrice_navrh.docx;Z2026-014;SML;smlouva-o-dilo-navrh;;aktualni;
+zakazka_neporadek/stare/Hala_Modrice_2026-02-20.ifc;Z2026-014;MOD;2026-02-20;;stara_revize;
+zakazka_neporadek/stare/staticky vypocet hala v2.pdf;Z2026-014;VYP;SV;v2;stara_revize;
+zakazka_neporadek/stare/V-105_A.pdf;Z2026-014;VYK;V-105;A;stara_revize;
+zakazka_neporadek/Statika_Modrice_v3.pdf;Z2026-014;VYP;SV;v3;aktualni;
+zakazka_neporadek/Stažené soubory/IMG_20260305_101512 (1).jpg;Z2026-014;FOT;2026-03-05_101512;;duplicita;stejná fotka jako fotky KD 5.3/IMG_20260305_101512.jpg
+zakazka_neporadek/Stažené soubory/Statický výpočet - Modřice (1).pdf;Z2026-014;VYP;SV;v3;duplicita;stejný obsah jako Statika_Modrice_v3.pdf
+zakazka_neporadek/Stažené soubory/statika_lavka_v1.pdf;Z2026-009;VYP;SV;v1;aktualni;
+zakazka_neporadek/Stažené soubory/V-103_strecha_revB.pdf;Z2026-014;VYK;V-103;C;duplicita;"POZOR: název říká rev B, v rohovém razítku je rev C; stejný obsah jako final_final2"
+zakazka_neporadek/Thumbs.db;;;;;smeti;systémový soubor Windows (náhledy)
+zakazka_neporadek/V-101 kotevni plan.pdf;Z2026-014;VYK;V-101;A;stara_revize;
+zakazka_neporadek/V-102_sloupy_revA.pdf;Z2026-014;VYK;V-102;A;stara_revize;
+zakazka_neporadek/V-102_sloupy_revC.pdf;Z2026-014;VYK;V-102;C;aktualni;
+zakazka_neporadek/V-105_B.pdf;Z2026-014;VYK;V-105;B;aktualni;
+zakazka_neporadek/V102 sloupy FINAL.pdf;Z2026-014;VYK;V-102;C;duplicita;stejný obsah jako V-102_sloupy_revC.pdf
+zakazka_neporadek/vykres strecha final.pdf;Z2026-014;VYK;V-103;B;stara_revize;
+zakazka_neporadek/vykres strecha final_final2.pdf;Z2026-014;VYK;V-103;C;aktualni;
+zakazka_neporadek/vypocet_patky_HM.xlsx;Z2026-014;VYP;patky;;aktualni;
+zakazka_neporadek/zapis_KD_2026-03-12.txt;Z2026-014;ZAP;2026-03-12;;aktualni;
+zakazka_neporadek/~$nabidka_ocel_OcelServis_2026-03.xlsx;;;;;smeti;zámek Excelu (otevřený soubor), nepatří k dokumentům

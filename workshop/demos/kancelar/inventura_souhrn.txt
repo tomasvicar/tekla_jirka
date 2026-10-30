@@ -1,0 +1,14 @@
+Souborů celkem: 57 (v hlavní složce a 5 podsložkách)
+Podle přípony: .db 2, .docx 1, .dwg 2, .eml 4, .ifc 3, .jpg 7, .pdf 27, .txt 4, .xlsx 7
+Skupin stejných souborů (duplicit): 4, nadbytečných kopií: 5
+Podle zakázky: (nezařazeno/smetí) 6, Z2025-031 5, Z2026-009 7, Z2026-014 39
+Podle stavu: aktualni 38, duplicita 5, nezarazeno 2, smeti 4, stara_revize 8
+
+Rozpor název × razítko:
+  - Stažené soubory/V-103_strecha_revB.pdf: v názvu rev B, v razítku rev C
+
+Skupiny duplicit:
+  1: fotky KD 5.3/IMG_20260305_101512.jpg = Stažené soubory/IMG_20260305_101512 (1).jpg
+  2: Nová složka/kopie - V-102_sloupy_revC.pdf = V-102_sloupy_revC.pdf = V102 sloupy FINAL.pdf
+  3: Statika_Modrice_v3.pdf = Stažené soubory/Statický výpočet - Modřice (1).pdf
+  4: Stažené soubory/V-103_strecha_revB.pdf = vykres strecha final_final2.pdf

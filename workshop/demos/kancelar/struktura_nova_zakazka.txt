@@ -1,0 +1,36 @@
+Z2026-015_Sklad_Kurim/
+├── 01_Podklady/
+├── 02_Vypocty/
+├── 03_Model/
+├── 04_Vykresy/
+├── 05_Korespondence/
+├── 06_Nabidky_a_fakturace/
+├── 07_Fotodokumentace/
+├── 99_Archiv/
+│   ├── duplicity/
+│   └── stare_revize/
+└── README.txt
+
+--- README.txt ---
+Zakázka: Z2026-015
+Název: Sklad Kuřim
+Klient: Logistika Kuřim a.s. (fiktivní)
+Založeno: 20. 03. 2026
+
+Složky:
+  01_Podklady
+  02_Vypocty
+  03_Model
+  04_Vykresy
+  05_Korespondence
+  06_Nabidky_a_fakturace
+  07_Fotodokumentace
+  99_Archiv/stare_revize
+  99_Archiv/duplicity
+
+Konvence názvů souborů:
+  <zakázka>_<TYP>_<číslo>[_<revize>].<přípona>
+  TYP: VYK výkres, VYP výpočet, MOD model/IFC, POD podklad, KOR korespondence,
+       ZAP zápis, POZ poznámka, NAB nabídka, SML smlouva, FAK faktura, FOT fotka
+  příklad: Z2026-014_VYK_V-102_C.pdf, Z2026-014_FAK_FA-2026-0042.pdf
+  bez diakritiky a mezer; revize výkresů písmenem (A, B, C), verze výpočtů v1, v2…

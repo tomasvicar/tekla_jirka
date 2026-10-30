@@ -1,0 +1,91 @@
+Zakazky/
+├── _K_ROZTRIDENI/
+│   ├── cenik_2026.xlsx
+│   └── Scan_20260318_0003.pdf
+├── Z2025-031_Parkovaci_dum_Bystrc/
+│   ├── 01_Podklady/
+│   ├── 02_Vypocty/
+│   ├── 03_Model/
+│   │   └── Z2025-031_MOD_2025-11-14.ifc
+│   ├── 04_Vykresy/
+│   │   └── Z2025-031_VYK_P-21_D.pdf
+│   ├── 05_Korespondence/
+│   ├── 06_Nabidky_a_fakturace/
+│   │   ├── Z2025-031_FAK_FA-2025-0117.pdf
+│   │   └── Z2025-031_NAB_prefa.xlsx
+│   ├── 07_Fotodokumentace/
+│   │   └── Z2025-031_FOT_2025-10-30_110000.jpg
+│   ├── 99_Archiv/
+│   │   ├── duplicity/
+│   │   └── stare_revize/
+│   └── README.txt
+├── Z2026-009_Lavka_pres_Svitavu/
+│   ├── 01_Podklady/
+│   ├── 02_Vypocty/
+│   │   └── Z2026-009_VYP_SV_v1.pdf
+│   ├── 03_Model/
+│   ├── 04_Vykresy/
+│   │   ├── Z2026-009_VYK_L-01_B.pdf
+│   │   └── Z2026-009_VYK_L-02_A.pdf
+│   ├── 05_Korespondence/
+│   │   └── Z2026-009_KOR_2026-03-16.eml
+│   ├── 06_Nabidky_a_fakturace/
+│   │   └── Z2026-009_FAK_FA-2026-0038.pdf
+│   ├── 07_Fotodokumentace/
+│   │   └── Z2026-009_FOT_2026-04-02_083015.jpg
+│   ├── 99_Archiv/
+│   │   ├── duplicity/
+│   │   └── stare_revize/
+│   │       └── Z2026-009_VYK_L-01_A.pdf
+│   └── README.txt
+└── Z2026-014_Hala_Modrice/
+    ├── 01_Podklady/
+    │   ├── Z2026-014_POD_rez-a-a_architekt.dwg
+    │   └── Z2026-014_POD_situace_architekt.dwg
+    ├── 02_Vypocty/
+    │   ├── Z2026-014_VYP_patek.xlsx
+    │   └── Z2026-014_VYP_SV_v3.pdf
+    ├── 03_Model/
+    │   └── Z2026-014_MOD_2026-03-10.ifc
+    ├── 04_Vykresy/
+    │   ├── Z2026-014_VYK_V-101_B.pdf
+    │   ├── Z2026-014_VYK_V-102_C.pdf
+    │   ├── Z2026-014_VYK_V-103_C.pdf
+    │   ├── Z2026-014_VYK_V-104_A.pdf
+    │   ├── Z2026-014_VYK_V-105_B.pdf
+    │   ├── Z2026-014_VYK_V-106_A.pdf
+    │   └── Z2026-014_VYK_V-107_A.pdf
+    ├── 05_Korespondence/
+    │   ├── Z2026-014_KOR_2026-03-02.txt
+    │   ├── Z2026-014_KOR_2026-03-04.eml
+    │   ├── Z2026-014_KOR_2026-03-09.eml
+    │   ├── Z2026-014_KOR_2026-03-13.eml
+    │   ├── Z2026-014_POZ_2026-03-14.txt
+    │   └── Z2026-014_ZAP_2026-03-12_KD.txt
+    ├── 06_Nabidky_a_fakturace/
+    │   ├── Z2026-014_FAK_51-2026.pdf
+    │   ├── Z2026-014_FAK_FA-2026-0042.pdf
+    │   ├── Z2026-014_NAB_detailing_v2.xlsx
+    │   ├── Z2026-014_NAB_material_OcelServis.xlsx
+    │   └── Z2026-014_SML_smlouva-o-dilo_navrh.docx
+    ├── 07_Fotodokumentace/
+    │   ├── Z2026-014_FOT_2026-03-05_101512.jpg
+    │   ├── Z2026-014_FOT_2026-03-05_101547.jpg
+    │   ├── Z2026-014_FOT_2026-03-05_102003.jpg
+    │   └── Z2026-014_FOT_2026-03-05_102210.jpg
+    ├── 99_Archiv/
+    │   ├── duplicity/
+    │   │   ├── Z2026-014_FOT_2026-03-05_101512.jpg
+    │   │   ├── Z2026-014_VYK_V-102_C.pdf
+    │   │   ├── Z2026-014_VYK_V-102_C_kopie2.pdf
+    │   │   ├── Z2026-014_VYK_V-103_C.pdf
+    │   │   └── Z2026-014_VYP_SV_v3.pdf
+    │   └── stare_revize/
+    │       ├── Z2026-014_MOD_2026-02-20.ifc
+    │       ├── Z2026-014_NAB_detailing_v1.xlsx
+    │       ├── Z2026-014_VYK_V-101_A.pdf
+    │       ├── Z2026-014_VYK_V-102_A.pdf
+    │       ├── Z2026-014_VYK_V-103_B.pdf
+    │       ├── Z2026-014_VYK_V-105_A.pdf
+    │       └── Z2026-014_VYP_SV_v2.pdf
+    └── README.txt
