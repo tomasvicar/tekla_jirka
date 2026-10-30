@@ -26,7 +26,10 @@ Průběžný zápis testu (začato 30. 10. 2026). Cíl: ověřit na reálné Tek
 | A1 – příprava projektu (řekni agentovi) | ✅ ~6 min | rozbalil balíček, přejmenoval CLAUDE.md, našel verzi, model, logy, `XS_MACRO_DIRECTORY`, offline CHM; **17 XML dokumentací API** v `C:\Program Files\Tekla Structures\2026.0\bin\` zkopírováno do `reference/`; v novém modelu chyběla `macros\modeling` → zeptal se a založil |
 | Vymodelovat jednoduchou halu (makro 04) | ✅ | agent napsal, ověřil API v XML a nasadil makro; v Tekle po *Reload catalog* nalezeno, dvojklik → potvrzovací dialog → **51 z 51 dílů** (20× HEA200, 31× IPE300) |
 | MCP tempalg1n přes „řekni agentovi“ | ⏳ | |
-| Makra 01–03 | ⏳ | |
+| Cvičení 1 – výpis (makro 01) | ✅ | agent makro před nasazením sám **přeložil proti DLL Tekly** a nasadil; nabídl tlačítko „Doběhlo“. CSV 51 řádků, `;` + desetinná čárka; HEA200 42,26 kg/m, IPE300 42,23 kg/m (sedí s tabulkami). Agent sám upozornil, že nosníky nejsou zkrácené na sloupech |
+| Cvičení 2 – kontrola modelu | ⏭ přeskočeno | pro začátečníka zbytečně složité (zjišťovat výchozí profil přes Inquire) → zjednodušit/vypustit |
+| Cvičení 3 – změna třídy (makro 03) | ✅ | dialog „Změním 51 vybraných dílů… Pokračovat?“ → 51 z 51; **jedno Ctrl+Z vrátilo třídu i UDA u všech dílů** (ověřeno makrem 01 před/po) |
+| Chyba v makru | ✅ ověřeno | úmyslně rozbité makro → Tekla ukáže okno **CompileError** se souborem, řádkem a textem (CS1061…); **do logů se nezapisuje** (log má jen „Macro Run Requested“) |
 
 ## Zjištění
 
@@ -49,5 +52,9 @@ Průběžný zápis testu (začato 30. 10. 2026). Cíl: ověřit na reálné Tek
 - Ovládání pohledu: Ctrl+šipky otáčí 3D pohled.
 
 ### Postup / web – co upravit
+- **Chyby maker:** kompilační chyba je jen v okně CompileError, ne v logu → (1) agent má makro vždy předem přeložit proti DLL Tekly (dělá to sám), (2) makra mají chyby za běhu zapisovat do `vystupy\makro_chyby.txt`, který si agent přečte, (3) když se okno přece objeví: **Win+Shift+S a vložit obrázek Claudovi (Ctrl+V)** – jednodušší než kopírovat text.
+- **Ctrl+Z po makru 03 funguje** (jeden krok vrátí celou změnu) – „NEOVĚŘENO“ z webu odstranit.
+- Cvičení 2 (kontrola výchozích profilů) je pro začátečníky moc složité.
+- Při testu bylo vybráno vše (Ctrl+A, 52 objektů vč. osnovy) – makra správně zpracovala jen díly (51).
 - Agent v odpovědi chtěl, ať uživatel **zkopíruje text chybového okna** – zbytečné: agent si má chyby přečíst **sám z logu Tekly** (do CLAUDE.md/skillu dát pravidlo „chyby čti z logu, uživatele žádej až když tam nejsou“).
 
