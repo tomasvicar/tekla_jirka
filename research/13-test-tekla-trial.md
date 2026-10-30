@@ -34,6 +34,10 @@ Průběžný zápis testu (začato 30. 10. 2026). Cíl: ověřit na reálné Tek
 | Cvičení 3 – změna třídy (makro 03) | ✅ | dialog „Změním 51 vybraných dílů… Pokračovat?“ → 51 z 51; **jedno Ctrl+Z vrátilo třídu i UDA u všech dílů** (ověřeno makrem 01 před/po) |
 | Chyba v makru | ✅ ověřeno | úmyslně rozbité makro → Tekla ukáže okno **CompileError** se souborem, řádkem a textem (CS1061…); **do logů se nezapisuje** (log má jen „Macro Run Requested“) |
 
+| Výkresy v trialu | ✅ částečně | *Drawings & Reports → Create fabrication drawing → Creation review → Create*: vytvořeny 4 výkresy (A.1, A.2 sestavy, P.1, P.2 dílce); předtím dialog *Perform numbering* |
+| Tisk do PDF v trialu | ❌ nejde | *Document manager → Ctrl+A → pravé tlačítko → Print (Shift+P)* → dialog „Print drawings“: PDF file, složka `.\Plotfiles`, název `A2 - BEAM.pdf`, volby *Include revision mark*, *Output to single file*, prefix/suffix; **tlačítko Print je v trialu šedé** |
+| Makra s ZapisChybu (kolo 2) | ✅ | upravená makra 01 a 03 se v Tekle přeložila a běží |
+
 ## Zjištění
 
 ### Claude Desktop

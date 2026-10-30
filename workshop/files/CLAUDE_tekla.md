@@ -30,6 +30,15 @@ Patří do hlavní složky projektu jako `CLAUDE.md`. Hodnoty v `< >` doplní ag
 3. **Nejdřív jen čtení.** Nové makro nejprve jen vypíše, co by změnilo.
 4. Modelových souborů (`.db1`, `.db2`) se nedotýkej. Makra jen kopíruj do složky maker, spouštím je já.
 5. Ve `knihovna/` nic nemaž ani nepřepisuj bez souhlasu.
+6. **Před nasazením makro přelož** (zkontroluj) proti DLL Tekly z instalace
+   (`<C:\Program Files\Tekla Structures\<verze>\bin>`). Nasazuj jen makro, které se přeložilo.
+   Když složka `macros\modeling` v modelu chybí, zeptej se a založ ji.
+7. **Chyby za běhu** si makro zapisuje do `<model>\vystupy\makro_chyby.txt`
+   (`try/catch` + `File.AppendAllText`). Když řeknu, že makro selhalo, **přečti nejdřív tento
+   soubor**. Chyba překladu (okno *CompileError*) se nikam nezapíše – pak mě požádej
+   o **výřez obrazovky: Win+Shift+S a Ctrl+V do chatu**. Text mě ručně kopírovat nenech.
+8. **Model se sám neuloží.** Po změně mi připomeň: zkontrolovat, pak **Ctrl+S** (uložit),
+   nebo **Ctrl+Z** (vrátit celou změnu).
 
 ## Nastavení dělá agent
 
@@ -37,6 +46,9 @@ Patří do hlavní složky projektu jako `CLAUDE.md`. Hodnoty v `< >` doplní ag
 - Konfiguraci (`claude_desktop_config.json`, `.claude/settings.json`) měň takto: záloha,
   ukázat změnu, počkat na souhlas, ověřit JSON, říct mi, co restartovat.
 - Já sám: záloha a kopie modelu, schvalování, restart Claude Desktop, spuštění makra.
+- Jak makro spustím (piš mi to takto): **Applications & components** (panel vpravo) → **≡** →
+  **Catalog management** → **Reload catalog**, vyhledat název makra, **dvojklik**.
+- MCP server pro Teklu (pokud je) používej **jen pro čtení**. Změny modelu dělej makrem.
 
 ## Moje zvyklosti
 

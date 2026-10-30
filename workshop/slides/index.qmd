@@ -43,6 +43,26 @@ lang: cs
 
 Zadáte úkol. Agent použije nástroje. Vy zkontrolujete výsledek.
 
+## AI agent obyčejnými slovy
+
+::: columns
+:::: {.column width="60%"}
+- **Chatbot** odpoví textem. Práci pak děláte vy.
+- **Agent** odpoví **a práci udělá**. Umí:
+  - **číst soubory** ve složce, kterou mu ukážete
+  - **psát** nové soubory: Excel, PDF, text
+  - **spouštět programy**, které si sám napíše
+- Vy píšete česky a **schvalujete**. Programovat nemusíte.
+::::
+:::: {.column width="40%"}
+![](figures/illus_section_recoverable.png){width=100%}
+::::
+:::
+
+::: {.insight-box}
+Jako šikovný kolega u vašeho počítače: rychlý, ale občas se splete. Proto kontrolujete.
+:::
+
 ## Jazykový model jen pokračuje v textu
 
 ::: columns
@@ -108,30 +128,22 @@ Rozhoduje, **co může udělat s vašimi soubory**. Vy pak porovnáte součet s 
 Chyba je pro agenta informace, ne selhání. Ilustrační průběh, vymyšlená čísla.
 :::
 
-## Stejně tak uklidí složku zakázky
-
-![](figures/anim_folder_sort.gif){width=88% fig-align="center"}
-
-::: {.small-note}
-Nejdřív si nechte ukázat **plán přejmenování**, pak teprve přesouvat.
-:::
-
 # Claude Desktop {.section-illus background-image="figures/illus_section_workplace.png" background-size="44%" background-position="96% 55%" background-color="#f7fbff"}
 
 Aplikace na vašem počítači, model v cloudu.
 
 ## Oprávnění: kolik toho smí sám
 
-| Režim | Co dělá | Kdy |
+| Režim | Co dělá | Na workshopu |
 | --- | --- | --- |
-| **Manual** | ptá se před každou změnou a příkazem | **začněte tady** |
-| **Accept edits** | soubory mění sám, na příkazy se ptá | až mu budete věřit |
-| **Plan** | jen čte a navrhne postup | větší úkoly, makra |
-| **Auto** | rozhoduje sám, rizikové kroky hlídá | **zatím ne** |
+| **Auto** | sám posoudí, co je bezpečné; u rizikových kroků se zeptá | **nechte, je výchozí** |
+| **Manual** | ptá se na každý příkaz | moc otázek |
+| **Plan** | jen čte a navrhne postup | větší úkoly |
 | **Bypass permissions** | na nic se neptá | **nikdy** |
 
-- **Čtěte, co chce provést.** „Ne“ je v pořádku.
-- Na Windows neběží v izolaci: **ochranou jste vy a oprávnění**.
+- Po výběru složky: „Trust this workspace?“ → **Trust workspace**.
+- Soubor mimo složku: zeptá se. **Always allow** platí jen do zavření konverzace.
+- Jistota = **kopie souborů, git a záloha modelu**.
 
 ## Bezpečně
 
@@ -140,7 +152,7 @@ Aplikace na vašem počítači, model v cloudu.
 - Pracujte **v kopii** složky nebo s **Gitem**.
 - Model v Tekle: **Save and create backup copy** před každou prací s AI.
 - Postup: **jen číst → kopie modelu → ostrý model**.
-- Undo není záloha. Změny přes MCP **Claude sám nevrátí**.
+- **Ctrl+Z** vrátí změnu z makra, ale **záloha je jistota**.
 - Text v cizích modelech a IFC je **nedůvěryhodný**.
 ::::
 :::: {.column width="48%"}
@@ -185,34 +197,6 @@ Kancelář, data z Tekly, jak zadávat.
 :::
 
 Pracuje se **s exportem**: model v Tekle se nepoškodí. [Cvičení →](../cviceni.qmd)
-
-## Markdown: text s jednoduchým formátováním
-
-::: {.live-label}
-<span>`#` nadpis · `-` odrážka · `**tučně**` · zkuste psát ↓</span><span>Jak to vypadá</span>
-:::
-
-::: {.live .live-md}
-<textarea spellcheck="false"># Zakázka Z2026-021: Hala sklad Lipník
-
-Ocelová hala **24 × 48 m**, Tekla 2025.
-
-## Pravidla
-- exporty z Tekly jsou v `podklady/`
-- výsledky ukládej do `vystupy/`
-- hmotnosti uváděj v **tunách**
-- model v Tekle **neměň**
-
-## Hmotnosti
-1. sloupy: 9,8 t
-2. vazníky: 18,4 t
-</textarea>
-<div class="live-out"></div>
-:::
-
-::: {.small-note}
-V Markdownu Claude píše poznámky, plány a pravidla projektu (`CLAUDE.md`).
-:::
 
 ## Jak zadávat: pět zásad
 
@@ -316,9 +300,9 @@ Tři úrovně: 1 Soubory · 2 Makra · 3 MCP.
 
 | Úroveň | Jak to funguje | Riziko pro model | Kdy |
 | --- | --- | --- | --- |
-| **1 · Soubory** | export → Claude zpracuje → Excel/PDF | **žádné** | **hned** |
-| **2 · Makra** | Claude napíše C# makro, vy ho spustíte | **střední**: kopie modelu | druhý krok |
-| **3 · MCP** | Claude se ptá otevřené Tekly | podle nastavení | po otestování, **jen čtení** |
+| **1 · Soubory** | Tekla uloží report → Claude z něj udělá Excel/PDF | **žádné** | **hned** |
+| **2 · Makra** | makro = malý program pro Teklu; Claude ho napíše, vy spustíte | **střední**: kopie modelu | druhý krok |
+| **3 · MCP** | propojení: Claude se ptá otevřené Tekly | **žádné** při čtení | **jen čtení** |
 
 ::: {.insight-box}
 Nejvíc práce ušetří obvykle úroveň **1**. Tekla sama neporovná dvě revize kusovníku; skript ano.
@@ -327,10 +311,12 @@ Nejvíc práce ušetří obvykle úroveň **1**. Tekla sama neporovná dvě revi
 ## Úroveň 2: makro, které napíše Claude
 
 1. *„Napiš makro, které vypíše vybrané díly. **Nic neměň.**“*
-2. Claude uloží `VypisDilu.cs` do složky maker.
-3. V Tekle: **Applications & components → Applications** → dvojklik na makro.
-4. Chyba? Hlášku zkopírujte Claudovi.
-5. Až čtení funguje: změny **na kopii modelu**.
+2. Claude makro **sám zkontroluje** a uloží do složky maker Tekly.
+3. V Tekle: panel **Applications & components** → **≡** → **Catalog management** → **Reload catalog**.
+4. Makro najděte podle názvu a spusťte **dvojklikem**.
+5. Chybové okno? **Win+Shift+S** (výřez obrazovky) → **Ctrl+V** do chatu s Claudem.
+
+Změny modelu až **na kopii**. **Jedno Ctrl+Z** vrátí celou změnu z makra.
 
 ::: {.small-note}
 Makra pro sebe licence Tekly dovoluje; prodávat je lze jen přes Tekla Partners Program. [Návod →](../tekla.qmd)
@@ -338,13 +324,31 @@ Makra pro sebe licence Tekly dovoluje; prodávat je lze jen přes Tekla Partners
 
 ## Úroveň 3: MCP
 
-![](figures/anim_mcp_flow.gif){width=88% fig-align="center"}
+![](figures/anim_mcp_flow.gif){width=68% fig-align="center"}
 
-- **MCP** = „USB pro nástroje“. Oficiální pro Teklu není; favorit: [`tempalg1n/tekla-mcp-server`](https://github.com/tempalg1n/tekla-mcp-server).
-- Režim **jen pro čtení**, zápis na **„ask“**. Je to cizí program: nejdřív kopie modelu.
+- **MCP** = propojení, přes které se Claude **ptá otevřené Tekly**. Používáme [`tekla-mcp-server`](https://github.com/tempalg1n/tekla-mcp-server).
+- Pro začátek **jen čtení**: souhrn, hmotnosti. **Změny modelu dělejte makry.**
+- Změny přes MCP: pro pokročilé, později.
 
 ::: {.small-note}
 Trimble má vlastní **Tekla Model Assistant** (preview), jen pro licence Diamond / Graphite / Carbon.
+:::
+
+## Vyzkoušeno na Tekle 2026
+
+| Úkol | Výsledek |
+| --- | --- |
+| Makro **„jednoduchá hala“** | ✅ 51 dílů: 20 sloupů HEA200, 31 nosníků IPE300 |
+| Makro: **výpis** vybraných dílů do tabulky | ✅ |
+| Makro: **změna třídy**, dotaz česky | ✅ **jedno Ctrl+Z** vrátí celou změnu |
+| MCP: **souhrn modelu** | ✅ 51 dílů, **12 926 kg**, ruční kontrola sedí |
+
+::: {.insight-box}
+Verzi Tekly, cesty i složku maker našel agent sám. Člověk jen schvaloval a klikal v Tekle.
+:::
+
+::: {.small-note}
+Vyzkoušeno 30. 10. 2026 na Tekle 2026 SP1 (zkušební verze) s Claude Desktop.
 :::
 
 # Prakticky {.section-illus background-image="figures/illus_section_tips.png" background-size="38%" background-position="94% 55%" background-color="#f7fbff"}

@@ -15,17 +15,21 @@ Přidej řádek CELKEM a ulož do vystupy/hmotnosti_revC.xlsx.
 Ověř, že součet sedí s původním reportem, a napiš mi obě čísla.
 ```
 
-## Ovládání a když se to zasekne {#ovladani}
+## Ovládání a když něco nejde {#ovladani}
 
-| Co se děje / co chcete | Co zkusit |
+| Co se děje / co chcete | Co udělat |
 | --- | --- |
-| Udělal něco jiného | **Esc** nebo stop, pak zopakujte, co chcete. |
-| Vrátit jeho úpravy souborů | `/rewind` (pokud je v záložce Code dostupné), jinak *„Vrať se k poslední verzi v gitu.“* |
-| Dvě opravy nepomohly | `/clear` nebo nová konverzace a lepší zadání, ne třetí oprava. |
-| Přidat soubor do zadání | `@` a jméno souboru |
-| Větší úkol nebo makro | Režim **Plan**: nejdřív postup. |
-| Opakuje stejnou chybu | Zapište pravidlo do `CLAUDE.md`. |
-| Uložit verzi složky | *„Ulož aktuální stav do gitu.“* |
+| Dělá něco jiného | **Esc** (stop), pak napište znovu, co chcete. |
+| Vrátit jeho úpravy souborů | *„Vrať se k poslední verzi v gitu.“* |
+| Na obrazovce je chyba | **Win+Shift+S**, vyberte okno s chybou, pak **Ctrl+V** do chatu s Claudem. |
+| Dvě opravy nepomohly | `/clear` (nový čistý chat) a lepší zadání, ne třetí oprava. |
+| Zasekl se nebo nevidí nový program | Ikona u hodin → pravé tlačítko → **Quit**, pak spustit znovu. |
+| Přidat soubor do zadání | Napište `@` a jméno souboru. |
+| Opakuje stejnou chybu | *„Zapiš si to jako pravidlo do CLAUDE.md.“* |
+
+**Oprávnění:** nechte režim **Auto** (výchozí). Běžné věci dělá sám, u rizikových
+a u souborů mimo složku se zeptá. *Always allow* u souboru mimo složku platí jen do zavření chatu.
+**Bypass permissions nikdy.** Bezpečí dávají kopie, git a záloha modelu.
 
 ## Kolik to stojí {#cena}
 
@@ -38,10 +42,10 @@ Agent (Claude Code) je jen v placených tarifech. Ceny v USD bez DPH
 | **Max** | od 100 USD/měs. | Když Pro pravidelně nestačí |
 | **Team Standard** | 25 USD za místo a měsíc (20 při ročním placení), **min. 2 místa**, Claude Code v ceně | Firma, práce pro klienty |
 
-- **Doporučení:** na zkoušku **Pro**. Ostře ve firmě o 2 lidech **Team se 2 místy**:
-  50 USD/měs. (40 USD/měs. při ročním placení), za to firemní podmínky ([Soukromí](#soukromi)).
-- **Limity:** chat i agent čerpají ze společného limitu, který se obnovuje po několika
-  hodinách, plus týdenní strop. Šetří `/clear` mezi úkoly a konkrétní zadání.
+- **Doporučení:** na zkoušku **Pro**. Ostře ve firmě o 2 lidech **Team se 2 místy**
+  (50 USD/měs., ročně 40) s firemními podmínkami ([Soukromí](#soukromi)).
+- **Limity:** chat i agent mají společný limit, obnovuje se po několika hodinách
+  (plus týdenní strop). Šetří `/clear` mezi úkoly.
 
 ## Soukromí a data klientů {#soukromi}
 
@@ -70,7 +74,7 @@ i data z Tekly ([data usage](https://code.claude.com/docs/en/data-usage)).
 
 NDA často zakazují předávat data třetím stranám, a to může zahrnovat i AI službu
 ([RICS](https://www.rics.org/profession-standards/rics-standards-and-guidance/conduct-competence/responsible-use-of-ai/client-information-note)).
-Přečtěte si smlouvu a když si nejste jistí, zeptejte se klienta písemně.
+Nejste-li si jistí, zeptejte se klienta písemně.
 
 ## Zálohy modelu Tekla {#zalohy}
 
@@ -79,7 +83,7 @@ Přečtěte si smlouvu a když si nejste jistí, zeptejte se klienta písemně.
   ([Tekla](https://support.tekla.com/doc/tekla-structures/2026/mod_saving_model_with_different_name_or_location)).
 - Obyčejné *Save as* **zálohou není** (nové GUID).
 - Zkoušejte jen na kopii, ne na sdíleném modelu.
-- Undo v Tekle vrátí jen krok makra a `/rewind` změny v modelu nevrátí. Ani jedno není záloha.
+- Ctrl+Z v Tekle vrátí poslední změnu z makra, ale zálohu nenahradí.
 
 ## Licence Tekly {#licence}
 
@@ -95,7 +99,7 @@ a [zásad pro vývojáře](https://developer.tekla.com/policy):
 - Výsledky musí ověřit **kvalifikovaná osoba** (EULA Tekly, čl. 9.2).
 - **Claude spolehlivě nezná ČSN ani Eurokódy**
   ([K. Toman, ČVUT 2025](https://concrete.fsv.cvut.cz/phdworkshop/proceedings/2025/pdf/Toman_Krystof.pdf)).
-  Statiku od něj nepřebírejte. Na data, souhrny a kontroly se hodí dobře.
+  Statiku od něj nepřebírejte. Na data a souhrny se hodí dobře.
 - U každého výstupu chtějte kontrolu, např. součet proti originálu.
 
 ## AI přímo od Trimble {#trimble}
@@ -106,14 +110,13 @@ Trimble má vlastní AI v Tekle:
 [Developer Assistant](https://support.tekla.com/doc/tekla-structures/not-version-specific/developer_assistant)
 (píše makra) a
 [Tekla Model Assistant](https://support.tekla.com/doc/tekla-structures/2026/mod_tekla_model_assistant)
-(agent v panelu Tekly; je k dispozici v TS 2025 SP9 a 2026 SP2 pro licence Diamond,
-Graphite a Carbon, zatím jako preview). Pokud ho máte, porovnejte.
+(agent v Tekle; TS 2025 SP9 a 2026 SP2, licence Diamond, Graphite, Carbon, zatím preview).
+Pokud ho máte, porovnejte.
 
 ## Kde se dozvědět víc
 
-- **Construsoft CZ:** [webinář 19. 11. 2026 o AI v Tekle](https://www.construsoft.com/cs/webinar/vykresy-na-par-kliknuti-automatizace-ai-v-tekla-structures).
+- [Construsoft CZ: webinář 19. 11. 2026 o AI v Tekle](https://www.construsoft.com/cs/webinar/vykresy-na-par-kliknuti-automatizace-ai-v-tekla-structures)
 - [Tekla Warehouse](https://warehouse.tekla.com): možná už nástroj existuje.
-- [Anthropic Academy](https://anthropic.skilljar.com/).
 
 ## Pojmy v kostce {#pojmy}
 
@@ -121,4 +124,6 @@ Graphite a Carbon, zatím jako preview). Pokud ho máte, porovnejte.
 - **Git:** historie složky. *„Ulož stav do gitu.“*, *„Vrať se k poslední funkční verzi.“*
 - **Skill:** uložený recept na opakovaný postup. *„Z tohohle udělej skill.“*
 - **MCP:** propojení Clauda s jiným programem, např. s Teklou.
-- **Kontext:** co má Claude právě „v hlavě“. Dlouhé konverzace slábnou, začínejte nové.
+- **Makro:** malý program, který Tekla spustí a který něco udělá v modelu.
+- **CSV:** tabulka uložená jako obyčejný text.
+- **Kontext:** co má Claude právě „v hlavě“. Dlouhé chaty slábnou, `/clear` začne nový.

@@ -3,21 +3,21 @@ title: "Co za vás může udělat AI agent"
 subtitle: "Nápady na úkoly pro Clauda v kanceláři i v Tekle"
 ---
 
-AI agent je asistent, kterému popíšete úkol obyčejnou češtinou. Sám otevře soubory,
-udělá práci a výsledek uloží. Vy jen kontrolujete. U každého nápadu je věta,
-kterou mu můžete rovnou napsat, a úroveň:
+AI agent je pomocník v počítači. Úkol mu napíšete obyčejnou češtinou.
+Sám otevře soubory, udělá práci a výsledek uloží. Vy jen kontrolujete.
+U každého nápadu je věta, kterou mu můžete rovnou napsat, a úroveň:
 
-- [1]{.lvl .l1} **Soubory (bez rizika):** Claude pracuje jen s kopiemi souborů. Model se nezmění.
-- [2]{.lvl .l2} **Makra v Tekle:** Claude napíše malý program (makro), vy ho v Tekle spustíte.
-- [3]{.lvl .l3} **MCP – Claude se ptá Tekly přímo:** Claude čte otevřený model sám, bez vás.
+- [1]{.lvl .l1} **Soubory (bez rizika):** Claude pracuje se soubory ve složce. Model Tekly se nezmění.
+- [2]{.lvl .l2} **Makra v Tekle:** makro je malý program pro Teklu. Claude ho napíše, vy ho spustíte.
+- [3]{.lvl .l3} **MCP:** propojení, přes které se Claude ptá otevřené Tekly přímo. Zatím jen čtení.
 
-[ověřeno]{.ok} = vyzkoušeno 30. 10. 2026 na Tekle 2026 SP1, funguje.
-Odkaz u názvu vede na cvičení nebo ukázku na tomto webu.
+[ověřeno]{.ok} = vyzkoušeno 30. 10. 2026 na Tekle 2026 SP1 (zkušební verze).
+Odkaz u názvu vede na cvičení nebo ukázku.
 
 ::: {.callout-warning}
 ## Než začnete
 Pracujte na kopii a model Tekly si nejdřív zazálohujte ([jak](prakticke.qmd#zalohy)).
-Chtějte nejdřív návrh, pak teprve změnu.
+Nejdřív chtějte návrh, pak teprve změnu.
 :::
 
 ## Kancelář a soubory
@@ -29,7 +29,6 @@ Chtějte nejdřív návrh, pak teprve změnu.
 | **Úklid složky** · [cvičení](kancelar.qmd) | Najde duplicity, staré revize a smetí. | [1]{.lvl .l1} | *„Udělej inventuru složky a najdi duplicity.“* |
 | **Přejmenování souborů** · [cvičení](kancelar.qmd) | Sjednotí názvy. Nejdřív ukáže návrh. | [1]{.lvl .l1} | *„Navrhni nové názvy PDF podle čísla výkresu, zatím nic neměň.“* |
 | **Fotky ze stavby** | Seřadí je podle data a udělá z nich PDF. | [1]{.lvl .l1} | *„Z fotek udělej PDF, 4 na stránku, s datem.“* |
-| **Hledání** | Najde, kde se o něčem psalo. | [1]{.lvl .l1} | *„Kde se v zakázce řešila kotva v ose C?“* |
 :::
 
 ## E-maily, dopisy, nabídky
@@ -39,11 +38,7 @@ Chtějte nejdřív návrh, pak teprve změnu.
 | --- | --- | --- | --- |
 | **Úkoly z porady** · [cvičení](kancelar.qmd) | Ze zápisu udělá tabulku kdo, co, kdy. | [1]{.lvl .l1} | *„Vypiš úkoly ze zápisu do Excelu.“* |
 | **E-mail klientovi** · [cvičení](kancelar.qmd) | Napíše koncept. Pošlete ho vy. | [1]{.lvl .l1} | *„Napiš e-mail Ing. Malé o změně výkresů, neposílej.“* |
-| **Zápis z porady** | Z rychlých poznámek udělá čistý zápis. | [1]{.lvl .l1} | *„Z mých poznámek udělej zápis z kontrolního dne.“* |
 | **Cenová nabídka** · [cvičení](cviceni.qmd#nabidka) | Z reportu a ceníku spočítá nabídku. | [1]{.lvl .l1} | *„Z kusovníku a ceníku udělej návrh nabídky.“* |
-| **Hodiny a faktura** | Sečte hodiny a udělá soupis prací. | [1]{.lvl .l1} | *„Z hodin za říjen udělej soupis prací k faktuře.“* |
-| **Otevřené dotazy** | Z e-mailů vypíše, co čeká na odpověď. | [1]{.lvl .l1} | *„Udělej tabulku nevyřešených dotazů z 05_Korespondence.“* |
-| **Přehled zakázek** | Jedna tabulka: stav, termín, poslední výkres. | [1]{.lvl .l1} | *„Ze složek zakázek udělej přehled stavu.“* |
 :::
 
 ## Výkresy a PDF
@@ -52,14 +47,13 @@ Chtějte nejdřív návrh, pak teprve změnu.
 | Nápad | Co udělá | Úr. | Řekněte agentovi |
 | --- | --- | --- | --- |
 | **Předávací protokol** · [cvičení](kancelar.qmd) | Seznam výkresů s revizemi. | [1]{.lvl .l1} | *„Udělej předávací protokol z PDF ve složce.“* |
-| **Čtení razítka** · [cvičení](kancelar.qmd) | Pozná číslo výkresu i ve skenu. | [1]{.lvl .l1} | *„Přečti razítka ve skenech a navrhni názvy.“* |
-| **Spojení PDF** | Spojí výkresy do jednoho souboru. | [1]{.lvl .l1} | *„Spoj V-101 až V-110 do jednoho PDF.“* |
-| **Výkres DXF** · [ukázka](ukazky/patka.qmd) | Nakreslí jednoduchý dílec podle čísel. | [1]{.lvl .l1} | *„Nakresli patní desku 400 × 400 jako DXF.“* |
+| **Čtení razítka** · [cvičení](kancelar.qmd) | Přečte číslo výkresu i z naskenovaného PDF. | [1]{.lvl .l1} | *„Přečti razítka ve skenech a navrhni názvy.“* |
+| **Výkres DXF** · [ukázka](ukazky/patka.qmd) | Nakreslí jednoduchý dílec. DXF otevře každý CAD. | [1]{.lvl .l1} | *„Nakresli patní desku 400 × 400 jako DXF.“* |
 :::
 
 ## Excel a reporty z Tekly
 
-Report vyexportujete z Tekly vy, Claude pracuje jen se souborem.
+Report (seznam dílů) vyexportujete z Tekly vy. Claude pracuje jen s tímto souborem.
 
 ::: {.table-scroll}
 | Nápad | Co udělá | Úr. | Řekněte agentovi |
@@ -67,8 +61,8 @@ Report vyexportujete z Tekly vy, Claude pracuje jen se souborem.
 | **Souhrn hmotností** · [cvičení](cviceni.qmd#hmotnosti) | Hmotnost podle profilu a fáze do Excelu. | [1]{.lvl .l1} | *„Sečti hmotnosti z reportu podle profilu a fáze.“* |
 | **Porovnání revizí** · [cvičení](cviceni.qmd#revize) | Co přibylo, ubylo a změnilo se. | [1]{.lvl .l1} | *„Porovnej kusovník revize A a B.“* |
 | **Nářezový plán** · [ukázka](ukazky/narezy.qmd) | Rozdělí díly do 12m tyčí. | [1]{.lvl .l1} | *„Udělej nářezový plán pro tyče 12 m.“* |
-| **Kontrola NC** · [cvičení](cviceni.qmd#bonus) | Porovná NC soubory s kusovníkem. | [1]{.lvl .l1} | *„Chybí nějaké NC soubory oproti kusovníku?“* |
-| **Skript na dvojklik** · [cvičení](cviceni.qmd#skill) | Souhrn pak spustíte i bez Clauda. | [1]{.lvl .l1} | *„Udělej z toho skript, který spustím dvojklikem.“* |
+| **Kontrola NC** · [cvičení](cviceni.qmd#bonus) | NC soubory (data pro stroje v dílně) porovná s kusovníkem. | [1]{.lvl .l1} | *„Chybí nějaké NC soubory oproti kusovníku?“* |
+| **Program na dvojklik** · [cvičení](cviceni.qmd#skill) | Souhrn pak spustíte i bez Clauda. | [1]{.lvl .l1} | *„Udělej z toho skript, který spustím dvojklikem.“* |
 :::
 
 ## Kontroly
@@ -76,44 +70,40 @@ Report vyexportujete z Tekly vy, Claude pracuje jen se souborem.
 ::: {.table-scroll}
 | Nápad | Co udělá | Úr. | Řekněte agentovi |
 | --- | --- | --- | --- |
-| **Kontrola reportu** · [cvičení](cviceni.qmd#kontrola) | Najde chybějící materiál, `?` a prázdné UDA. | [1]{.lvl .l1} | *„Najdi v reportu chyby a dej je na list Problémy.“* |
-| **Kontrola IFC** · [ukázka](ukazky/ifc.qmd) | Před odesláním najde prvky bez fáze. | [1]{.lvl .l1} | *„Zkontroluj IFC: fáze, materiály, počty.“* |
+| **Kontrola reportu** · [cvičení](cviceni.qmd#kontrola) | Najde chybějící materiál a nevyplněné údaje. | [1]{.lvl .l1} | *„Najdi v reportu chyby a dej je na list Problémy.“* |
+| **Kontrola IFC** · [ukázka](ukazky/ifc.qmd) | IFC je model pro jiné profese. Před odesláním najde prvky bez fáze. | [1]{.lvl .l1} | *„Zkontroluj IFC: fáze, materiály, počty.“* |
 | **Kontrola výpočtu** · [ukázka](ukazky/nosnik.qmd) | Ukáže mezivýpočty k ruční kontrole. | [1]{.lvl .l1} | *„Přepočítej průhyb vaznice, ukaž mezivýpočty.“* |
-| **Úplnost předání** | Ověří, že žádný výkres nechybí. | [1]{.lvl .l1} | *„Je každý výkres z protokolu ve složce jako PDF?“* |
-| **Kolize** | Výsledek Clash Check převede do tabulky. | [1]{.lvl .l1} | *„Z kolizí udělej přehled podle profese.“* |
 :::
 
 ## Přímo v Tekle (makra)
 
-Makro spouštíte vy, v kopii modelu. Celé makro vrátíte jedním **Ctrl+Z**.
+Makro spouštíte vy, v kopii modelu. Celou změnu z makra vrátíte jedním **Ctrl+Z**.
 
 ::: {.table-scroll}
 | Nápad | Co udělá | Úr. | Řekněte agentovi |
 | --- | --- | --- | --- |
 | **Příprava projektu** · [cvičení](tekla.qmd#makra) [ověřeno]{.ok} | Sám najde, kde má Tekla složky. | [2]{.lvl .l2} | *„Připrav projekt pro makra a najdi cesty Tekly.“* |
-| **Makro od A do Z** · [cvičení](tekla.qmd#makra) [ověřeno]{.ok} | Napíše, ověří a nahraje makro do Tekly. | [2]{.lvl .l2} | *„Napiš makro, vyzkoušej překlad a nasaď ho.“* |
-| **Výpis dílů** · [cvičení](tekla.qmd#cviceni-1) [ověřeno]{.ok} | Vybrané díly uloží do tabulky (CSV). | [2]{.lvl .l2} | *„Makro: vypiš vybrané díly do CSV.“* |
-| **Kontrola modelu** · [cvičení](tekla.qmd#cviceni-2) | Najde díly bez materiálu nebo třídy. | [2]{.lvl .l2} | *„Makro: najdi díly bez materiálu.“* |
-| **Změna třídy a UDA** · [cvičení](tekla.qmd#cviceni-3) [ověřeno]{.ok} | Změní vybrané díly, předtím se zeptá. | [2]{.lvl .l2} | *„Makro: vybraným dílům nastav třídu 3, nejdřív se zeptej.“* |
+| **Makro od A do Z** · [cvičení](tekla.qmd#makra) [ověřeno]{.ok} | Napíše makro, sám ho zkontroluje a uloží do Tekly. | [2]{.lvl .l2} | *„Napiš makro, zkontroluj ho a nahraj do Tekly.“* |
+| **Výpis dílů** · [cvičení](tekla.qmd#cviceni-1) [ověřeno]{.ok} | Vybrané díly zapíše do tabulky pro Excel. | [2]{.lvl .l2} | *„Makro: vypiš vybrané díly do tabulky.“* |
+| **Změna třídy** · [cvičení](tekla.qmd#cviceni-3) [ověřeno]{.ok} | Změní vybrané díly, předtím se zeptá. | [2]{.lvl .l2} | *„Makro: vybraným dílům nastav třídu 3, nejdřív se zeptej.“* |
 | **Jednoduchá hala** · [cvičení](tekla.qmd#makra) [ověřeno]{.ok} | Vymodeluje 20 sloupů HEA200 a 31 nosníků IPE300. | [2]{.lvl .l2} | *„Makro: síť 3 × 4 pole po 6 m, HEA200 a IPE300.“* |
-| **Osy z Excelu** | Vytvoří osy podle tabulky. | [2]{.lvl .l2} | *„Makro: vytvoř osy podle osy.xlsx.“* |
-| **UDA z Excelu** | Vyplní vlastnosti dílů z tabulky. | [2]{.lvl .l2} | *„Makro: vyplň UDA podle tabulky, nejdřív ukaž změny.“* |
+| **Vlastnosti z Excelu** | Vyplní údaje dílů (UDA) podle tabulky. | [2]{.lvl .l2} | *„Makro: vyplň údaje dílů podle tabulky, nejdřív ukaž změny.“* |
 | **Záměna profilu** | Vymění profil, předtím ukáže seznam. | [2]{.lvl .l2} | *„Makro: HEA200 v ose C změň na HEA240.“* |
 | **Knihovna maker** · [cvičení](tekla.qmd#cviceni-4) | Ověřená makra uloží s popisem. | [2]{.lvl .l2} | *„Ulož ověřená makra do knihovny s popisem.“* |
 :::
 
 ## Ptát se modelu (MCP)
 
-Zatím jen **čtení**. Model se nemění.
+Pro začátek jen **čtení**: Claude se ptá, model se nemění. Změny dělejte makry.
 
 ::: {.table-scroll}
 | Nápad | Co udělá | Úr. | Řekněte agentovi |
 | --- | --- | --- | --- |
 | **Shrnutí modelu** · [cvičení](tekla.qmd#mcp) [ověřeno]{.ok} | Počet dílů, hmotnost, profily. | [3]{.lvl .l3} | *„Shrň otevřený model.“* |
 | **Hmotnost podle fází** · [cvičení](tekla.qmd#mcp) [ověřeno]{.ok} | Hmotnost podle profilu a fáze. | [3]{.lvl .l3} | *„Kolik váží ocel v jednotlivých fázích?“* |
-| **Rychlé dotazy** | Odpoví na otázku o modelu. | [3]{.lvl .l3} | *„Kolik je v modelu šroubů M20?“* |
-| **Hledání problémů** | Najde a označí podezřelé díly. | [3]{.lvl .l3} | *„Najdi díly bez materiálu a vyber je v Tekle.“* |
-| **Změna s náhledem** · [cvičení](tekla.qmd#mcp-zapisy) [ověřeno]{.ok} | Nejdřív ukáže, co by změnil. Pak čeká. | [3]{.lvl .l3} | *„Ukaž náhled změny třídy, zatím neprováděj.“* |
+| **Rychlé dotazy** | Odpoví na otázku. | [3]{.lvl .l3} | *„Kolik je v modelu šroubů M20?“* |
+| **Hledání problémů** | Najde podezřelé díly a označí je v Tekle. | [3]{.lvl .l3} | *„Najdi díly bez materiálu a vyber je v Tekle.“* |
+| **Změna s náhledem** (pro pokročilé) · [cvičení](tekla.qmd#mcp-zapisy) [ověřeno]{.ok} | Mění model. Nejdřív ukáže, co by změnil, a čeká. | [3]{.lvl .l3} | *„Ukaž náhled změny třídy, zatím neprováděj.“* |
 :::
 
 ## Malé nástroje a weby
@@ -121,7 +111,7 @@ Zatím jen **čtení**. Model se nemění.
 ::: {.table-scroll}
 | Nápad | Co udělá | Úr. | Řekněte agentovi |
 | --- | --- | --- | --- |
-| **Kalkulačka** · [ukázka](ukazky/nosnik.qmd) | Stránka, kam zadáte čísla a dostanete výsledek. | [1]{.lvl .l1} | *„Udělej kalkulačku pro prostý nosník.“* |
+| **Kalkulačka** · [ukázka](ukazky/nosnik.qmd) | Zadáte čísla, dostanete výsledek. | [1]{.lvl .l1} | *„Udělej kalkulačku pro prostý nosník.“* |
 | **3D návrh** · [ukázka](ukazky/hala.qmd) | Hala s posuvníky v prohlížeči. | [1]{.lvl .l1} | *„Udělej 3D halu, kde mění rozpětí a sklon.“* |
 | **Prezentace pro klienta** · [ukázka](ukazky/stav-zakazky.qmd) | Stav zakázky na pár slajdech. | [1]{.lvl .l1} | *„Z tabulky udělej prezentaci na kontrolní den.“* |
 | **Projekt doma** · [ukázka](ukazky/pergola.qmd) | Návrh a seznam materiálu. | [1]{.lvl .l1} | *„Navrhni pergolu 4 × 3 m a seznam řeziva.“* |
@@ -133,14 +123,12 @@ Zatím jen **čtení**. Model se nemění.
 | Nápad | Co udělá | Úr. | Řekněte agentovi |
 | --- | --- | --- | --- |
 | **Vysvětli mi to** | Řekne jednoduše, co dělá soubor nebo makro. | [1]{.lvl .l1} | *„Vysvětli jednoduše, co dělá tohle makro.“* |
-| **Návod pro kolegu** | Z dnešní práce sepíše postup. | [1]{.lvl .l1} | *„Napiš krátký návod, jak jsme to dnes dělali.“* |
-| **Pravidla firmy** | Zapíše je do `CLAUDE.md`, aby je Claude dodržoval. | [1]{.lvl .l1} | *„Do CLAUDE.md zapiš: jednotky mm a kg.“* |
-| **Vlastní příkaz (skill)** · [cvičení](kancelar.qmd) | Opakovaný postup spustíte jedním slovem. | [1]{.lvl .l1} | *„Z tohoto postupu udělej skill.“* |
-| **Nápověda Tekly** | Najde odpověď v dokumentaci. | [1]{.lvl .l1} | *„Najdi, jak v Tekle nastavit název PDF při tisku.“* |
+| **Pravidla firmy** | Zapíše je do souboru `CLAUDE.md`. Claude ho čte pokaždé. | [1]{.lvl .l1} | *„Do CLAUDE.md zapiš: jednotky mm a kg.“* |
+| **Uložený postup (skill)** · [cvičení](kancelar.qmd) | Opakovanou práci pak spustíte jednou větou. | [1]{.lvl .l1} | *„Z tohoto postupu udělej skill.“* |
 :::
 
 ## Jak vybrat první úkol
 
-1. **Často se opakuje.** Děláte ho každý týden? Ušetříte nejvíc.
-2. **Je nudný.** Přepisování, třídění, sčítání. Na to je agent nejlepší.
-3. **Dá se zkontrolovat.** Stačí ověřit jedno číslo, třeba součet hmotnosti s Teklou.
+1. **Často se opakuje.** Děláte ho každý týden.
+2. **Je nudný.** Přepisování, třídění, sčítání.
+3. **Dá se zkontrolovat.** Třeba součet hmotnosti s Teklou.

@@ -1,49 +1,59 @@
 ---
 title: "Instalace a první spuštění"
-subtitle: "Claude Desktop na Windows, záložka Code, bez terminálu"
+subtitle: "Claude Desktop na Windows, záložka Code, bez psaní příkazů"
 ---
 
 Uděláme to společně, asi za 20 minut. Potřebujete [placený Claude](priprava.qmd).
-Většinu nastavení udělá agent, stačí mu to říct. Když menu vypadá jinak, hledejte podobný název.
+Nástroje nainstaluje agent sám, vy jen schvalujete. Když menu vypadá trochu jinak,
+hledejte podobný název.
 
-## Krok 1: Claude Desktop
+## Krok 1: stáhnout a přihlásit
 
-1. Stáhněte instalátor z [claude.com/download](https://claude.com/download) (Windows).
-   Ne z Microsoft Store.
-2. Nainstalujte a přihlaste se účtem s placeným tarifem.
+1. Otevřete [claude.com/download](https://claude.com/download) a stáhněte verzi pro Windows
+   (ne z Microsoft Store).
+2. Spusťte stažený soubor. Instalace proběhne sama.
+3. Claude Desktop se otevře. Klikněte na přihlášení a použijte účet s placeným tarifem.
+
+**Uvidíte** okno s polem pro psaní, podobné chatu na claude.ai.
 
 ## Krok 2: pracovní složka
 
-1. V Průzkumníku vytvořte složku jen pro Clauda, např.
+Složka je „šuplík“ v počítači, ve kterém leží soubory. Claude bude pracovat jen v ní.
+
+1. V Průzkumníku (žlutá ikona složky na liště) vytvořte novou složku, např.
    `C:\Users\<jmeno>\Claude\stavar-workshop`.
 2. Klikněte na [`CLAUDE.md`](files/CLAUDE.md){download="CLAUDE.md"}. Soubor se uloží do
-   *Stažené soubory*; v Průzkumníku ho odtud **přetáhněte** do nové složky.
+   *Stažené soubory*; odtud ho myší **přetáhněte** do nové složky.
    Jsou v něm pravidla, která Claude čte na začátku každé práce.
 
 Nevybírejte složku s modely Tekly, celé *Dokumenty* ani plochu.
-Claude smí měnit všechno ve vybrané složce.
 
-## Krok 3: záložka Code a oprávnění
+## Krok 3: záložka Code
 
-1. V Claude Desktop přepněte na záložku **Code**, prostředí **Local**.
-2. Vyberte složku `stavar-workshop`.
-3. U pole pro zadání zvolte režim oprávnění **Manual**.
+1. V Claude Desktop klikněte nahoře vlevo na ikonu **`</>`** (záložka **Code**).
+2. Klikněte na **Choose a folder** a vyberte složku `stavar-workshop`.
+3. Vyskočí otázka *Trust this workspace?* (Důvěřujete této složce?). Klikněte **Trust workspace**.
+4. U pole pro psaní nechte režim **Auto** (je nastavený sám).
 
-| Režim | Co dělá | Kdy |
+**Uvidíte** pole pro zadání a nad ním název vaší složky.
+
+### Režimy oprávnění
+
+Oprávnění určují, na co se vás Claude ptá, než něco udělá.
+
+| Režim | Co dělá | Pro workshop |
 | --- | --- | --- |
-| **Manual** | Ptá se před každou změnou a příkazem | Začněte tady, prvních pár týdnů |
-| **Accept edits** | Soubory mění sám, na příkazy se ptá | Až mu budete věřit |
-| **Plan** | Jen čte a navrhne postup | Větší úkoly, makra |
-| **Auto** | Většinu kroků schvaluje sám | Zatím nepoužívat |
-| **Bypass permissions** | Na nic se neptá | **Nikdy** (objeví se, jen když v Settings zapnete *Allow bypass permissions mode*) |
+| **Auto** | Běžné věci dělá sám, u rizikových a u souborů mimo složku se zeptá | **Doporučeno** |
+| **Manual** | Ptá se na úplně všechno, i na čtení | Moc otázek pro začátek |
+| **Bypass permissions** | Na nic se neptá | **Nikdy** |
 
-Na Windows běží příkazy agenta s vašimi právy. Chrání vás jen oprávnění, vaše kontrola
-a zálohy. Když nerozumíte, co chce udělat, odmítněte a napište:
-*„Vysvětli mi jednoduše, co ten příkaz udělá.“*
+Bezpečí zajišťuje hlavně to, že pracujeme **na kopiích**, s historií v gitu a se zálohou modelu.
+Když se Claude ptá a nerozumíte, klikněte *Deny* a napište:
+*„Vysvětli mi jednoduše, co chceš udělat.“*
 
-## Krok 4: nástroje
+## Krok 4: zadání A – pravidla a nástroje
 
-Řekněte agentovi:
+Řekněte agentovi (zkopírujte text do pole a stiskněte Enter):
 
 ```default
 Přečti si CLAUDE.md a řekni mi vlastními slovy, jaká pravidla máš.
@@ -52,15 +62,16 @@ kde to jde, s --scope user.
 Ve složce vytvoř podsložky podklady a vystupy a založ v ní git.
 ```
 
-**Co uděláte vy:** schválíte jednotlivé kroky. Může vyskočit okno Windows
-s otázkou *Ano / Ne* (práva správce): u instalace Gitu nebo `uv` klikněte *Ano*.
+Git a uv jsou pomocné programy: git pamatuje historii složky, uv spouští skripty.
 
-**Teď Claude Desktop úplně ukončete** (i z ikony vedle hodin) **a spusťte znovu.**
-Jinak nové nástroje neuvidí.
+**Co uděláte vy:** když vyskočí modré okno Windows *Chcete povolit…? Ano / Ne*, klikněte *Ano*.
 
-## Krok 5: první úkol
+**Pak Claude úplně zavřete:** vpravo dole u hodin klikněte na šipku **^**, pravým tlačítkem
+na ikonu Claude → **Quit**. Spusťte ho znovu. Jinak nové programy neuvidí.
 
-Ve stejné složce řekněte agentovi:
+## Krok 5: zadání B – první úkol
+
+V záložce Code se stejnou složkou řekněte agentovi:
 
 ```default
 Napiš krátký program, který vypíše, kolik pracovních dní zbývá do konce roku,
@@ -68,10 +79,17 @@ spusť ho a ukaž mi výsledek.
 ```
 
 **Hotovo, když** Claude shrnul pravidla, vytvořil a spustil program a ukázal výsledek.
-Git pamatuje historii složky, takže se dá vrátit k předchozí verzi.
 
-Ovládání (zastavit, vrátit, nový úkol) najdete v [Praktickém info](prakticke.qmd#ovladani).
-MCP server pro Teklu je volitelný, viz [Živá Tekla](tekla.qmd#mcp).
+## Slovníček v 1 větě
+
+- **Agent:** AI, která sama pracuje se soubory ve vaší složce.
+- **`CLAUDE.md`:** soubor s pravidly, která Claude dodržuje.
+- **Git:** paměť složky; umí vrátit starší verzi.
+- **Makro:** malý program, který Tekla spustí.
+- **MCP:** propojení Clauda s jiným programem, např. s Teklou.
+
+Víc v [Pojmech](prakticke.qmd#pojmy), ovládání (zastavit, vrátit) v
+[Praktickém info](prakticke.qmd#ovladani). MCP pro Teklu je volitelné, viz [Živá Tekla](tekla.qmd#mcp).
 
 Pokračujte na [kancelářská cvičení](kancelar.qmd).
 
@@ -79,8 +97,8 @@ Pokračujte na [kancelářská cvičení](kancelar.qmd).
 
 | Příznak | Řešení |
 | --- | --- |
-| Záložka **Code** chybí | Nejste přihlášeni placeným účtem. |
+| Ikona **`</>`** (Code) chybí | Nejste přihlášeni placeným účtem. |
 | Claude nevidí soubory | Je vybraná jiná složka. |
-| Claude „nezná“ Git nebo `uv` | Aplikaci úplně ukončete a spusťte znovu. |
+| Claude „nezná“ Git nebo uv | Zavřete ho přes ikonu u hodin → **Quit** a spusťte znovu. |
 | Hlásí limit | Vyčerpaný limit tarifu, viz [Kolik to stojí](prakticke.qmd#cena). |
-
+| Jiná chyba | Win+Shift+S, vyberte okno s chybou a Ctrl+V do chatu s Claudem. |

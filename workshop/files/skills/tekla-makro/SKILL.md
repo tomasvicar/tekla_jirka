@@ -17,22 +17,31 @@ Uživatel **neprogramuje**. Mluv česky a jednoduše. Pravidla a cesty jsou v `C
 - Začni od nejbližšího makra v `knihovna/` nebo `makra/`.
 - Kostra: `namespace Tekla.Technology.Akit.UserScript`, třída `Script`,
   `public static void Run(Tekla.Technology.Akit.IScript akit)`.
-- `GetConnectionStatus()`, `try/catch` s `MessageBox.Show(ex.ToString())`, nastavení jako konstanty nahoře.
+- `GetConnectionStatus()`, nastavení jako konstanty nahoře.
+- `try/catch`: chybu zapiš do `<model>\vystupy\makro_chyby.txt` (pomocná metoda `ZapisChybu`
+  jako v `makra/01_*.cs`) a ukaž ji i v `MessageBox`.
 - **Každý člen API ověř** v `reference/*.xml` (když chybí, na developer.tekla.com pro verzi
   z `CLAUDE.md`), neověřené označ `// NEOVĚŘENO:`.
 - Změny modelu: kontrola, že název složky modelu obsahuje „KOPIE“, potvrzovací dialog s počtem dílů, při chybě u části dílů
   seznam a dotaz před `CommitChanges`, jedno `CommitChanges`.
-- Máš-li `dotnet`, zkontroluj překlad proti NuGet balíčku verze Tekly.
+- **Vždy přelož před nasazením** proti DLL z instalace Tekly (`...\<verze>\bin\`), nebo
+  proti NuGet balíčku stejné verze. Nepřeložené makro nenasazuj.
 
 ## 3. Nasaď
 
-- Ulož do `makra/<NN_Nazev>.cs` a zkopíruj do `<model>\macros\modeling\` (cesta v `CLAUDE.md`).
-- Řekni uživateli: otevřít **kopii**, vybrat díly, **Applications & components → Applications**
-  → dvojklik; když chybí, **Reload catalog**. A co má vidět, když je vše v pořádku.
+- Ulož do `makra/<NN_Nazev>.cs` a zkopíruj do `<model>\macros\modeling\` (cesta v `CLAUDE.md`;
+  když složka chybí, zeptej se a založ ji).
+- Řekni uživateli: otevřít **kopii**, vybrat díly, **Applications & components** (panel vpravo)
+  → **≡** → **Catalog management** → **Reload catalog**, vyhledat název makra, **dvojklik**.
+  A co má vidět, když je vše v pořádku.
+- Když makro mění model: připomeň, že se model **sám neuloží** – zkontrolovat, pak **Ctrl+S**,
+  nebo **Ctrl+Z** (jedno Ctrl+Z vrátí celou změnu).
 
 ## 4. Když to nefunguje
 
-- Požádej o celý text chybového okna (Ctrl+C), případně čti log Tekly.
+- Nejdřív si **sám přečti** `<model>\vystupy\makro_chyby.txt` (chyby za běhu).
+- Okno *CompileError* (chyba překladu) se do logu nezapisuje: požádej o **výřez obrazovky –
+  Win+Shift+S a Ctrl+V do chatu**. Nežádej ruční kopírování textu.
 - `CS0117`, `CS1061` = neexistující člen API → ověř v XML, oprav.
 - Oprav **jednu věc**, nasaď, nech spustit znovu.
 

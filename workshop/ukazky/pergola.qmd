@@ -17,7 +17,7 @@ Autor workshopu ji podle podkladů postavil. Množství barvy i dřeva sedělo.
 
 <div class="demo-actions"><a href="../demos/ukazky/pergola/viewer.html" target="_blank" rel="noopener">Otevřít 3D návrh naplno</a><a href="../demos/ukazky/pergola/parts.html" target="_blank" rel="noopener">Seznam řeziva</a></div>
 
-V nabídce **Ovládání** skryjete krytinu nebo dům. Návrh otevírejte přes web, offline se nenačte.
+V nabídce **Ovládání** skryjete krytinu nebo dům. Návrh otevírejte přes web, bez internetu se nenačte.
 
 ## Zadání pro agenta (zjednodušeně)
 

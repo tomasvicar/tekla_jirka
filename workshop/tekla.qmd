@@ -1,45 +1,38 @@
 ---
 title: "Živá Tekla"
-subtitle: "C# makra od Clauda a MCP server nad otevřeným modelem · 30 minut"
+subtitle: "Claude píše makra pro otevřený model v Tekle · 30 minut"
 ---
 
-Claude poprvé sáhne na **otevřený model v Tekle**. Úroveň 1 (soubory, exporty) už znáte,
-teď přidáme dvě další:
+Claude pracuje s **otevřeným modelem v Tekle**:
 
-- **Úroveň 2 – makra:** Claude napíše soubor `.cs`, vy ho v Tekle spustíte. Nic se nestane bez vás.
-  **Začneme tady.**
-- **Úroveň 3 – MCP:** Claude se ptá otevřené Tekly přímo z chatu. Pohodlnější,
-  ale komunitní software. Zkusíme ho jen **pro čtení**.
+- **Makro** (úroveň 2): krátký program, který Claude napíše a vy v Tekle spustíte
+  jedním dvojklikem. **Začneme tady.**
+- **MCP** (úroveň 3): Claude se Tekly ptá přímo z chatu. Na konci.
 
-::: {.callout-warning}
-## Zatím netestováno na živé Tekle
-Makra jsme ověřili proti dokumentaci Tekla Open API 2025/2026, ale **ani makra, ani MCP
-server jsme na spuštěné Tekle nezkoušeli**. První spuštění může skončit chybou. Opravit ji
-s Claudem je součást cvičení.
+::: {.callout-note}
+Vyzkoušeno 30. 10. 2026 na Tekle 2026 SP1 (zkušební verze).
 :::
 
-**Dnes:** [bezpečnost](#bezpecnost) → [makra](#makra) → [MCP server](#mcp) → [alternativy](#alternativy).
+## 0 · Bezpečnost {#bezpecnost}
 
-## 0 · Bezpečnost nejdřív (3 min) {#bezpecnost}
+1. Pracujte jen na **kopii modelu** s `KOPIE` v názvu. Na cvičení stačí
+   nový prázdný model `KOPIE_test`.
+2. Ostrý model mějte zálohovaný, viz [Praktické info → zálohy](prakticke.qmd#zalohy).
+3. **Ctrl+Z** v Tekle vrátí celou změnu z makra najednou.
 
-1. **Záloha:** *File → Save as → **Save and create backup copy*** (proč, viz
-   [Praktické info → zálohy](prakticke.qmd#zalohy)).
-2. **Kopie:** model uložte pod jménem s **`KOPIE`**, např. `Hala_KOPIE`. Makro, které
-   mění model, v jiné složce nepoběží.
-3. **Testovací model bez dat klienta**, viz [soukromí](prakticke.qmd#soukromi)
-   a [licence](prakticke.qmd#licence).
+## Makra {#makra}
 
-## Úroveň 2 · Makra {#makra}
+**Makro** je soubor `.cs`, malý program pro Teklu. Claude ho napíše, zkontroluje
+a uloží, kam patří. Vy ho jen spustíte.
 
-**Makro** je textový soubor `.cs` (program v C#). Tekla ho sama přeloží a spustí.
-Claude ho napíše a zkopíruje do složky maker, vy ho spustíte: **Applications & components**
-(panel vpravo) → **Applications** → dvojklik na název. Když makro v seznamu chybí:
-**Catalog management → Reload catalog**.
+### A1 · Příprava projektu (5 min)
 
-### A1 · Připravte projekt (3 min)
-
-V Průzkumníku vytvořte `C:\Users\<jméno>\tekla-automatizace`, pak ji v záložce **Code**
-vyberte jako složku. Stáhněte balíček (CLAUDE.md pro Teklu, skill `tekla-makro`, tři makra):
+1. V Průzkumníku souborů vytvořte **složku** (místo na disku pro soubory)
+   `C:\Users\<jméno>\tekla-automatizace`.
+2. V Claude otevřete záložku **Code** a tuto složku vyberte. Na otázku
+   „Trust this workspace?“ klikněte **Trust workspace**.
+3. Stáhněte balíček. Je to **ZIP** (několik souborů zabalených do jednoho):
+   pravidla pro Clauda, návod na makra a tři hotová makra.
 
 [Stáhnout balíček (ZIP)](files/tekla_balicek.zip){.btn-pill .solid download="tekla_balicek.zip"}
 
@@ -56,18 +49,34 @@ Přesuň tekla_balicek.zip ze Stažených souborů do této složky a rozbal ho.
 4. Doplň to do CLAUDE.md, co nenajdeš, označ NEOVĚŘENO. Ukaž mi výsledek.
 ```
 
+Claude se zeptá, jestli smí číst složku modelu. Povolte.
+
 **Zkontrolujte:** v CLAUDE.md je vaše verze Tekly a cesta ke **kopii**, ne k ostrému modelu.
 
-::: {.callout-note collapse="true"}
-## Náhradní postup ručně
-- Složku modelu ukáže Tekla v *File → Open*.
-- Zip rozbalte v Průzkumníku (pravé tlačítko → *Extrahovat vše*) do `tekla-automatizace`.
-- Makro zkopírujte do `macros\modeling\` ve složce modelu (složku případně vytvořte).
-:::
+### Jak spustit makro v Tekle
 
-### Cvičení 1 · Výpis vybraných dílů, jen čtení (7 min) {#cviceni-1}
+1. Vpravo otevřete panel **Applications & components**.
+2. **≡** (vpravo nahoře v panelu) → **Catalog management** → **Reload catalog**.
+3. Vyhledejte název makra a spusťte ho **dvojklikem**.
 
-Makro jen čte a vypíše vybrané díly do CSV.
+### Cvičení 1 · Vymodelujte halu (7 min) {#hala}
+
+Otevřete prázdnou kopii (`KOPIE_test`). Řekněte agentovi:
+
+```default
+Napiš makro makra/04_Jednoducha_konstrukce.cs: v modelu KOPIE vytvoří síť 3 × 4 polí
+po 6 m, sloupy HEA200 výšky 6 m a nahoře mezi nimi nosníky IPE300 v obou směrech.
+Pojistka KOPIE, dotaz s počtem dílů, jedno CommitChanges. Pak ho nasaď.
+```
+
+Spusťte **04_Jednoducha_konstrukce** a potvrďte dotaz.
+
+**Uvidíte:** 51 dílů (20 sloupů, 31 nosníků). **Ctrl+šipky** otáčí 3D pohled.
+Ctrl+Z by ji smazalo, nechte ji na další cvičení.
+
+### Cvičení 2 · Výpis vybraných dílů do CSV (6 min) {#cviceni-1}
+
+**CSV** je jednoduchá tabulka, otevře ji Excel. Makro model jen čte.
 
 ```default
 Použij skill tekla-makro. Vysvětli mi pěti větami makra/01_Vypis_vybranych_dilu.cs,
@@ -77,83 +86,50 @@ Až ti řeknu, že doběhlo, načti CSV ze složky vystupy testovacího modelu
 přepočítej součet hmotností a najdi prázdný materiál nebo nulovou délku.
 ```
 
-**Uděláte sami:**
+V Tekle vyberte několik dílů, spusťte **01_Vypis_vybranych_dilu** a napište Claudovi
+„doběhlo“.
 
-- povolíte zápis mimo projekt (zkontrolujte cestu),
-- v Tekle vyberete 3–5 dílů a spustíte **01_Vypis_vybranych_dilu**,
-- při chybě klikněte do okna, **Ctrl+C** a vložte text Claudovi.
+**Zkontrolujte:** Claude ukáže tabulku. Jeden díl porovnejte v Tekle (dvojklik na díl):
+profil a materiál sedí.
 
-**Zkontrolujte:** u jednoho dílu přes **Inquire** sedí profil, materiál a hmotnost s řádkem v CSV.
+### Cvičení 3 · Změna třídy, jen na kopii (6 min) {#cviceni-3}
 
-### Cvičení 2 · Kontrola modelu, jen čtení (6 min) {#cviceni-2}
-
-Makro hledá díly s podezřelým profilem nebo materiálem, např. nepřepsanou výchozí hodnotou.
-
-```default
-V makra/02_Kontrola_modelu.cs jsou seznamy PODEZRELE_MATERIALY a PODEZRELE_PROFILY
-jen příklad. Zeptej se mě na výchozí profil a materiál našeho prostředí, uprav je
-a makro nasaď.
-Po spuštění načti nejnovější kontrola_modelu_*.csv a shrň problémy podle typu.
-```
-
-Výchozí hodnoty zjistíte takto: v Tekle vložte nový nosník bez úprav a v **Inquire**
-zjistěte profil a materiál. Pak spusťte **02_Kontrola_modelu** a na „Mám podezřelé díly vybrat?“ odpovězte **Ano**.
-Tekla je jen označí.
-
-**Zkontrolujte:** u jednoho dílu v kopii nastavte neexistující materiál (např. `XXX`) a spusťte
-znovu. Díl se má objevit (bez materiálu z katalogu má nulovou hmotnost). Když ne, řekněte to
-Claudovi.
-
-### Cvičení 3 · Změna třídy, jen na kopii (7 min) {#cviceni-3}
-
-Teprve teď makro model **mění**. Samo odmítne běžet, když název složky modelu neobsahuje
-„KOPIE“, a před změnou se zeptá. Když se změna u některých dílů nepovede, ukáže jejich seznam
-a zeptá se, zda změnu ponechat, nebo vrátit.
+Teď makro model **mění**. Mimo `KOPIE` neběží a před změnou se zeptá.
 
 ```default
 V makra/03_Zmena_tridy_vybranych.cs nastav třídu 7 a USER_FIELD_1 = "ZKONTROLOVANO".
 Ukaž mi, co jsi změnil, a makro nasaď.
 ```
 
-**Uděláte sami:**
+1. Vyberte pár dílů, spusťte **03_Zmena_tridy_vybranych** a potvrďte **Ano**.
+2. Dvojklikem na díl ověřte, že má třídu 7.
+3. Stiskněte **Ctrl+Z**. Vrátí se všechno najednou.
 
-- vyberete 2–3 díly, spustíte **03_Zmena_tridy_vybranych** a v dialogu potvrdíte **Ano**,
-- ověříte třídu a UDA (uživatelský atribut dílu),
-- stisknete **Ctrl+Z**.
+Model se sám **neuloží**. Změnu chcete nechat? **Ctrl+S**. Nechcete? **Ctrl+Z**.
 
-**Zkontrolujte:** po Ctrl+Z mají díly původní třídu **i** UDA. Vrátila se jen část?
-Napište to Claudovi, tohle zatím nemáme ověřené.
-
-::: {.callout-tip collapse="true"}
-## Navíc: vymodelujte jednoduchou konstrukci
-```default
-Napiš makro makra/04_Jednoducha_konstrukce.cs: v modelu KOPIE vytvoří síť 3 × 4 polí
-po 6 m, sloupy HEA200 výšky 6 m a nahoře mezi nimi nosníky IPE300 v obou směrech.
-Pojistka KOPIE, dotaz s počtem dílů, jedno CommitChanges. Pak ho nasaď.
-```
-Spusťte v prázdné **kopii**, prohlédněte 3D a vraťte **Ctrl+Z**.
-:::
+[]{#cviceni-2}
+V balíčku je i makro **02_Kontrola_modelu** (najde díly bez materiálu). Vyzkoušejte ho později.
 
 ### Uložte do knihovny (2 min) {#cviceni-4}
-
-**Skill** je návod, který si Claude načte sám, když jde o makra. Doplňte do něj, co platí u vás.
 
 ```default
 Ověřená makra ulož do knihovna/ a vytvoř knihovna/README.md (název, co dělá,
 čte / mění model, verze Tekly, datum ověření). Do skillu a CLAUDE.md doplň,
-co jsme se dnes naučili: zápis profilů, názvy UDA, chyby, které se objevily.
+co jsme se dnes naučili.
 ```
 
-**Zkontrolujte:** v novém chatu zkuste *„Udělej makro, které sečte hmotnost vybraných dílů
-podle profilu.“*
+### Když makro hlásí chybu
+
+- **Okno s chybou** (např. *CompileError*): stiskněte **Win+Shift+S**, vyberte okno myší
+  a v chatu s Claudem dejte **Ctrl+V**. Claude chybu přečte z obrázku a opraví.
+- **Chyby za běhu** si makra zapisují do `vystupy\makro_chyby.txt` ve složce modelu.
+  Stačí napsat „makro selhalo“, Claude si soubor přečte sám.
 
 ## Úroveň 3 · MCP {#mcp}
 
-**MCP server** je malý program, přes který Claude volá Teklu přímo, bez makra.
-Používáme [tempalg1n/tekla-mcp-server](https://github.com/tempalg1n/tekla-mcp-server)
-(MIT, verze 0.9, komunitní, ne od Trimble). Autor ho testoval na Tekle 2021 a 2023,
-pro 2025/2026 je jen komunitně ověřený. Pracujte jen v **jednom chatu**,
-víc chatů najednou padá na časový limit.
+**MCP server** je malý program, přes který se Claude ptá otevřené Tekly přímo z chatu.
+Používáme komunitní [tempalg1n/tekla-mcp-server](https://github.com/tempalg1n/tekla-mcp-server)
+(ne od Trimble). Necháme ho **jen pro čtení**.
 
 ### B1 · Instalace (5 min)
 
@@ -170,73 +146,34 @@ Nainstaluj MCP server pro Teklu:
 4. Ověř platnost JSON a řekni mi, co mám restartovat.
 ```
 
-`TEKLA_MCP_READ_ONLY=1` znamená jen čtení, zápisy server zablokuje.
+Pak Claude **úplně ukončete**: ikona Clauda u hodin (vpravo dole) → pravé tlačítko →
+**Quit**. Spusťte ho znovu a otevřete nový chat. V Tekle mějte otevřenou kopii.
 
-**Uděláte sami:**
+**Zkontrolujte:** zeptejte se *„Jaký model je otevřený a běží server jen pro čtení?“*
+Claude jmenuje vaši kopii.
 
-- schválíte stažení a změnu konfigurace,
-- otevřete v Tekle **kopii** modelu,
-- Claude Desktop **úplně ukončíte** (i ikonu u hodin), spustíte znovu a otevřete nový chat.
-
-**Zkontrolujte:** zeptejte se *„Zavolej tekla_get_connection_info. Jaký model je otevřený a
-běží server jen pro čtení?“* Odpověď ukazuje cestu ke kopii a `serverReadOnly: true`.
-Když se nepřipojí, ať agent přečte `%APPDATA%\Claude\logs\mcp*.log` a vysvětlí chybu.
-
-::: {.callout-note collapse="true"}
-## Náhradní postup ručně
-1. Z [Releases](https://github.com/tempalg1n/tekla-mcp-server/releases) stáhněte
-   `TeklaMcp.Server-v<verze>-tekla2026.zip` a rozbalte do `C:\Nastroje\TeklaMcp\`.
-2. V Claude Desktop zvolte **Settings → Developer → Edit Config** a vložte:
-
-```json
-{
-  "mcpServers": {
-    "tekla": {
-      "command": "C:\\Nastroje\\TeklaMcp\\TeklaMcp.Server.exe",
-      "env": { "TEKLA_MCP_READ_ONLY": "1" }
-    }
-  }
-}
-```
-
-3. Máte-li už `mcpServers`, přidejte jen část `"tekla": {…}`.
-:::
-
-### B2 · Ptejte se modelu (8 min)
-
-Ptejte se vlastními slovy, např.:
+### B2 · Ptejte se modelu (5 min)
 
 ```default
 Shrň otevřený model: počet dílů, celková hmotnost, rozpad podle profilu a materiálu.
-Kolik váží ocel v jednotlivých fázích? Napiš, kterým nástrojem jsi to spočítal.
+Kolik váží ocel v jednotlivých fázích?
 ```
 
-**Zkontrolujte:** jedno číslo ověřte v Tekle sami přes report nebo Inquire.
+U haly z cvičení 1 vyjde 51 dílů a asi 12 900 kg. Jedno číslo ověřte v Tekle sami.
 
-MCP se hodí na rychlé otázky. Na opakovanou práci a změny modelu je lepší **makro**:
-vidíte kód a funguje i bez Clauda.
+MCP je na rychlé otázky. **Změny modelu dělejte makry.**
 
-### B3 · Zápisy později, s náhledem {#mcp-zapisy}
+[]{#mcp-zapisy}
 
-Až server na kopii ověříte, můžete povolit zápisy. Server pak změnu nejdřív ukáže jako
-**náhled** (`apply=false`) a provede ji až po vašem souhlasu.
-
-```default
-Povol MCP serveru tekla zápisy: v claude_desktop_config.json odeber
-TEKLA_MCP_READ_ONLY (nejdřív záloha, ukaž změnu) a do .claude/settings.json
-přidej do permissions.ask pravidlo "mcp__tekla__*". Řekni mi, co restartovat.
-```
-
-**Zkontrolujte:** před každým voláním Tekly se vás Claude ptá. U každého zápisu si přečtěte
-náhled, než povolíte `apply=true`. Režim **Bypass permissions** (přeskočení povolení) nikdy
-nepoužívejte.
+::: {.callout-note collapse="true"}
+## Pro pokročilé: změny modelu přes MCP
+Server umí i měnit model: nejdřív ukáže náhled, změní až po souhlasu. Agent v konfiguraci
+odebere `TEKLA_MCP_READ_ONLY` a vy restartujete Claude. Funguje, Ctrl+Z vrací, ale okna
+s povolením jsou pro začátek matoucí. Režim **Bypass permissions** nikdy nepoužívejte.
+:::
 
 ## Alternativy {#alternativy}
 
-- **[teknovizier/tekla_mcp_server](https://github.com/teknovizier/tekla_mcp_server):** Python,
-  umí i export výkresů, instalace je složitější.
-- **Tekla Model Assistant** od Trimble: přímo v Tekle, zatím preview (TS 2025 SP9 a 2026 SP2),
-  jen licence Diamond, Graphite a Carbon,
-  viz [Praktické info → Trimble](prakticke.qmd#trimble).
-- **[tekla-api-mcp](https://www.npmjs.com/package/tekla-api-mcp):** dá Claudovi dokumentaci
-  Tekla API, aby si při psaní maker nevymýšlel.
+- **[teknovizier/tekla_mcp_server](https://github.com/teknovizier/tekla_mcp_server):** umí
+  i výkresy, složitější instalace.
+- **Tekla Model Assistant** od Trimble: v Tekle, zatím zkušební, viz [Praktické info → Trimble](prakticke.qmd#trimble).

@@ -3,10 +3,13 @@ title: "Kancelář: zakázka bez chaosu"
 subtitle: "Složky, názvy souborů, PDF výkresy a Excel · přibližně 40 minut"
 ---
 
-Složka zakázky plná souborů `final_final2.pdf`, `Scan_0001.pdf` a tří revizí téhož výkresu.
-Claude ji prohlédne, navrhne pořádek, uklidí kopii a sestaví předávací protokol.
-Texty v rámečcích kopírujte do Clauda (záložka **Code**) ve složce z [instalace](instalace.qmd).
-Po každém kroku se na výsledek podívejte.
+Složka zakázky plná souborů `final_final2.pdf` a starých revizí.
+Claude ji uklidí (na kopii) a sestaví předávací protokol.
+Texty v rámečcích kopírujte do Clauda (záložka **Code**, složka z [instalace](instalace.qmd)).
+
+**Pojmy:** **ZIP** je zabalená složka (jeden soubor, uvnitř víc souborů).
+**CSV** je tabulka uložená jako obyčejný text, otevře ji Excel.
+**Excel** (`.xlsx`) je tabulka s listy a vzorci. **PDF** je dokument k prohlížení a tisku, např. výkres.
 
 [Stáhnout složku zakázky (ZIP)](data/kancelar/zakazka_neporadek.zip){.btn-pill .solid} [Stáhnout seznam zakázek (CSV)](data/kancelar/seznam_zakazek.csv){.btn-pill} [Ukázkové výsledky](#vysledky){.btn-pill .muted}
 
@@ -16,121 +19,118 @@ Prohlížeč je uloží do **Stažené soubory**. Řekněte agentovi:
 Přesuň ze složky Stažené soubory zakazka_neporadek.zip a seznam_zakazek.csv do podklady/.
 ```
 
-Data jsou smyšlená: hala Modřice (Z2026-014)
-a k ní dvě cizí zakázky, duplicity, staré revize a smetí.
+Data jsou smyšlená: hala Modřice (Z2026-014) a dvě cizí zakázky.
 
 ::: {.callout-warning}
 ## Bezpečně se soubory
-- **Pracujte na kopii.** Originály v `podklady/` se nemění, výsledky jdou do `vystupy/`.
-- **Nejdřív plán, pak souhlas.** Před přesunem chtějte tabulku *původní → nový*.
-- **Uložte verzi v gitu** před každou větší změnou. Tlačítko zpět v Claudovi přesuny
-  a přejmenování nevrátí. Více v [Praktických informacích](prakticke.qmd#zalohy).
+- **Pracujte na kopii.** Originály v `podklady/` zůstanou, výsledky jdou do `vystupy/`.
+- **Nejdřív plán, pak souhlas.**
+- **Uložte verzi v gitu.** **Git** si pamatuje historii verzí složky, jako „uložit pozici“ ve hře.
+  Claude se k ní umí vrátit. Více v [Praktických informacích](prakticke.qmd#zalohy).
 :::
 
-## 1 · Rozbalit a inventura (6 min)
+::: {.callout-tip}
+**Když něco nejde:** Win+Shift+S (výřez obrazovky), pak Ctrl+V do chatu s Claudem.
+:::
 
-Než cokoli přesunete, musíte vědět, co ve složce je.
+## 1 · Co ve složce je (6 min)
+
+**K čemu:** než cokoli přesunete, víte, co máte, a vidíte kopie téhož souboru.
 
 ```default
-Rozbal podklady/zakazka_neporadek.zip do vystupy/kancelar/ (ZIP má vlastní složku
-zakazka_neporadek/) a tu složku už neměň.
-Udělej inventuru do vystupy/kancelar/inventura.xlsx: cesta, přípona, velikost, datum
-a otisk obsahu (SHA-256), aby byly vidět duplicity. Česky shrň, kolik je souborů,
-ke kterým zakázkám ze seznam_zakazek.csv patří (podle obsahu, ne jen názvu),
-co jsou duplicity, staré revize a smetí. Pak ulož verzi v gitu „Před úklidem“.
+Rozbal podklady/zakazka_neporadek.zip do vystupy/kancelar/ a rozbalenou složku už neměň.
+Udělej seznam všech souborů do vystupy/kancelar/inventura.xlsx a najdi stejné soubory.
+Shrň, kolik je souborů, ke kterým zakázkám ze seznam_zakazek.csv patří
+(podle obsahu), co jsou kopie, staré revize a smetí.
+Pak ulož verzi v gitu „Před úklidem“.
 ```
 
-**Zkontrolujte:** 57 souborů, 4 skupiny duplicit (5 kopií navíc), 3 zakázky.
-`Scan_20260312_0001.pdf` je výkres V-104. Past: `V-103_strecha_revB.pdf` má v razítku revizi C.
+**Zkontrolujte:** 57 souborů, 3 zakázky, 5 kopií navíc; `Scan_20260312_0001.pdf` je výkres V-104.
 
-## 2 · Struktura složek, plán, roztřídění (8 min)
+## 2 · Složky a roztřídění (8 min)
 
-Jednotná struktura znamená, že každý soubor najdete na stejném místě v každé zakázce.
+**K čemu:** každý soubor najdete v každé zakázce na stejném místě.
 
 ```default
-Navrhni strukturu složek zakázky: 01_Podklady, 02_Vypocty, 03_Model, 04_Vykresy,
+Navrhni složky zakázky: 01_Podklady, 02_Vypocty, 03_Model, 04_Vykresy,
 05_Korespondence, 06_Nabidky_a_fakturace, 07_Fotodokumentace, 99_Archiv.
-Každá zakázka má složku <číslo>_<název> podle seznamu. Nejisté soubory patří
-do _K_ROZTRIDENI, smetí (Thumbs.db, ~$ soubory, prázdné) se nekopíruje.
+Každá zakázka má složku <číslo>_<název> podle seznamu. Nejisté soubory dej
+do _K_ROZTRIDENI, smetí (Thumbs.db, ~$ soubory, prázdné) nekopíruj.
 Zatím NIC nekopíruj. Ulož plán do vystupy/kancelar/plan_zarazeni.xlsx
-(původní cesta, zakázka, cílová složka, podle čeho jsi to poznal) a počkej na souhlas.
+a počkej na souhlas.
 ```
 
-Otevřete plán, tři řádky ověřte a případně opravte. Pak napište: *„Schvaluji. Zkopíruj
+Ověřte pár řádků plánu, pak napište: *„Schvaluji. Zkopíruj
 do vystupy/kancelar/zakazky/, porovnej počty a ulož verzi.“*
 
-**Zkontrolujte:** 57 = 53 zkopírovaných + 4 smetí. Modřice 39, lávka 7, parkovací dům 5
-a 2 soubory v `_K_ROZTRIDENI`.
+**Zkontrolujte:** 53 zkopírováno (Modřice 39, lávka 7, parkovací dům 5, 2 nejisté), 4 smetí vynechány.
 
-## 3 · Přejmenování a archiv (8 min)
+## 3 · Jednotné názvy a archiv (8 min)
 
-Podle názvu se má poznat zakázka, typ dokumentu i revize bez otevírání souboru.
+**K čemu:** z názvu poznáte zakázku, typ i revizi bez otevírání souboru.
 
 ```default
-Ve vystupy/kancelar/zakazky/ přejmenuj soubory podle pravidla
+Ve vystupy/kancelar/zakazky/ přejmenuj soubory podle vzoru
 <zakázka>_<TYP>_<číslo>[_<revize>].<přípona>, bez diakritiky a mezer
 (typy VYK, VYP, MOD, POD, KOR, ZAP, NAB, SML, FAK, FOT), např. Z2026-014_VYK_V-102_C.pdf.
-Číslo výkresu a revizi ber z razítka v PDF, ne z názvu. Duplicity přesuň
+Číslo a revizi ber z razítka v PDF. Kopie přesuň
 do 99_Archiv/duplicity, starší revize do 99_Archiv/stare_revize.
 Nejdřív ukaž tabulku původní → nový → důvod a počkej na souhlas.
-Po provedení ulož log prejmenovani_log.csv a verzi v gitu.
+Pak ulož verzi v gitu.
 ```
 
-**Zkontrolujte:** v `04_Vykresy` Modřic je 7 výkresů (V-101 B, V-102 C, V-103 C, V-104 A,
-V-105 B, V-106 A, V-107 A). V archivu Modřic je 7 starých revizí a 5 duplicit.
-Porovnejte se [vzorovou strukturou](demos/kancelar/struktura.txt).
+**Zkontrolujte:** v `04_Vykresy` Modřic je 7 výkresů; `V-103_strecha_revB.pdf` má v razítku revizi **C** (past).
+Porovnejte se [vzorem](demos/kancelar/struktura.txt).
 
-## 4 · PDF výkresy a předávací protokol (8 min)
+## 4 · Sada výkresů a předávací protokol (8 min)
 
-Sada pro klienta je jedno PDF a protokol, který s ním souhlasí.
+**K čemu:** klient dostane jedno PDF a protokol, který s ním přesně souhlasí.
 
 ```default
 Pro Z2026-014 spoj platné výkresy z 04_Vykresy do jednoho PDF
-vystupy/kancelar/Z2026-014_vykresy_platne.pdf, seřazené podle čísla, se záložkami.
+vystupy/kancelar/Z2026-014_vykresy_platne.pdf, seřazené podle čísla.
 Vytvoř předávací protokol vystupy/kancelar/Z2026-014_predavaci_protokol.xlsx:
-hlavička (zakázka, investor, datum), tabulka (číslo, název, revize, datum, měřítko,
-formát, listy) z razítek v PDF, součty a místo pro podpis, tisk na šířku na jednu stránku.
-Ověř, že počet stran PDF = součet listů v protokolu.
+hlavička, tabulka výkresů (číslo, název, revize, datum, listy) podle razítek,
+místo pro podpis, tisk na jednu stránku.
+Ověř, že počet stran PDF sedí s protokolem.
 ```
 
-**Zkontrolujte:** 7 výkresů na 8 listech (V-106 má 2 listy). V-103 je v revizi C.
+**Zkontrolujte:** 7 výkresů na 8 listech (V-106 má 2 listy), V-103 v revizi C.
 
-## 5 · Skill „nová zakázka“ (7 min)
+## Navíc: skill „nová zakázka“ (7 min)
 
-**Skill** je uložený recept ve složce `.claude/skills/`. Příště stačí napsat `/nova-zakazka`.
+**K čemu:** novou zakázku založíte jedním příkazem `/nova-zakazka`, vždy stejně.
+**Skill** je uložený postup (recept) pro Clauda.
 
 ```default
-Vytvoř projektový skill nova-zakazka v .claude/skills/nova-zakazka/.
-Zeptá se na číslo zakázky, název a klienta, ukáže, co vznikne, a počká na souhlas.
-Skriptem založí strukturu složek z kroku 2 a README.txt s pravidlem názvů.
-Existující složku nikdy nepřepíše. Řádek připíše do vystupy/seznam_zakazek.csv
-(pokud neexistuje, vytvoř ho jako kopii podklady/seznam_zakazek.csv).
+Vytvoř projektový skill nova-zakazka. Zeptá se na číslo zakázky, název a klienta,
+počká na souhlas a založí složky z kroku 2. Existující složku nikdy nepřepíše.
 Vyzkoušej ho na Z2026-015 „Sklad Kuřim“ ve vystupy/zakazky_test/ a pak to zkus znovu.
 ```
 
-**Zkontrolujte:** vznikl strom složek a `README.txt`. Druhý pokus skončil chybou a nic nepřepsal.
-V nové konverzaci napište `/nova-zakazka`: Claude se má zeptat na číslo, název a klienta.
+**Zkontrolujte:** vznikly složky; druhý pokus nic nepřepsal.
 
 ## Navíc: úkoly z porady a e-mail klientovi
+
+**K čemu:** úkoly a e-mail bez přepisování.
 
 ```default
 U Z2026-014 přečti zápis z kontrolního dne 12. 3. a poznámky ze 14. 3.
 Úkoly (kdo, co, termín) dej do vystupy/kancelar/ukoly_z_KD.xlsx.
 Napiš koncept e-mailu pro Ing. Malou: které výkresy se mění, na jakou revizi,
-termín a cena víceprací s výpočtem. Ulož do vystupy/kancelar/email_klientovi.txt, neposílej.
+termín a cena víceprací. Ulož do vystupy/kancelar/email_klientovi.txt, neposílej.
 ```
 
-**Zkontrolujte:** 5 úkolů. V-102 i V-103 přejdou na revizi D. Cena (16 + 6) h × 950 Kč = 20 900 Kč bez DPH.
+**Zkontrolujte:** 5 úkolů; V-102 i V-103 na revizi D; (16 + 6) h × 950 Kč = 20 900 Kč bez DPH.
 
 ## Ukázkové výsledky {#vysledky}
 
-Váš Claude pojmenuje a naformátuje soubory po svém. **Počty a revize mají sedět.**
+Váš Claude soubory pojmenuje po svém. **Počty a revize mají sedět.**
 
 | Krok | Soubor |
 | --- | --- |
-| 1 | [inventura_souhrn.txt](demos/kancelar/inventura_souhrn.txt) · [inventura.csv](demos/kancelar/inventura.csv) |
-| 2 | [plan_zarazeni.csv](demos/kancelar/plan_zarazeni.csv) · [klic_zarazeni.csv](demos/kancelar/klic_zarazeni.csv) |
-| 3 | [struktura.txt](demos/kancelar/struktura.txt) · [prejmenovani_log.csv](demos/kancelar/prejmenovani_log.csv) |
+| 1 | [inventura.csv](demos/kancelar/inventura.csv) |
+| 2 | [plan_zarazeni.csv](demos/kancelar/plan_zarazeni.csv) |
+| 3 | [struktura.txt](demos/kancelar/struktura.txt) |
 | 4 | [protokol.xlsx](demos/kancelar/Z2026-014_predavaci_protokol.xlsx) · [vykresy_platne.pdf](demos/kancelar/Z2026-014_vykresy_platne.pdf) |
-| 5 | [SKILL.md](demos/kancelar/nova-zakazka/SKILL.md) · [nova_zakazka.py](demos/kancelar/nova-zakazka/nova_zakazka.py) |
-| Navíc | [ukoly_z_KD.xlsx](demos/kancelar/ukoly_z_KD.xlsx) · [email_klientovi.txt](demos/kancelar/email_klientovi.txt) |
+| Navíc | [SKILL.md](demos/kancelar/nova-zakazka/SKILL.md) · [ukoly_z_KD.xlsx](demos/kancelar/ukoly_z_KD.xlsx) · [email_klientovi.txt](demos/kancelar/email_klientovi.txt) |

@@ -14,27 +14,29 @@ Od složky zakázky přes kusovník z Tekly až k makru: AI agent dělá práci,
 Workshop pro detailera v Tekla Structures, asi 2,5–3 hodiny včetně přestávky. Programovat nemusíte.
 :::
 
-## Chatbot, nebo agent?
+## Co je AI agent
 
-**Chatbot** poradí, ale práci uděláte vy. **Agent** pracuje přímo s vašimi soubory:
-napíše a spustí skript, opraví chybu a uloží výsledek. Než něco změní, zeptá se.
+AI agent je asistent ve vašem počítači. Umí sám otevírat soubory, psát a spouštět
+malé programy a ukládat výsledky. Vy mu česky popíšete úkol a zkontrolujete, co udělal.
+
+**Chatbot** jen poradí, práci uděláte vy. **Agent** ji udělá:
 
 | Zadání | Chatbot | Agent |
 | --- | --- | --- |
 | „Sečti hmotnosti z kusovníku podle profilů.“ | Vzorec do Excelu | Hotový Excel se součty |
-| „Přejmenuj PDF výkresy podle čísla výkresu.“ | Popis postupu | Návrh názvů, po schválení přejmenuje |
+| „Přejmenuj PDF výkresy podle čísla výkresu.“ | Popíše postup | Navrhne názvy, po souhlasu přejmenuje |
 
-Používáme **Claude Desktop, záložku Code**: agent v běžném okně Windows, bez terminálu.
+Používáme **Claude Desktop, záložku Code**: běžné okno ve Windows.
 
-## Tři úrovně práce s Teklou: 1 Soubory · 2 Makra · 3 MCP
+## Tři úrovně práce s Teklou
 
-| Úroveň | Co Claude vidí | Riziko pro model |
+| Úroveň | Co Claude dělá | Riziko pro model |
 | --- | --- | --- |
-| **1 Soubory** | Exportované reporty, PDF, Excel | Žádné |
-| **2 Makra** | Napíše makro, vy ho spustíte | Střední, jen na kopii modelu |
-| **3 MCP** | Mluví přímo s otevřenou Teklou | Větší, začínáme jen čtením |
+| **1 Soubory** | Čte reporty z Tekly, PDF, Excel | Žádné |
+| **2 Makra** | Napíše makro (program pro Teklu), vy ho spustíte | Malé, jen na kopii modelu |
+| **3 MCP** | „Mluví“ přímo s otevřenou Teklou | Začínáme jen čtením |
 
-Začínáme úrovní 1. Co všechno může agent udělat, najdete v [Nápadech](napady.qmd).
+Začínáme úrovní 1. Co všechno agent zvládne, najdete v [Nápadech](napady.qmd).
 
 ## Program
 

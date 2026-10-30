@@ -7,10 +7,14 @@
 //            (např. Hala_KOPIE). Když se změna u některých dílů nepovede,
 //            ukáže jejich seznam a zeptá se, zda změnu ponechat, nebo vrátit.
 //            Všechny změny jsou jedno CommitChanges -> jedno Ctrl+Z v Tekle je vrátí.
-// SPUŠTĚNÍ:  Zkopírovat do <složka KOPIE modelu>\macros\modeling\,
-//            vybrat díly, Applications & components -> Applications -> dvojklik.
+// SPUŠTĚNÍ:  Claude makro přeloží a zkopíruje do <složka modelu>\macros\modeling\.
+//            V Tekle: Applications & components (panel vpravo) -> ≡ -> Catalog management
+//            -> Reload catalog, vyhledat název makra, dvojklik.
+// CHYBY:     Chyba za běhu se zapíše do <model>\vystupy\makro_chyby.txt.
+//            Chyba překladu (okno CompileError): Win+Shift+S, Ctrl+V do chatu s Claudem.
 //
-// STAV:      NEOTESTOVÁNO na živé Tekle. První běh: vyberte 2–3 díly.
+// STAV:      Vyzkoušeno 30. 10. 2026 na Tekle 2026 SP1 (zkušební verze):
+//            51 dílů změněno, jedno Ctrl+Z vrátilo třídu i UDA u všech.
 // ============================================================================
 
 using System;
@@ -166,10 +170,24 @@ namespace Tekla.Technology.Akit.UserScript
             }
             catch (Exception ex)
             {
+                ZapisChybu("03_Zmena_tridy_vybranych", ex);
                 MessageBox.Show("Makro skončilo chybou:\n\n" + ex.ToString(), "Změna třídy – CHYBA");
             }
         }
 
+        // Chybu zapíše i do <model>\vystupy\makro_chyby.txt, ať si ji Claude přečte sám.
+        private static void ZapisChybu(string makro, Exception ex)
+        {
+            try
+            {
+                string slozka = Path.Combine(new Model().GetInfo().ModelPath, "vystupy");
+                Directory.CreateDirectory(slozka);
+                File.AppendAllText(Path.Combine(slozka, "makro_chyby.txt"),
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "  " + makro + "\r\n"
+                    + ex.ToString() + "\r\n\r\n", System.Text.Encoding.UTF8);
+            }
+            catch { }   // zápis chyby nesmí shodit makro
+        }
     }
 }
 
@@ -182,8 +200,8 @@ namespace Tekla.Technology.Akit.UserScript
 //            Model.CommitChanges(string) – dokumentace: "One commit is something that a user
 //            can later on undo with the undo command." (CommitChanges() bez parametru je
 //            v XML dokumentaci označené jako zastaralé, proto verze se zprávou.)
-//   NEOVĚŘENO: že SetUserProperty se projeví bez dalšího Modify() (dle dokumentace UDA
-//            zapisuje přímo; ověřte v Tekle), že jedno CommitChanges = přesně jedno Ctrl+Z
-//            i u makra spuštěného z katalogu; chování u dílů v komponentách;
+//   OVĚŘENO V TEKLE 2026 SP1: SetUserProperty se projeví bez dalšího Modify(),
+//            jedno CommitChanges = jedno Ctrl+Z i u makra spuštěného z katalogu.
+//   NEOVĚŘENO: chování u dílů v komponentách;
 //            vrácení UDA na prázdnou hodnotu ("") při volbě Ne.
 // ----------------------------------------------------------------------------

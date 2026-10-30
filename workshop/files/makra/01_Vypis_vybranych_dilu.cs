@@ -4,13 +4,13 @@
 // CO DĚLÁ:   Vypíše vybrané díly (profil, materiál, třída, délka, hmotnost, UDA)
 //            do CSV souboru ve složce modelu: <model>\vystupy\vybrane_dily_<čas>.csv
 // MODEL:     JEN ČTE. Nic v modelu nemění, nevolá Modify() ani CommitChanges().
-// SPUŠTĚNÍ:  1. Soubor zkopírujte do <složka modelu>\macros\modeling\
-//            2. V Tekle vyberte několik dílů.
-//            3. Applications & components -> Applications -> dvojklik na makro.
-//               (Když makro v seznamu není: Catalog management -> Reload catalog.)
+// SPUŠTĚNÍ:  Claude makro přeloží a zkopíruje do <složka modelu>\macros\modeling\.
+//            V Tekle: Applications & components (panel vpravo) -> ≡ -> Catalog management
+//            -> Reload catalog, vyhledat název makra, dvojklik.
+// CHYBY:     Chyba za běhu se zapíše do <model>\vystupy\makro_chyby.txt.
+//            Chyba překladu (okno CompileError): Win+Shift+S, Ctrl+V do chatu s Claudem.
 //
-// STAV:      Napsáno podle dokumentace Tekla Open API 2025/2026 (NuGet XML),
-//            NEOTESTOVÁNO na živé Tekle. Viz poznámky na konci souboru.
+// STAV:      Vyzkoušeno 30. 10. 2026 na Tekle 2026 SP1 (zkušební verze).
 // ============================================================================
 
 using System;
@@ -108,7 +108,7 @@ namespace Tekla.Technology.Akit.UserScript
             }
             catch (Exception ex)
             {
-                // Celý text chyby zkopírujte (Ctrl+C v okně) a vložte Claudovi.
+                ZapisChybu("01_Vypis_vybranych_dilu", ex);
                 MessageBox.Show("Makro skončilo chybou:\n\n" + ex.ToString(), "Výpis dílů – CHYBA");
             }
         }
@@ -118,6 +118,20 @@ namespace Tekla.Technology.Akit.UserScript
         {
             if (text == null) return "";
             return text.Replace(";", ",").Replace("\r", " ").Replace("\n", " ");
+        }
+
+        // Chybu zapíše i do <model>\vystupy\makro_chyby.txt, ať si ji Claude přečte sám.
+        private static void ZapisChybu(string makro, Exception ex)
+        {
+            try
+            {
+                string slozka = Path.Combine(new Model().GetInfo().ModelPath, "vystupy");
+                Directory.CreateDirectory(slozka);
+                File.AppendAllText(Path.Combine(slozka, "makro_chyby.txt"),
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "  " + makro + "\r\n"
+                    + ex.ToString() + "\r\n\r\n", System.Text.Encoding.UTF8);
+            }
+            catch { }   // zápis chyby nesmí shodit makro
         }
     }
 }
@@ -133,7 +147,6 @@ namespace Tekla.Technology.Akit.UserScript
 //            ModelObject.GetUserProperty(string, ref string), Object.Identifier, Identifier.GUID
 //   vstupní bod Run(Tekla.Technology.Akit.IScript akit): podle oficiálního příkladu
 //            TSOpenAPIExamples, větev 2025 i 2026 (RebarSample1B.cs)
-//   NEOVĚŘENO z oficiálního zdroje: že makra mají System.Windows.Forms mezi výchozími
-//            referencemi (běžně používané v komunitních makrech); názvy LENGTH a WEIGHT
-//            jsou standardní atributy šablon výkazů – hodnoty zkontrolujte proti Tekle.
+//   OVĚŘENO V TEKLE 2026 SP1: System.Windows.Forms (MessageBox) funguje; LENGTH a WEIGHT
+//            dávají správné hodnoty (HEA200 42,26 kg/m, IPE300 42,23 kg/m).
 // ----------------------------------------------------------------------------

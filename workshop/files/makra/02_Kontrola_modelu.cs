@@ -9,8 +9,11 @@
 //            Výsledek zapíše do <model>\vystupy\kontrola_modelu_<čas>.csv
 //            a na přání podezřelé díly v modelu VYBERE (označí), ať je vidíte.
 // MODEL:     JEN ČTE. Výběr dílů je jen označení v pohledu, model se nemění.
-// SPUŠTĚNÍ:  Zkopírovat do <složka modelu>\macros\modeling\,
-//            Applications & components -> Applications -> dvojklik.
+// SPUŠTĚNÍ:  Claude makro přeloží a zkopíruje do <složka modelu>\macros\modeling\.
+//            V Tekle: Applications & components (panel vpravo) -> ≡ -> Catalog management
+//            -> Reload catalog, vyhledat název makra, dvojklik.
+// CHYBY:     Chyba za běhu se zapíše do <model>\vystupy\makro_chyby.txt.
+//            Chyba překladu (okno CompileError): Win+Shift+S, Ctrl+V do chatu s Claudem.
 //
 // STAV:      NEOTESTOVÁNO na živé Tekle. Seznamy níže upravte podle svého prostředí.
 // ============================================================================
@@ -126,6 +129,7 @@ namespace Tekla.Technology.Akit.UserScript
             }
             catch (Exception ex)
             {
+                ZapisChybu("02_Kontrola_modelu", ex);
                 MessageBox.Show("Makro skončilo chybou:\n\n" + ex.ToString(), "Kontrola modelu – CHYBA");
             }
         }
@@ -141,6 +145,20 @@ namespace Tekla.Technology.Akit.UserScript
         {
             if (text == null) return "";
             return text.Replace(";", ",").Replace("\r", " ").Replace("\n", " ");
+        }
+
+        // Chybu zapíše i do <model>\vystupy\makro_chyby.txt, ať si ji Claude přečte sám.
+        private static void ZapisChybu(string makro, Exception ex)
+        {
+            try
+            {
+                string slozka = Path.Combine(new Model().GetInfo().ModelPath, "vystupy");
+                Directory.CreateDirectory(slozka);
+                File.AppendAllText(Path.Combine(slozka, "makro_chyby.txt"),
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "  " + makro + "\r\n"
+                    + ex.ToString() + "\r\n\r\n", System.Text.Encoding.UTF8);
+            }
+            catch { }   // zápis chyby nesmí shodit makro
         }
     }
 }

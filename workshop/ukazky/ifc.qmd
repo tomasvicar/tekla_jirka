@@ -7,9 +7,9 @@ toc: false
 [← Všechny ukázky](../ukazky.qmd){.demo-back}
 
 ::: {.demo-summary}
-Skript přečte IFC, sečte délky a hmotnosti podle profilů a fází a najde chyby v datech:
-chybějící fázi, jinou ocel, obecné názvy. Problémové prvky vyznačí v náhledu i s GUID pro Teklu.
-Model je syntetický a pět chyb v něm je záměrně. Report našel všechny.
+Krátký program (skript) přečte IFC, model pro výměnu s jinými profesemi. Sečte délky a hmotnosti podle profilů a fází a najde chyby v datech:
+chybějící fázi, jinou ocel, obecné názvy. Problémové prvky vyznačí v náhledu i s kódem (GUID), podle kterého je najdete v Tekle.
+Model je vymyšlený, pět chyb v něm je záměrně. Report našel všechny.
 :::
 
 <iframe class="demo-frame tall" src="../demos/ukazky/ifc/hala_lipnik_report.html" title="Report kontroly IFC modelu" loading="lazy"></iframe>
@@ -28,7 +28,7 @@ tabulku nálezů s GUID. IFC soubor nijak neměň.
 
 ## Co si ohlídat
 
-- **Hmotnost z IFC není hmotnost z Tekly.** Skript nezná zkrácení, výřezy ani šrouby.
+- **Hmotnost z IFC není hmotnost z Tekly.** Nezná zkrácení, výřezy ani šrouby.
   Porovnejte celek s reportem z Tekly; velký rozdíl znamená chybu.
-- **Pravidla určujete vy:** co musí každý prvek mít (fáze, třída, UDA).
-- **Názvy property setů** závisí na nastavení exportu. Nechte agenta nejdřív vypsat, co v souboru je.
+- **Pravidla určujete vy:** co musí každý prvek mít (fáze, třída, vlastní údaje).
+- **Názvy vlastností** závisí na nastavení exportu. Nechte agenta nejdřív vypsat, co v souboru je.

@@ -8,7 +8,7 @@ toc: false
 
 ::: {.demo-summary}
 Všechny slajdy vznikají z **jednoho bloku dat** (tonáž, termíny, výkresy, dotazy). Příště
-jen přepíšete čísla. Funguje offline a uložíte ji do PDF. Zakázka i čísla jsou fiktivní.
+jen přepíšete čísla. Funguje bez internetu a uložíte ji do PDF. Zakázka i čísla jsou fiktivní.
 :::
 
 <iframe class="demo-frame" src="../demos/ukazky/stav-zakazky/index.html" title="Prezentace stavu zakázky pro klienta" loading="lazy" allow="fullscreen"></iframe>

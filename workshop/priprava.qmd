@@ -27,10 +27,11 @@ V *Help → About* si zapište **verzi** (např. *2026 SP2*), **licenci**
 
 ## 4. Testovací model a reporty
 
-- Starší nebo cvičný model, na kterém nevadí chyba. Udělejte si zálohu,
+- Starší nebo cvičný model, u kterého nevadí chyba. Udělejte si zálohu,
   viz [Zálohy modelu](prakticke.qmd#zalohy).
-- 2–3 exportované reporty (kusovník, hmotnosti), ideálně i **dvě revize** stejného
-  reportu. Formát `.csv`, `.xlsx` nebo `.txt`. S tarifem Pro jen cvičný model, ne zakázku klienta.
+- 2–3 reporty vyexportované z Tekly (kusovník, hmotnosti), ideálně i **dvě revize**
+  stejného reportu. Stačí tabulka (`.csv`, `.xlsx`) nebo text (`.txt`). S tarifem Pro
+  jen cvičný model, ne zakázku klienta.
 
 Nemáte nic z toho? Nevadí, na webu jsou **smyšlená data** pro všechna cvičení.
 

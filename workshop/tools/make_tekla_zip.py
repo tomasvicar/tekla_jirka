@@ -3,7 +3,7 @@
 Obsah zipu:
     CLAUDE_tekla.md
     .claude/skills/tekla-makro/SKILL.md
-    makra/*.cs
+    makra/*.cs   (01–03 vyzkoušená v Tekle, 05_Export_PDF.cs jen podle dokumentace API)
 
 Spuštění (ze složky workshop/):  uv run python tools/make_tekla_zip.py
 """

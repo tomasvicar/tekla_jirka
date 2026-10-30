@@ -7,8 +7,8 @@ toc: false
 [← Všechny ukázky](../ukazky.qmd){.demo-back}
 
 ::: {.demo-summary}
-Krátký skript z několika čísel nakreslí patní desku sloupu HEA 240: půdorys, řez, kotvy,
-kóty a razítko. DXF otevřete v AutoCADu nebo jiném CADu. Hodí se na opakované typové detaily.
+Krátký program (skript) z několika čísel nakreslí patní desku sloupu HEA 240: půdorys, řez, kotvy,
+kóty a razítko. Výkres ve formátu DXF otevřete v AutoCADu nebo jiném CADu. Hodí se na opakované typové detaily.
 :::
 
 ![Výkres patní desky vygenerovaný skriptem (náhled SVG). Ilustrativní, neposouzeno.](../demos/ukazky/patka/patka_HEA240.svg){width=100% fig-alt="Výkres patní desky: půdorys desky 440 × 400 s profilem HEA 240 a čtyřmi otvory pro kotvy, řez s podlitím a kotvami, razítko"}
@@ -27,6 +27,6 @@ Nakonec vyexportuj náhled a zkontroluj, že se nic nepřekrývá.
 
 ## Co si ohlídat
 
-- **Detail nikdo neposoudil.** Desku, kotvy a svary navrhuje statik, skript jen kreslí.
+- **Detail nikdo neposoudil.** Desku, kotvy a svary navrhuje statik, program jen kreslí.
 - **Rozměry ověřte v CADu:** rozteče kotev, vzdálenost od okraje, měřítko 1 : 1 v mm.
 - **Firemní hladiny a styly** dodrží, jen když mu dáte vzorový DXF.
