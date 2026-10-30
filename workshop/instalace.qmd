@@ -1,0 +1,167 @@
+---
+title: "Instalace a první spuštění"
+subtitle: "Claude Desktop na Windows, záložka Code, bez terminálu"
+---
+
+Instalaci uděláme společně, počítejte asi s 20 minutami. Potřebujete
+[předplatné Claude Pro](priprava.qmd).
+
+**Cíl:** Claude ve vaší pracovní složce vytvoří a spustí první jednoduchý program
+a vy víte, jak schvalovat jeho kroky.
+
+::: {.callout-note}
+## Názvy v menu se mění
+Aplikace Claude se aktualizuje často. Pokud tlačítko nebo položka menu vypadá jinak
+než v návodu, hledejte podobný název, nebo se zeptejte přímo Clauda v záložce Chat.
+:::
+
+## Krok 1: Claude Desktop
+
+1. Stáhněte instalátor z [claude.com/download](https://claude.com/download)
+   (Windows, obvykle verze *x64*).
+2. **Nepoužívejte Microsoft Store.** Verze z obchodu měla problémy s instalací rozšíření.
+3. Spusťte instalátor a po instalaci se **přihlaste účtem s tarifem Pro**.
+
+Node.js, Python ani terminál instalovat nemusíte. Agent (Claude Code) je součástí aplikace.
+
+## Krok 2: Git for Windows (doporučeno)
+
+**Git** si pamatuje historii souborů v pracovní složce. Když Claude něco pokazí,
+dá se vrátit k předchozí verzi. Claude ho také používá ke spouštění příkazů.
+
+1. Stáhněte [Git for Windows](https://git-scm.com/downloads/win) a nainstalujte ho.
+2. Ve všech krocích instalátoru stačí ponechat výchozí volby (*Next*).
+3. Po instalaci Claude Desktop **úplně ukončete** (i z ikony vedle hodin) a spusťte znovu.
+
+Bez Gitu Claude funguje také, jen místo něj používá PowerShell a nemá „tlačítko zpět“
+pro celou složku.
+
+## Krok 3: pracovní složka
+
+Vytvořte složku jen pro práci s Claudem, například:
+
+```default
+C:\Users\<jmeno>\Claude\stavar-workshop
+```
+
+Uvnitř si založte podsložky:
+
+- `podklady\` – vstupní soubory (reporty z Tekly, PDF, Excel). **Claude je jen čte.**
+- `vystupy\` – sem Claude ukládá výsledky.
+
+::: {.callout-warning}
+Jako pracovní složku **nevybírejte složku s modely Tekly** (`C:\TeklaStructuresModels`),
+celé *Dokumenty* ani plochu. Claude může číst a měnit všechno ve vybrané složce.
+:::
+
+Stáhněte soubor [`CLAUDE.md`](files/CLAUDE.md){download="CLAUDE.md"} a uložte ho
+**přímo do pracovní složky**. Jsou v něm pravidla, která si Claude přečte na začátku
+každé práce: pracovat jen v této složce, neměnit originály, zeptat se před mazáním a
+na Teklu nesahat bez vašeho souhlasu. Můžete ho otevřít v Poznámkovém bloku a upravit.
+
+## Krok 4: záložka Code a oprávnění
+
+1. V Claude Desktop přepněte nahoře na záložku **Code**.
+2. Jako prostředí zvolte **Local** (váš počítač).
+3. Klikněte na výběr složky (*Open folder…* / *Select folder*) a vyberte
+   `stavar-workshop`.
+4. U pole pro zadání najdete **režim oprávnění**. Na začátek zvolte
+   **Manual** (v některých verzích *Ask permissions*).
+
+| Režim | Co dělá | Kdy |
+| --- | --- | --- |
+| **Manual / Ask** | Před každou úpravou souboru i příkazem se zeptá | **Prvních pár týdnů** |
+| **Plan** | Jen čte a navrhne postup, nic nemění | Větší úkoly, makra pro Teklu |
+| **Accept edits** | Soubory upravuje sám, na příkazy se ptá | Až budete vědět, co od něj čekat |
+| **Bypass** | Na nic se neptá | **Nepoužívat** |
+
+Když se Claude zeptá na povolení, **přečtěte si, co chce udělat**. Pokud nerozumíte,
+zvolte odmítnutí a napište: *„Vysvětli mi jednoduše, co ten příkaz udělá.“*
+
+::: {.callout-important}
+## Na Windows neexistuje „pískoviště“
+Na Windows běží příkazy agenta s vašimi právy, bez izolace. Ochranou jsou **oprávnění,
+vaše kontrola a zálohy**. Proto režim Manual a samostatná pracovní složka.
+:::
+
+## Krok 5: první úkol
+
+Do pole pro zadání napište:
+
+```default
+Ahoj! Přečti si CLAUDE.md a řekni mi vlastními slovy, jaká pravidla máš.
+Pak napiš krátký program, který vypíše dnešní datum a kolik pracovních dní zbývá
+do konce roku. Spusť ho a ukaž mi výsledek.
+```
+
+**Hotovo, když** Claude shrnul pravidla, vytvořil soubor, sám ho spustil a ukázal výsledek.
+Při tom se vás nejspíš několikrát zeptal na povolení. To je v pořádku.
+
+Pokud Claude chce nainstalovat **`uv`** (nástroj pro spouštění Pythonu), povolte to.
+Bude ho potřebovat pro práci s Excelem a PDF.
+
+Teď pokračujte na [kancelářská cvičení](kancelar.qmd).
+
+## Užitečné ovládání
+
+| Co | Jak |
+| --- | --- |
+| Zastavit Clauda | **Esc** nebo tlačítko stop |
+| Vrátit poslední úpravy souborů | `/rewind` (vrací jen soubory, které Claude upravil sám) |
+| Začít nový úkol s čistou hlavou | `/clear` nebo nová konverzace |
+| Přidat soubor do zadání | napište `@` a začněte psát jméno souboru |
+| Uložit verzi složky | napište *„Ulož aktuální stav do gitu.“* |
+
+## Volitelně: připojení nástroje přes MCP {#mcp}
+
+**MCP** (Model Context Protocol) je „USB pro nástroje“: připojí Clauda k dalšímu programu,
+třeba k otevřené Tekle. Pro kancelářská cvičení a práci s reporty ho **nepotřebujete**.
+
+Servery MCP se zapisují do souboru:
+
+```default
+%APPDATA%\Claude\claude_desktop_config.json
+```
+
+Otevřete ho v aplikaci přes **Settings → Developer → Edit Config** (v novějších verzích
+**Settings → Extensions**). Zápis vypadá zhruba takto:
+
+```json
+{
+  "mcpServers": {
+    "tekla": {
+      "command": "C:\\Nastroje\\TeklaMcp\\TeklaMcp.Server.exe",
+      "args": [],
+      "env": { "TEKLA_MCP_READ_ONLY": "1" }
+    }
+  }
+}
+```
+
+- Cesty musí být **celé** a se **zdvojenými zpětnými lomítky** `\\`.
+- Po úpravě Claude **úplně ukončete** (i z ikony vedle hodin) a spusťte znovu.
+- Když server nenaběhne, chyby jsou v `%APPDATA%\Claude\logs\mcp*.log`.
+
+Který server pro Teklu použít, jak ho nastavit jen pro čtení a na co si dát pozor,
+je na stránce [Živá Tekla](tekla.qmd).
+
+## Když to nefunguje
+
+| Příznak | Řešení |
+| --- | --- |
+| Záložka **Code** chybí nebo chce upgrade | Účet nemá placený tarif. Zkontrolujte, že jste přihlášeni účtem s Pro. |
+| Claude nevidí soubory | Vybrali jste jinou složku. Zkontrolujte vybranou složku v záložce Code. |
+| Claude „nezná“ Git nebo `uv` po instalaci | Claude Desktop úplně ukončete (i z lišty vedle hodin) a spusťte znovu. |
+| Ptá se na povolení příliš často | Je to záměr. Opakované bezpečné příkazy můžete povolit volbou „vždy povolit“. |
+| Dlouho nic nedělá nebo hlásí limit | Vyčerpali jste limit tarifu, viz [Praktické info](prakticke.qmd#cena). Počkejte nebo začněte novou konverzaci. |
+
+Pro srovnání: stejného agenta lze spouštět i v terminálu nebo v editoru VS Code.
+Na workshopu ale stačí aplikace.
+
+```{=html}
+<div class="interface-grid">
+<div><img src="assets/interfaces/claude_app.png" alt="Claude v samostatné desktopové aplikaci" loading="lazy"><h3>Aplikace</h3><p>Samostatné okno. Vyberete složku a píšete zadání do chatu.</p><strong>Tak pracujeme na workshopu.</strong></div>
+<div><img src="assets/interfaces/claude_terminal.png" alt="Claude Code v textovém terminálu" loading="lazy"><h3>Terminál</h3><p>Textové okno, stejný agent.</p><strong>Pro pokročilé.</strong></div>
+<div><img src="assets/interfaces/claude_plugin_vscode.png" alt="Claude Code jako rozšíření ve VS Code" loading="lazy"><h3>Rozšíření v editoru</h3><p>Soubory, kód i chat vedle sebe, např. ve VS Code.</p><strong>Hodí se při psaní maker.</strong></div>
+</div>
+```

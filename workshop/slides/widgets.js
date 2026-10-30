@@ -3,39 +3,51 @@
   const $ = (sel, root = document) => root.querySelector(sel);
 
   // --- jazykový model jako hračka: pravděpodobnosti dalšího slova (vymyšlené) ---
+  const START = "Nosník";
   const NEXT = {
-    "Rostliny": { "rostly": 0.42, "ve": 0.23, "byly": 0.2, "kvetly": 0.15 },
-    "rostly": { "pomaleji": 0.48, "rychle": 0.22, "ve": 0.18, "celý": 0.12 },
-    "pomaleji": { "než": 0.61, "a": 0.21, "kvůli": 0.18 },
-    "kvůli": { "soli": 0.55, "suchu": 0.35, "chybě": 0.1 },
-    "než": { "kontrola": 0.52, "obvykle": 0.3, "mutant": 0.18 },
-    "kontrola": { ".": 0.7, "a": 0.3 },
-    "obvykle": { ".": 0.8, "a": 0.2 },
-    "mutant": { ".": 0.6, "a": 0.4 },
-    "ve": { "skleníku": 0.55, "stínu": 0.25, "tmě": 0.2 },
-    "skleníku": { "rostly": 0.5, ".": 0.3, "kvetly": 0.2 },
-    "stínu": { "rostly": 0.6, ".": 0.4 },
-    "tmě": { "rostly": 0.7, ".": 0.3 },
-    "byly": { "menší": 0.5, "zelené": 0.3, "vysoké": 0.2 },
-    "menší": { "než": 0.6, "a": 0.4 },
-    "zelené": { "a": 0.5, ".": 0.5 },
-    "vysoké": { "247": 0.05, "a": 0.55, ".": 0.4 },
-    "247": { "cm": 0.9, ".": 0.1 },
-    "cm": { ".": 1 },
-    "kvetly": { "dříve": 0.5, "ve": 0.2, ".": 0.3 },
-    "dříve": { "než": 0.7, ".": 0.3 },
-    "rychle": { "a": 0.4, ".": 0.6 },
-    "celý": { "týden": 0.7, "měsíc": 0.3 },
-    "týden": { ".": 0.7, "a": 0.3 },
-    "měsíc": { ".": 1 },
-    "a": { "kvetly": 0.4, "byly": 0.35, "rostly": 0.25 },
-    "soli": { ".": 0.7, "a": 0.3 },
-    "suchu": { ".": 0.7, "a": 0.3 },
-    "chybě": { ".": 1 },
+    "Nosník": { "IPE": 0.45, "je": 0.25, "nad": 0.18, "byl": 0.12 },
+    "IPE": { "300": 0.5, "240": 0.32, "360": 0.18 },
+    "300": { "unese": 0.38, "je": 0.32, "z": 0.2, ".": 0.1 },
+    "240": { "je": 0.45, "unese": 0.3, "z": 0.25 },
+    "360": { "je": 0.5, "z": 0.3, ".": 0.2 },
+    "unese": { "120": 0.45, "85": 0.35, "bezpečně": 0.15, "247": 0.05 },
+    "bezpečně": { "120": 0.6, "85": 0.4 },
+    "120": { "kN": 0.9, ".": 0.1 },
+    "85": { "kN": 0.9, ".": 0.1 },
+    "247": { "kN": 0.95, ".": 0.05 },
+    "kN": { ".": 0.8, "a": 0.2 },
+    "je": { "posouzen": 0.4, "z": 0.25, "přetížen": 0.2, "kotven": 0.15 },
+    "posouzen": { "podle": 0.6, ".": 0.4 },
+    "podle": { "Eurokódu": 0.5, "ČSN": 0.4, "citu": 0.1 },
+    "Eurokódu": { ".": 0.7, "a": 0.3 },
+    "ČSN": { ".": 0.7, "a": 0.3 },
+    "citu": { ".": 1 },
+    "přetížen": { "o": 0.55, ".": 0.45 },
+    "kotven": { "do": 0.7, ".": 0.3 },
+    "do": { "sloupu": 0.6, "zdi": 0.4 },
+    "sloupu": { ".": 0.8, "a": 0.2 },
+    "zdi": { ".": 1 },
+    "z": { "oceli": 0.6, "S355": 0.4 },
+    "oceli": { "S355": 0.6, "S235": 0.4 },
+    "S355": { ".": 0.6, "a": 0.4 },
+    "S235": { ".": 0.6, "a": 0.4 },
+    "nad": { "otvorem": 0.6, "vraty": 0.4 },
+    "otvorem": { "je": 0.6, ".": 0.4 },
+    "vraty": { "je": 0.7, ".": 0.3 },
+    "byl": { "posouzen": 0.4, "prodloužen": 0.35, "odstraněn": 0.25 },
+    "prodloužen": { "o": 0.75, ".": 0.25 },
+    "o": { "200": 0.5, "50": 0.35, "15": 0.15 },
+    "200": { "mm": 1 },
+    "50": { "mm": 1 },
+    "15": { "%": 0.6, "mm": 0.4 },
+    "%": { ".": 1 },
+    "mm": { ".": 0.8, "a": 0.2 },
+    "odstraněn": { ".": 1 },
+    "a": { "je": 0.45, "unese": 0.3, "byl": 0.25 },
   };
 
   function nextWord(root) {
-    let words = ["Rostliny"];
+    let words = [START];
     const text = $(".nw-text", root), bars = $(".nw-bars", root);
     function render() {
       text.innerHTML = words.map((w, i) =>
@@ -69,7 +81,7 @@
     }
     $(".nw-greedy", root).onclick = () => pick(true);
     $(".nw-random", root).onclick = () => pick(false);
-    $(".nw-reset", root).onclick = () => { words = ["Rostliny"]; render(); };
+    $(".nw-reset", root).onclick = () => { words = [START]; render(); };
     render();
   }
 
@@ -96,7 +108,7 @@
   // --- kalkulačka tokenů ---
   // Ilustrační sazby za milion tokenů, nikoli ceník konkrétních modelů.
   const PRICES = [
-    ["Sazba 1 / 5 $", 1, 5],
+    ["Sazba 3 / 15 $", 3, 15],
     ["Sazba 5 / 25 $", 5, 25],
   ];
 

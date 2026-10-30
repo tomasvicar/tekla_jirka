@@ -1,0 +1,32 @@
+---
+title: "Průzkum"
+subtitle: "Podklady k používání Clauda s Tekla Structures · stav k 30. 10. 2026"
+---
+
+Zprávy vznikly jako webová rešerše (12 dílčích průzkumů). Každé tvrzení má ve zprávě zdroj;
+neověřené věci jsou označené. Většina zpráv je **anglicky**, souhrn a české zdroje česky.
+
+[Začněte souhrnem](pruzkum/00-souhrn.md){.btn-pill .solid}
+
+| # | Zpráva | O čem |
+| --- | --- | --- |
+| 00 | [Souhrn a doporučený postup](pruzkum/00-souhrn.md) | tři cesty, doporučené MCP, instalace, bezpečnost, nápady |
+| 01 | [MCP servery pro Teklu](pruzkum/01-mcp-servery.md) | 18 serverů, 3 vážní kandidáti, nástroje a instalace |
+| 02 | [Možnosti a limity Tekla Open API](pruzkum/02-open-api-moznosti.md) | co jde / částečně / nejde, .NET, makra, licence |
+| 03 | [Příklady z praxe](pruzkum/03-priklady-pouziti.md) | kdo co s AI a Teklou dělá, úskalí |
+| 04 | [Instalace Clauda na Windows](pruzkum/04-instalace-claude-windows.md) | tarify, Desktop, MCP konfigurace, bezpečnost |
+| 05 | [Automatizace bez MCP](pruzkum/05-automatizace-bez-mcp.md) | makra, aplikace, Python, Grasshopper, soubory |
+| 06 | [AI od Trimble a MCP jinde v AEC](pruzkum/06-trimble-ai-a-aec-mcp.md) | Model Assistant, podmínky, Revit/Rhino/IFC vzory |
+| 07 | [Trial a testovací prostředí](pruzkum/07-trial-a-testovaci-prostredi.md) | trial Tekly, Windows VM na Fedoře, plán testu |
+| 08 | [Znalosti API pro Clauda](pruzkum/08-api-znalosti-pro-claude.md) | dokumentace, příklady, ověřování, CLAUDE.md |
+| 09 | [Bezpečnost, data, zálohy](pruzkum/09-bezpecnost-data-zalohy.md) | tarify a data, NDA, licence, oprávnění, zálohy |
+| 10 | [Výuka neprogramátora](pruzkum/10-vyuka-neprogramatora.md) | kurzy, mentální modely, program prvního sezení |
+| 11 | [Nápady na automatizace](pruzkum/11-napady-na-automatizace.md) | co detailery zdržuje, co existuje, žebříček nápadů |
+| 12 | [České a slovenské zdroje](pruzkum/12-cz-sk-zdroje.md) | Construsoft, webináře, CZ prostředí, Claude česky |
+
+::: {.callout-note}
+## Pozdější upřesnění
+Formulaci o „nekomerčním použití“ v podmínkách Pro (zprávy 04, 09) jsme po kontrole zmírnili:
+jde o větu v článku o omezení odpovědnosti, ne o jasný zákaz. Aktuální znění je na stránce
+[Praktické info](prakticke.qmd#soukromi).
+:::

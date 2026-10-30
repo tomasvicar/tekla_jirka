@@ -103,3 +103,6 @@ $link-color: #007f86;
 .interface-slides { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .interface-slides img { width: 100%; height: 300px; object-fit: contain; background: #f3f6f8; border-radius: 10px; }
 .interface-slides span { display: block; text-align: center; font-size: .6em; color: #60717b; }
+// osm karet na slajd: větší písmo
+.cards.big { font-size: .7em; gap: 16px; margin-bottom: .6em; }
+.cards.big > div { padding: .6em .8em; }

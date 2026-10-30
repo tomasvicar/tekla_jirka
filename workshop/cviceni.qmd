@@ -1,0 +1,266 @@
+---
+title: "Data z Tekly"
+subtitle: "Exportovaný report → kontrola, Excel, porovnání revizí, nabídka · 40 minut"
+---
+
+Pracujeme jen s **exportovanými soubory**. Tekla nemusí běžet a model nemůže nic poškodit.
+Text v rámečcích kopírujte do Clauda (záložka **Code**, pracovní složka
+`stavar-workshop` z [instalace](instalace.qmd)). Po každém kroku si výsledek otevřete a prohlédněte.
+
+**Dnes:** [1 Prohlídka](#prohlidka) → [2 Hmotnosti](#hmotnosti) → [3 Kontrola](#kontrola) →
+[4 Revize A/B](#revize) → [5 Nabídka](#nabidka) → [6 Bonus: nářez a NC](#bonus) → [7 Skill](#skill)
+
+## Co je v datech
+
+Vymyšlená **ocelová hala 24 × 48 m**: 9 rámů po 6 m, okap 6 m, sloupy HEA300, příčle IPE400,
+vaznice IPE160, paždíky UPE140, ztužidla. Dvě revize modelu:
+**A** (12. 10. 2026) a **B** (27. 10. 2026). V revizi B jsou skutečné změny projektu
+a **schválně i chyby**, jaké se v reálných exportech objevují.
+
+[Stáhnout data (ZIP)](data/tekla_data.zip){.btn-pill .solid download="tekla_data.zip"}
+[Ukázkové řešení](demos/tekla_data/souhrn.html){.btn-pill}
+[Ukázková nabídka](demos/tekla_data/nabidka.html){.btn-pill}
+
+| Soubor | Co obsahuje |
+| --- | --- |
+| `hala_revA_part_list.csv`, `hala_revB_part_list.csv` | seznam dílů (Part list), jeden řádek = díl v sestavě |
+| `hala_revA_assembly_list.csv`, `hala_revB_assembly_list.csv` | seznam sestav (Assembly list) |
+| `cenik.xlsx` | ceník oceli (Kč/kg podle typu profilu a jakosti), povrchů a práce |
+| `nc_dstv/` | DSTV (`.nc1`) soubory pro dílnu, export z **20. 10.**, tedy ještě před revizí B |
+| `README.txt` | popis sloupců |
+
+Sloupce jako v Tekle: `PHASE`, `ASSEMBLY_POS`, `PART_POS`, `QTY`, `NAME`, `PROFILE`, `MATERIAL`,
+`LENGTH` (mm), `WEIGHT` (kg **na 1 kus**), `AREA` (m² na 1 kus), `CLASS`, `FINISH` a dva
+uživatelské atributy (UDA): `UDA_VYKRES` (číslo výkresu) a `UDA_DODAVKA`.
+Fáze: 1 = hlavní rámy, 2 = střecha, 3 = stěny.
+
+::: {.callout-note}
+## Než začnete
+Uložte ZIP do `stavar-workshop\podklady\`. Data jsou **syntetická**. Ceny a hmotnosti jsou
+realistické jen přibližně a nejsou podkladem pro skutečnou nabídku. Se skutečnými reporty
+klientů zacházejte podle [Soukromí a data klientů](prakticke.qmd#soukromi).
+:::
+
+## 1 · Prohlédněte export, nic neměňte (5 min) {#prohlidka}
+
+```default
+Rozbal podklady/tekla_data.zip do podklady/ (vznikne složka podklady/tekla/).
+Přečti README.txt a prohlédni hala_revB_part_list.csv a hala_revB_assembly_list.csv.
+Popiš mi:
+- jak je soubor uspořádaný (hlavička reportu, tabulka, řádek CELKEM),
+- co znamenají jednotlivé sloupce a v jakých jednotkách jsou,
+- kolik je řádků, kolik kusů dílů a sestav a jaká je celková hmotnost,
+- co ti na datech přijde podezřelé.
+Originální soubory neměň. Zatím nic neopravuj ani neukládej.
+```
+
+**Zkontrolujte:**
+
+- Revize B: **29 řádků dílů** (599 kusů) a **14 řádků sestav** (301 kusů).
+- Celková hmotnost je **52 662,0 kg**. Musí sedět s řádkem `CELKEM` v reportu
+  a stejně tak se součtem sestav.
+- `WEIGHT` je hmotnost **jednoho kusu**. Kdo sečte sloupec bez násobení `QTY`,
+  dostane nesmysl. Na tohle se Clauda klidně zeptejte: *„Jak jsi počítal celkovou hmotnost?“*
+- Řádek `CELKEM` a hlavička nad tabulkou se do součtů započítat nesmí.
+
+## 2 · Souhrn hmotností do Excelu (7 min) {#hmotnosti}
+
+```default
+Z part listu revize B spočítej hmotnost (QTY × WEIGHT):
+1. podle fáze, 2. podle profilu, 3. podle materiálu. U každé skupiny uveď počet kusů,
+hmotnost v kg a podíl v %.
+Nakresli dva sloupcové grafy: hmotnost podle fáze a podle typu profilu (HEA, IPE, UPE, PL…),
+s popsanými osami a hodnotami v tunách.
+Ulož vystupy/tekla/souhrn_hmotnosti.xlsx (každý souhrn na vlastní list, záhlaví tučně,
+šířka sloupců podle obsahu) a graf jako PNG. Nech i skript, který to vytvořil.
+```
+
+**Zkontrolujte:**
+
+| Fáze | Hmotnost |
+| --- | ---: |
+| 1 hlavní rámy | 30 143,0 kg |
+| 2 střecha | 15 702,4 kg |
+| 3 stěny | 6 816,6 kg |
+| **Celkem** | **52 662,0 kg** |
+
+Nejtěžší profil je **IPE400: 15 998,4 kg** (příčle i náběhy). Podle materiálu: S355J2
+30 163,2 kg, S235JR 20 745,0 kg, S355J2H 1 570,2 kg a **183,6 kg bez materiálu**.
+Pokud se v grafu objeví typ profilu „HAE“, nejde o chybu grafu. Je to první
+nalezená chyba v datech, k té se dostaneme v kroku 3.
+
+Zkuste úpravu vlastními slovy: *„Přidej list profil × fáze.“*, *„Dej hmotnosti v tunách
+na jedno desetinné místo.“*
+
+[Ukázkový Excel](demos/tekla_data/souhrn_hmotnosti.xlsx){.btn-pill} [Ukázkový graf](demos/tekla_data/hmotnosti.png){.btn-pill}
+
+## 3 · Kontrola reportu: co je špatně? (6 min) {#kontrola}
+
+```default
+Zkontroluj part list a assembly list revize B jako zkušený přípravář výroby. Hledej:
+chybějící materiál, „?“ v pozicích (neaktuální číslování), prázdné UDA,
+stejnou značku sestavy nebo dílu s různou délkou či profilem, profily, které nevypadají
+jako katalogové (překlepy), a nesoulad součtu dílů a sestav.
+Ke každému problému napiš řádek, co je špatně, proč to vadí ve výrobě a co opravit v modelu.
+Ulož to jako vystupy/tekla/kontrola_reportu.xlsx. Nic v datech neopravuj.
+```
+
+**Zkontrolujte:** Claude má najít všech **pět druhů chyb**, které jsme tam schovali:
+
+1. **Chybí materiál:** výztuhy `1104` v příčli B1 a koncové plechy překladu vrat.
+2. **„?“ v číslování:** překlad vrat byl přidán po posledním číslování (`ASSEMBLY_POS = ?`).
+3. **Prázdné UDA:** sloupek vrat C4 nemá `UDA_VYKRES`, ztužidlo V2 nemá `UDA_DODAVKA`.
+4. **Duplicitní značka:** **B6** jsou dvě sestavy s délkou 5 790 a 2 690 mm.
+   Totéž platí pro díl `3101`.
+5. **Překlep v profilu:** **HAE200** u štítového sloupu C2 (správně HEA200).
+
+Součet dílů a sestav **souhlasí**. Pozor na falešný poplach: díly `1202` a `1203`
+jsou ve dvou sestavách (C2 i C3) **se stejným rozměrem**, a to je v pořádku.
+Pokud je Claude označí za chybu, zeptejte se ho proč.
+
+## 4 · Porovnání revize A a B (7 min) {#revize}
+
+Tekla umí porovnávat modely, ale **porovnání dvou exportovaných seznamů** nenabízí.
+Tady agent ušetří nejvíc času.
+
+```default
+Porovnej assembly list revize A a B podle značky sestavy (ASSEMBLY_POS).
+Pro každou sestavu urči: přidáno / odebráno / změněno (co přesně: QTY, PROFILE, MATERIAL,
+LENGTH, WEIGHT) a rozdíl hmotnosti v kg. Duplicitní značky a „?“ nepáruj naslepo,
+označ je „zkontrolovat ručně“. Totéž udělej i na úrovni dílů (ASSEMBLY_POS + PART_POS),
+abych viděl, proč se změnila hmotnost sestavy.
+Ulož vystupy/tekla/porovnani_revA_revB.xlsx: list Souhrn (hmotnost A, B, rozdíl),
+list Sestavy a list Díly. Řádky obarvi: zelená přidáno, červená odebráno,
+žlutá změněno, oranžová zkontrolovat.
+```
+
+**Zkontrolujte:** revize A **50 781,2 kg** → revize B **52 662,0 kg**, tedy **+1 880,8 kg**.
+
+| Sestava | Stav | Co se stalo |
+| --- | --- | --- |
+| C4 | přidáno | sloupky vrat RHS120×120×6 |
+| ? | zkontrolovat | překlad vrat, neočíslovaný |
+| V3 | odebráno | ztužidlo štítu (nahradil ho rám vrat) |
+| B2 | změněno | vaznice 112 → 128 ks (+1 513,6 kg) |
+| B3 | změněno | okapová vaznice UPE160 → UPE180 |
+| C1 | změněno | jen hmotnost 615,9 → 622,9 kg: na úrovni dílů patní plech PL20 → **PL25** |
+| C3 | změněno | délka 7 000 → 7 120 mm |
+| V2 | změněno | materiál S235JR → S355J2 |
+| C2 | změněno | HEA200 → HAE200. **Není to změna projektu, ale překlep** (krok 3) |
+| B6 | zkontrolovat | duplicitní značka (24 ks → 20 + 4 ks) |
+
+Změna u C1 je vidět jen podle hmotnosti. Hlavní profil zůstal stejný. Proto
+porovnáváme i díly, nejen hlavní profil sestavy.
+
+[Ukázkové porovnání](demos/tekla_data/porovnani_revA_revB.xlsx){.btn-pill}
+
+## 5 · Návrh cenové nabídky (8 min) {#nabidka}
+
+```default
+Podle part listu revize B a ceníku podklady/tekla/cenik.xlsx sestav návrh cenové nabídky
+na ocelovou konstrukci:
+- materiál: hmotnost × Kč/kg podle typu profilu (začátek názvu: HEA, IPE, UPE, RHS, L, D, PL)
+  a jakosti (S235 / S355), plus prořez a spojovací materiál podle listu „Prace a ostatni“,
+- dílenská výroba a montáž v Kč/kg, doprava podle počtu jízd,
+- povrch podle FINISH: NATER_C3 v Kč/m² (AREA × QTY), ZINEK v Kč/kg. Pozor na různé jednotky.
+Překlep HAE200 nacen jako HEA200 a díly bez materiálu jako S235. Všechny takové
+předpoklady vypiš v nabídce zvlášť.
+Ulož vystupy/tekla/nabidka.xlsx (s rozpisem výpočtu) a vystupy/tekla/nabidka.html
+jako úhlednou jednostránkovou nabídku k tisku: hlavička, tabulka položek, celkem bez DPH,
+DPH 21 %, celkem s DPH, předpoklady a co není v ceně. Otevři HTML v prohlížeči.
+```
+
+**Zkontrolujte:**
+
+| Položka | Ukázkové řešení |
+| --- | ---: |
+| Materiál (bez prořezu) | 1 742 704 Kč |
+| Natíraná plocha NATER_C3 | 674,4 m² |
+| Zinkovaná hmotnost | 20 873 kg |
+| Doprava | 3 jízdy |
+| **Celkem bez DPH** | **4 699 535 Kč** |
+| Celkem s DPH | 5 686 437 Kč |
+
+Výsledek vychází zhruba na **89 Kč/kg**. Pokud se vaše čísla liší o pár stovek korun,
+zkontrolujte předpoklady (zaokrouhlení, jak se počítá prořez). Pokud se liší o
+desítky procent, zeptejte se Clauda na rozpis jedné položky a přepočítejte ji ručně.
+PDF získáte z HTML tiskem v prohlížeči (*Tisk → Uložit jako PDF*).
+
+[Ukázková nabídka (HTML)](demos/tekla_data/nabidka.html){.btn-pill} [Ukázková nabídka (Excel)](demos/tekla_data/nabidka.xlsx){.btn-pill}
+
+::: {.callout-warning}
+Nabídka je **návrh k vaší kontrole**. Ceny, rozsah a předpoklady vždy projde člověk.
+Viz [Výsledky kontroluje člověk](prakticke.qmd#kontrola).
+:::
+
+## 6 · Bonus: nářezový plán a kontrola NC souborů (5 min) {#bonus}
+
+Vyberte si jedno:
+
+```default
+Z part listu revize B udělej nářezový plán pro tyče délky 12 m (šířka řezu 3 mm),
+zvlášť pro každý profil kromě plechů. Profil HAE200 ber jako HEA200. Napiš počet tyčí,
+využití a odpad v metrech a plán řezů (které délky z jedné tyče).
+Ulož vystupy/tekla/narezovy_plan.xlsx. Vysvětli, jakou metodu jsi použil
+a jestli je výsledek optimální.
+```
+
+```default
+Ve složce podklady/tekla/nc_dstv/ jsou DSTV (.nc1) soubory z NC exportu.
+Zjisti, jak je soubor .nc1 uspořádaný (blok ST), a porovnej pozice, profily, délky a
+počty kusů s part listem revize B (bez plechů a tahel D20).
+Vypiš chybějící NC soubory, soubory navíc a neshody. Ulož vystupy/tekla/kontrola_nc.xlsx.
+```
+
+**Zkontrolujte nářez:** celkem **186 tyčí**. Vaznice IPE160 5 990 mm se vejdou po dvou
+(64 tyčí). Sloupy HEA300 6 150 mm ne: 18 tyčí s odpadem přes 5,8 m na každé.
+U nich se vyplatí objednat materiál na přesnou délku. Tady je dobré se Clauda zeptat:
+*„Co kdybych objednal sloupy na míru?“*
+
+**Zkontrolujte NC:** NC soubor **chybí** pro nový sloupek vrat `3401` a **přebývá**
+`3301` (zrušené ztužidlo). U `2101` je starý profil UPE160, u `1301` stará délka 7 000 mm,
+u `3101` chybí kratší varianta 2 690 mm a u `1201` NC soubor uvádí HEA200, kdežto report HAE200.
+Závěr: NC soubory jsou **ze staré revize** a před odesláním na dílnu je musíte vyexportovat znovu.
+
+[Ukázkový nářezový plán](demos/tekla_data/narezovy_plan.xlsx){.btn-pill} [Ukázková kontrola NC](demos/tekla_data/kontrola_nc.xlsx){.btn-pill}
+
+## 7 · Ze cvičení nástroj: skill „souhrn z reportu“ (5 min) {#skill}
+
+Teď uděláme z ručních kroků nástroj, který půjde pustit na každý další report.
+
+```default
+Spoj kroky 1–3 (a volitelně 4 a 5) do jednoho skriptu vystupy/skripty/souhrn_z_reportu.py.
+Na vstupu dostane cestu k part listu (volitelně starší revizi a ceník) a do
+vystupy/<dnešní datum>_<název reportu>/ uloží souhrn.xlsx, graf a souhrn.html.
+Pak vytvoř skill .claude/skills/souhrn-z-reportu/SKILL.md: kdy se má použít,
+jak správně načíst report Tekla (hlavička, CELKEM, hmotnost za kus), jaké kontroly
+dělat vždy a jak výsledek ověřit proti řádku CELKEM. Vyzkoušej skript na revizi A
+a napiš mi, jestli vyšlo 50 781,2 kg.
+```
+
+**Zkontrolujte:** otevřete nové okno (novou konverzaci) a napište jen
+*„Udělej souhrn z reportu podklady/tekla/hala_revA_part_list.csv.“*
+Claude má sám najít skill, spustit skript a vrátit **50 781,2 kg** bez dalšího vysvětlování.
+Pro srovnání: [ukázkový SKILL.md](demos/tekla_data/souhrn-z-reportu/SKILL.md).
+
+::: {.callout-tip}
+## Na vlastních datech
+Vyexportujte z Tekly vlastní Part list jako CSV nebo XLSX (v TS 2026 jsou k dispozici i
+nové `.xlsx` reporty) z **testovacího nebo staršího** projektu a pusťte na něj skill.
+Na první pokus se nejspíš něco nepovede, třeba jiné názvy sloupců, jiný oddělovač nebo
+jiná desetinná čárka. Nechte Clauda skript upravit a skill doplnit.
+:::
+
+## Tři návyky, které si odnést
+
+1. **Originál jen číst.** Výsledky ukládat jinam a nechat si skript, aby šel výpočet zopakovat
+   na další revizi.
+2. **Kontrolní součet.** Celková hmotnost musí sedět s řádkem `CELKEM` v Tekle.
+   Jedno číslo vždy přepočítejte ručně.
+3. **Chyby nahlásit, neopravovat potichu.** Problém v exportu se opravuje **v modelu**.
+   Pak se report vyexportuje znovu.
+
+---
+
+*Data vytváří `tools/make_tekla_data.py`, ukázkové řešení `tools/solve_tekla_data.py`.
+Obojí je deterministické, takže čísla výše platí přesně.*

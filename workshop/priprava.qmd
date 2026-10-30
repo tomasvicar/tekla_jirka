@@ -19,8 +19,9 @@ z Tekly. Čím víc z toho bude hotové, tím víc času zbude na skutečnou pr�
 ::: {.callout-note}
 ## Proč ne zdarma a proč ne hned Team?
 Bezplatný tarif **agenta (Claude Code) neobsahuje**. Pro zkoušení stačí **Pro**.
-Pro práci na zakázkách klientů zvažte firemní tarif **Team**. Důvody jsou na stránce
-[Praktické info](prakticke.qmd#soukromi).
+Pro ostrou práci na zakázkách ve firmě o 2 lidech vychází nejlépe **Team se 2 místy**
+(minimum jsou 2 místa, stojí jen o málo víc než 2× Pro a má firemní podmínky).
+Důvody jsou na stránce [Praktické info](prakticke.qmd#cena).
 :::
 
 ## 2. Počítač

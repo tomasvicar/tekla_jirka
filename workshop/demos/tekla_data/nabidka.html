@@ -1,0 +1,26 @@
+<!doctype html><html lang="cs"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Cenová nabídka – hala</title>
+<style>
+body{font:15px/1.5 system-ui,sans-serif;max-width:820px;margin:auto;padding:32px 20px;color:#1f2a37;background:#fff}
+header{display:flex;justify-content:space-between;gap:16px;border-bottom:3px solid #12355b;padding-bottom:12px}
+h1{margin:0;font-size:26px;color:#12355b} .muted{color:#5b6573} table{width:100%;border-collapse:collapse;margin:14px 0}
+td,th{padding:7px 8px;border-bottom:1px solid #e3e6ea;text-align:left;vertical-align:top} th{background:#f1f5f9}
+.n{text-align:right;white-space:nowrap} tfoot td{font-weight:700;border-top:2px solid #12355b}
+.big td{font-size:18px} .note{background:#fff7e0;border-left:4px solid #e0a100;padding:10px 14px;margin:18px 0}
+@media print{body{padding:0} .note{break-inside:avoid}}
+</style>
+<header><div><h1>Cenová nabídka</h1><div class=muted>Ocelová konstrukce · HALA SKLAD 24×48 m</div></div>
+<div class="muted n">Zakázka Z-2026-014<br>Podklad: model revize B (27. 10. 2026)<br>Návrh – NEODESÍLAT bez kontroly</div></header>
+<p>Rozsah: sloupy, příčle, vaznice, paždíky, ztužidla a rám vrat podle exportu z Tekla Structures,
+celková hmotnost <b>52 662 kg</b>. Ceny podle interního ceníku (syntetický), bez DPH.</p>
+<table><thead><tr><th>Položka</th><th>Výpočet</th><th class=n>Cena bez DPH</th></tr></thead><tbody><tr><td>Materiál – ocel podle ceníku</td><td>52 662 kg</td><td class=n>1 742 704 Kč</td></tr><tr><td>Prořez materiálu 5 %</td><td></td><td class=n>87 135 Kč</td></tr><tr><td>Spojovací materiál 3 %</td><td></td><td class=n>54 895 Kč</td></tr><tr><td>Dílenská výroba</td><td>52 662 kg × 26 Kč/kg</td><td class=n>1 369 212 Kč</td></tr><tr><td>Nátěr C3 (NATER_C3)</td><td>674,4 m² × 420 Kč/m²</td><td class=n>283 238 Kč</td></tr><tr><td>Žárové zinkování (ZINEK)</td><td>20 873 kg × 19 Kč/kg</td><td class=n>396 583 Kč</td></tr><tr><td>Montáž</td><td>52 662 kg × 14 Kč/kg</td><td class=n>737 268 Kč</td></tr><tr><td>Doprava</td><td>3 jízdy × 9 500 Kč</td><td class=n>28 500 Kč</td></tr></tbody>
+<tfoot><tr><td colspan=2>Celkem bez DPH</td><td class=n>4 699 535 Kč</td></tr>
+<tr><td colspan=2>DPH 21 %</td><td class=n>986 902 Kč</td></tr>
+<tr class=big><td colspan=2>Celkem s DPH</td><td class=n>5 686 437 Kč</td></tr></tfoot></table>
+<h2>Materiál podle typu profilu</h2>
+<table><thead><tr><th>Typ</th><th>Jakost</th><th class=n>Hmotnost [kg]</th><th class=n>Kč/kg</th><th class=n>Cena</th></tr></thead>
+<tbody><tr><td>D</td><td>S235</td><td class=n>334</td><td class=n>38,0</td><td class=n>12 707 Kč</td></tr><tr><td>HEA</td><td>S355</td><td class=n>11 473</td><td class=n>34,0</td><td class=n>390 075 Kč</td></tr><tr><td>IPE</td><td>S235</td><td class=n>12 109</td><td class=n>31,5</td><td class=n>381 427 Kč</td></tr><tr><td>IPE</td><td>S355</td><td class=n>15 998</td><td class=n>33,0</td><td class=n>527 947 Kč</td></tr><tr><td>L</td><td>S355</td><td class=n>496</td><td class=n>35,5</td><td class=n>17 608 Kč</td></tr><tr><td>PL</td><td>S235</td><td class=n>590</td><td class=n>29,0</td><td class=n>17 116 Kč</td></tr><tr><td>PL</td><td>S355</td><td class=n>2 196</td><td class=n>30,5</td><td class=n>66 978 Kč</td></tr><tr><td>RHS</td><td>S355</td><td class=n>1 570</td><td class=n>43,5</td><td class=n>68 304 Kč</td></tr><tr><td>UPE</td><td>S235</td><td class=n>7 895</td><td class=n>33,0</td><td class=n>260 542 Kč</td></tr></tbody></table>
+<div class=note><b>Předpoklady a otevřené body</b><ul><li>Profil HAE200 (překlep v reportu) naceněn jako HEA200.</li><li>Díly bez materiálu (výztuhy 1104, plechy překladu „?“) naceněny jako S235.</li><li>Překlad vrat s pozicí „?“ je v nabídce zahrnut (je v modelu, jen neočíslovaný).</li>
+<li>Nezahrnuje: kotvy a chemické kotvení, opláštění, projekt, statiku, jeřáb nad rámec montáže.</li></ul></div>
+<p class=muted>Výuková ukázka – data i ceny jsou vymyšlené. Vytvořeno skriptem tools/solve_tekla_data.py.</p>
+</html>

@@ -1,10 +1,12 @@
 project:
   type: website
   output-dir: _site
+  pre-render: python3 tools/copy_research.py
   render:
     - "*.qmd"
     - "slides/index.qmd"
     - "ukazky/*.qmd"
+    - "pruzkum/*.md"
   resources:
     - data/**
     - files/**
@@ -14,6 +16,8 @@ project:
 
 website:
   title: "Claude pro stavaře"
+  site-url: https://tomasvicar.github.io/tekla_jirka/
+  repo-url: https://github.com/tomasvicar/tekla_jirka
   navbar:
     background: "#12355b"
     foreground: "#ffffff"
@@ -34,6 +38,11 @@ website:
         text: Praktické info
       - href: slides/index.qmd
         text: Prezentace
+    right:
+      - href: postup.qmd
+        text: Postup
+      - href: pruzkum.qmd
+        text: Průzkum
   page-footer:
     left: "Claude pro stavaře · interní workshop"
     right: "Vytvořeno v [Quartu](https://quarto.org)"

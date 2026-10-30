@@ -8,7 +8,7 @@
 - **Oficiální MCP od Trimble pro Teklu neexistuje.** Je ~18 komunitních MCP serverů; reálně použitelné jsou 2–3. → [01](01-mcp-servery.md)
 - **Trimble má vlastní AI v Tekle** (Tekla Model Assistant – preview, Developer Assistant), ale jen pro dražší licence (Diamond/Graphite/Carbon). → [06](06-trimble-ai-a-aec-mcp.md)
 - **Nejlepší start pro neprogramátora není MCP, ale práce se soubory** (exporty reportů → Excel) a pak **C# makra**, která Claude napíše do složky maker. → [05](05-automatizace-bez-mcp.md), [11](11-napady-na-automatizace.md)
-- **Pozor na právní stránku:** Pro/Max má v EU podmínkách „non-commercial use“. Pro firmu o 2 lidech je řešením **Team se 2 místy Standard** (min. 2 místa, ~25 USD/místo/měs., Claude Code v ceně, firemní podmínky, netrénuje se na datech). Hlídat NDA. → [09](09-bezpecnost-data-zalohy.md)
+- **Právní stránka:** EU spotřebitelské podmínky Pro/Max obsahují v článku o odpovědnosti „non-commercial use only“ – spíš omezení ručení než jasný zákaz; Pro se v práci běžně používá, ale nemá DPA (GDPR). Pro firmu o 2 lidech je řešením **Team se 2 místy Standard** (min. 2 místa, ~25 USD/místo/měs., Claude Code v ceně, firemní podmínky, netrénuje se na datech). Hlídat NDA. → [09](09-bezpecnost-data-zalohy.md)
 
 ## Tři cesty, jak Claude s Teklou propojit
 
