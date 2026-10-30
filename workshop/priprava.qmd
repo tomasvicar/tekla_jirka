@@ -8,8 +8,8 @@ Instalaci uděláme společně. Předem stačí tyto čtyři věci.
 ## 1. Placený Claude
 
 1. Založte si účet na [claude.ai](https://claude.ai).
-2. Kupte tarif **Pro**. Bezplatný tarif agenta nemá. Na ostrou práci ve firmě
-   doporučujeme Team, viz [Kolik to stojí](prakticke.qmd#cena).
+2. Na vyzkoušení kupte tarif **Pro**. Bezplatný tarif agenta nemá. Práci pro klienty
+   podmínky Pro nedovolují, na ni je **Team**, viz [Kolik to stojí](prakticke.qmd#cena).
 3. V [nastavení soukromí](https://claude.ai/settings/data-privacy-controls) vypněte **Model improvement**.
 
 **Hotovo, když** na claude.ai vidíte u účtu placený tarif.
@@ -30,7 +30,7 @@ V *Help → About* si zapište **verzi** (např. *2026 SP2*), **licenci**
 - Starší nebo cvičný model, na kterém nevadí chyba. Udělejte si zálohu,
   viz [Zálohy modelu](prakticke.qmd#zalohy).
 - 2–3 exportované reporty (kusovník, hmotnosti), ideálně i **dvě revize** stejného
-  reportu. Formát `.csv`, `.xlsx` nebo `.txt`. Jména klientů smažte.
+  reportu. Formát `.csv`, `.xlsx` nebo `.txt`. S tarifem Pro jen cvičný model, ne zakázku klienta.
 
 Nemáte nic z toho? Nevadí, na webu jsou **smyšlená data** pro všechna cvičení.
 
@@ -40,4 +40,4 @@ Nemáte nic z toho? Nevadí, na webu jsou **smyšlená data** pro všechna cvič
 - [ ] PC s Windows, případně souhlas IT
 - [ ] Zapsaná verze Tekly, licence a prostředí
 - [ ] Záloha testovacího modelu
-- [ ] 2–3 reporty bez jmen klientů
+- [ ] 2–3 reporty z cvičného modelu

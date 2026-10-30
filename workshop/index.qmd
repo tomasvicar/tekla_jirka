@@ -11,7 +11,7 @@ Od složky zakázky přes kusovník z Tekly až k makru: AI agent dělá práci,
 :::
 
 ::: {.lead}
-Workshop pro detailera v Tekla Structures, asi 2,5–3 hodiny. Programovat nemusíte.
+Workshop pro detailera v Tekla Structures, asi 2,5–3 hodiny včetně přestávky. Programovat nemusíte.
 :::
 
 ## Chatbot, nebo agent?
@@ -26,13 +26,13 @@ napíše a spustí skript, opraví chybu a uloží výsledek. Než něco změní
 
 Používáme **Claude Desktop, záložku Code**: agent v běžném okně Windows, bez terminálu.
 
-## Tři úrovně práce s Teklou
+## Tři úrovně práce s Teklou: 1 Soubory · 2 Makra · 3 MCP
 
 | Úroveň | Co Claude vidí | Riziko pro model |
 | --- | --- | --- |
-| **1. Soubory** | Exportované reporty, PDF, Excel | Žádné |
-| **2. Makra** | Napíše makro, vy ho spustíte | Malé, na kopii modelu |
-| **3. MCP** | Mluví přímo s otevřenou Teklou | Větší, začínáme jen čtením |
+| **1 Soubory** | Exportované reporty, PDF, Excel | Žádné |
+| **2 Makra** | Napíše makro, vy ho spustíte | Střední, jen na kopii modelu |
+| **3 MCP** | Mluví přímo s otevřenou Teklou | Větší, začínáme jen čtením |
 
 Začínáme úrovní 1.
 
@@ -43,10 +43,11 @@ Začínáme úrovní 1.
 | --- | --- | --- |
 | 15 min | Co je AI agent | [prezentace](slides/index.qmd) |
 | 20 min | Instalace, první úkol, `CLAUDE.md`, oprávnění | [Instalace](instalace.qmd) |
-| 40 min | Kancelář: složky, přejmenování, PDF, Excel | [Kancelář](kancelar.qmd) |
-| 40 min | Data z Tekly: report → Excel, hmotnosti, revize | [Data z Tekly](cviceni.qmd) |
-| 30 min | Živá Tekla: makro a MCP | [Živá Tekla](tekla.qmd) |
-| 15 min | Co dalšího jde | [Ukázky](ukazky.qmd) |
+| 40 min | Kancelář, kroky 1–4 (5 a Navíc volitelné) | [Kancelář](kancelar.qmd) |
+| 10 min | Přestávka | |
+| 35 min | Data z Tekly, kroky 1–4 (5 volitelný) | [Data z Tekly](cviceni.qmd) |
+| 25 min | Živá Tekla: makra; MCP ukáže lektor nebo příště | [Živá Tekla](tekla.qmd) |
+| 5 min | Ukázky: otevřeme dvě | [Ukázky](ukazky.qmd) |
 | 10 min | Cena, soukromí, zálohy, licence | [Praktické info](prakticke.qmd) |
 : {.schedule}
 :::

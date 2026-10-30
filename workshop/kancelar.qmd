@@ -10,7 +10,13 @@ Po každém kroku se na výsledek podívejte.
 
 [Stáhnout složku zakázky (ZIP)](data/kancelar/zakazka_neporadek.zip){.btn-pill .solid} [Stáhnout seznam zakázek (CSV)](data/kancelar/seznam_zakazek.csv){.btn-pill} [Ukázkové výsledky](#vysledky){.btn-pill .muted}
 
-Oba soubory uložte do **`podklady/`**. Data jsou smyšlená: hala Modřice (Z2026-014)
+Prohlížeč je uloží do **Stažené soubory**. Řekněte agentovi:
+
+```default
+Přesuň ze složky Stažené soubory zakazka_neporadek.zip a seznam_zakazek.csv do podklady/.
+```
+
+Data jsou smyšlená: hala Modřice (Z2026-014)
 a k ní dvě cizí zakázky, duplicity, staré revize a smetí.
 
 ::: {.callout-warning}
@@ -26,11 +32,12 @@ a k ní dvě cizí zakázky, duplicity, staré revize a smetí.
 Než cokoli přesunete, musíte vědět, co ve složce je.
 
 ```default
-Rozbal podklady/zakazka_neporadek.zip do vystupy/kancelar/neporadek/ a tu složku už neměň.
+Rozbal podklady/zakazka_neporadek.zip do vystupy/kancelar/ (ZIP má vlastní složku
+zakazka_neporadek/) a tu složku už neměň.
 Udělej inventuru do vystupy/kancelar/inventura.xlsx: cesta, přípona, velikost, datum
 a otisk obsahu (SHA-256), aby byly vidět duplicity. Česky shrň, kolik je souborů,
 ke kterým zakázkám ze seznam_zakazek.csv patří (podle obsahu, ne jen názvu),
-co jsou duplicity, staré revize a smetí. Pak založ git a ulož verzi „Před úklidem“.
+co jsou duplicity, staré revize a smetí. Pak ulož verzi v gitu „Před úklidem“.
 ```
 
 **Zkontrolujte:** 57 souborů, 4 skupiny duplicit (5 kopií navíc), 3 zakázky.
@@ -52,14 +59,15 @@ Zatím NIC nekopíruj. Ulož plán do vystupy/kancelar/plan_zarazeni.xlsx
 Otevřete plán, tři řádky ověřte a případně opravte. Pak napište: *„Schvaluji. Zkopíruj
 do vystupy/kancelar/zakazky/, porovnej počty a ulož verzi.“*
 
-**Zkontrolujte:** 57 = 53 zkopírovaných + 4 smetí. Modřice 39, lávka 7, parkovací dům 5.
+**Zkontrolujte:** 57 = 53 zkopírovaných + 4 smetí. Modřice 39, lávka 7, parkovací dům 5
+a 2 soubory v `_K_ROZTRIDENI`.
 
 ## 3 · Přejmenování a archiv (8 min)
 
 Podle názvu se má poznat zakázka, typ dokumentu i revize bez otevírání souboru.
 
 ```default
-V vystupy/kancelar/zakazky/ přejmenuj soubory podle pravidla
+Ve vystupy/kancelar/zakazky/ přejmenuj soubory podle pravidla
 <zakázka>_<TYP>_<číslo>[_<revize>].<přípona>, bez diakritiky a mezer
 (typy VYK, VYP, MOD, POD, KOR, ZAP, NAB, SML, FAK, FOT), např. Z2026-014_VYK_V-102_C.pdf.
 Číslo výkresu a revizi ber z razítka v PDF, ne z názvu. Duplicity přesuň
@@ -95,7 +103,8 @@ Ověř, že počet stran PDF = součet listů v protokolu.
 Vytvoř projektový skill nova-zakazka v .claude/skills/nova-zakazka/.
 Zeptá se na číslo zakázky, název a klienta, ukáže, co vznikne, a počká na souhlas.
 Skriptem založí strukturu složek z kroku 2 a README.txt s pravidlem názvů.
-Existující složku nikdy nepřepíše. Řádek připíše do vystupy/seznam_zakazek.csv.
+Existující složku nikdy nepřepíše. Řádek připíše do vystupy/seznam_zakazek.csv
+(pokud neexistuje, vytvoř ho jako kopii podklady/seznam_zakazek.csv).
 Vyzkoušej ho na Z2026-015 „Sklad Kuřim“ ve vystupy/zakazky_test/ a pak to zkus znovu.
 ```
 

@@ -15,14 +15,17 @@ Patří do hlavní složky projektu jako `CLAUDE.md`. Hodnoty v `< >` doplní ag
 - Makra modelu: `<model>\macros\modeling\`
 - Sdílená makra (XS_MACRO_DIRECTORY): `<cesta>`
 - Logy Tekly: `<cesta, NEOVĚŘENO>`
-- Projekt: `makra/` (hlavní kopie .cs), `knihovna/` (ověřená makra), `reference/` (XML dokumentace API).
+- Projekt: `makra/` (hlavní kopie .cs), `knihovna/` (ověřená makra), `reference/` (XML dokumentace API
+  z instalace Tekly, např. `Tekla.Structures.Model.xml`; když chybí, napiš sem „reference/ prázdná“).
 
 ## Tvrdá pravidla
 
-1. **Nevymýšlej API.** Každý člen Tekla Open API ověř v `reference/*.xml`, v příkladech
-   TSOpenAPIExamples pro moji verzi nebo na developer.tekla.com. Neověřené označ `// NEOVĚŘENO:`.
-2. **Model měním jen na kopii a s potvrzením.** Makro, které mění model: kontrola, že cesta
-   obsahuje „kopie“/„test“/„copy“, dialog „Změním N dílů… Pokračovat?“, na konci **jedno**
+1. **Nevymýšlej API.** Každý člen Tekla Open API ověř v `reference/*.xml`. Když `reference/`
+   je prázdná, ověř ho na developer.tekla.com v dokumentaci **pro moji verzi Tekly** (nebo
+   v příkladech TSOpenAPIExamples). Neověřené označ `// NEOVĚŘENO:`.
+2. **Model měním jen na kopii a s potvrzením.** Makro, které mění model: kontrola, že **název
+   složky modelu** obsahuje „KOPIE“ (velikost písmen nevadí), dialog „Změním N dílů…
+   Pokračovat?“, při chybě u části dílů seznam a dotaz, na konci **jedno**
    `model.CommitChanges("popis")`.
 3. **Nejdřív jen čtení.** Nové makro nejprve jen vypíše, co by změnilo.
 4. Modelových souborů (`.db1`, `.db2`) se nedotýkej. Makra jen kopíruj do složky maker, spouštím je já.

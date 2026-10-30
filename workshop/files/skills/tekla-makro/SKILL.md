@@ -18,8 +18,10 @@ Uživatel **neprogramuje**. Mluv česky a jednoduše. Pravidla a cesty jsou v `C
 - Kostra: `namespace Tekla.Technology.Akit.UserScript`, třída `Script`,
   `public static void Run(Tekla.Technology.Akit.IScript akit)`.
 - `GetConnectionStatus()`, `try/catch` s `MessageBox.Show(ex.ToString())`, nastavení jako konstanty nahoře.
-- **Každý člen API ověř** v `reference/*.xml`, neověřené označ `// NEOVĚŘENO:`.
-- Změny modelu: kontrola kopie, potvrzovací dialog s počtem dílů, jedno `CommitChanges`.
+- **Každý člen API ověř** v `reference/*.xml` (když chybí, na developer.tekla.com pro verzi
+  z `CLAUDE.md`), neověřené označ `// NEOVĚŘENO:`.
+- Změny modelu: kontrola, že název složky modelu obsahuje „KOPIE“, potvrzovací dialog s počtem dílů, při chybě u části dílů
+  seznam a dotaz před `CommitChanges`, jedno `CommitChanges`.
 - Máš-li `dotnet`, zkontroluj překlad proti NuGet balíčku verze Tekly.
 
 ## 3. Nasaď

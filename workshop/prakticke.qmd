@@ -15,12 +15,17 @@ Přidej řádek CELKEM a ulož do vystupy/hmotnosti_revC.xlsx.
 Ověř, že součet sedí s původním reportem, a napiš mi obě čísla.
 ```
 
-| Co se děje | Co zkusit |
+## Ovládání a když se to zasekne {#ovladani}
+
+| Co se děje / co chcete | Co zkusit |
 | --- | --- |
-| Udělal něco jiného | **Esc** a zopakujte, co přesně chcete. |
-| Dvě opravy nepomohly | `/clear` a lepší zadání, ne třetí oprava. |
+| Udělal něco jiného | **Esc** nebo stop, pak zopakujte, co chcete. |
+| Vrátit jeho úpravy souborů | `/rewind` (pokud je v záložce Code dostupné), jinak *„Vrať se k poslední verzi v gitu.“* |
+| Dvě opravy nepomohly | `/clear` nebo nová konverzace a lepší zadání, ne třetí oprava. |
+| Přidat soubor do zadání | `@` a jméno souboru |
 | Větší úkol nebo makro | Režim **Plan**: nejdřív postup. |
 | Opakuje stejnou chybu | Zapište pravidlo do `CLAUDE.md`. |
+| Uložit verzi složky | *„Ulož aktuální stav do gitu.“* |
 
 ## Kolik to stojí {#cena}
 
@@ -30,11 +35,11 @@ Agent (Claude Code) je jen v placených tarifech. Ceny v USD bez DPH
 | Tarif | Cena | Pro koho |
 | --- | --- | --- |
 | **Pro** | 20 USD/měs. | Vyzkoušení, jeden člověk |
-| **Max** | 100 nebo 200 USD/měs. | Když Pro pravidelně nestačí |
-| **Team Standard** | 25 USD za místo a měsíc (20 ročně), **min. 2 místa**, Claude Code v ceně | Firma, práce pro klienty |
+| **Max** | od 100 USD/měs. | Když Pro pravidelně nestačí |
+| **Team Standard** | 25 USD za místo a měsíc (20 při ročním placení), **min. 2 místa**, Claude Code v ceně | Firma, práce pro klienty |
 
 - **Doporučení:** na zkoušku **Pro**. Ostře ve firmě o 2 lidech **Team se 2 místy**:
-  50 USD/měs. (40 ročně) místo 40 za 2× Pro, za to firemní podmínky ([Soukromí](#soukromi)).
+  50 USD/měs. (40 USD/měs. při ročním placení), za to firemní podmínky ([Soukromí](#soukromi)).
 - **Limity:** chat i agent čerpají ze společného limitu, který se obnovuje po několika
   hodinách, plus týdenní strop. Šetří `/clear` mezi úkoly a konkrétní zadání.
 
@@ -47,17 +52,16 @@ i data z Tekly ([data usage](https://code.claude.com/docs/en/data-usage)).
 | --- | --- | --- |
 | Trénink na vašich datech | Jen se zapnutým **Model improvement** | Ne |
 | Smlouva o zpracování (DPA, GDPR) | Ne | Ano |
-| Práce pro klienty | Šedá zóna, riziko nesete vy | Ano, čisté papíry |
+| Práce pro klienty | Ne, podmínky ji nedovolují | Ano |
 
 - V Pro **vypněte Model improvement**
-  ([nastavení](https://claude.ai/settings/data-privacy-controls)) a u dat klientů
-  neposílejte zpětnou vazbu (palec nahoru/dolů).
-- **Spotřebitelské podmínky** ([Consumer Terms](https://www.anthropic.com/legal/consumer-terms))
-  mají v článku o odpovědnosti větu *„Non-commercial use only“*. Hlavně tím Anthropic
-  neručí za vaše obchodní ztráty. Jasný zákaz to není, ale je to šedá zóna.
-  Pro nemá DPA, takže se nehodí na osobní údaje klientů.
-  **Team** má firemní podmínky ([Commercial Terms](https://www.anthropic.com/legal/commercial-terms)),
-  DPA a netrénuje se. Přesný výklad je věc právníka.
+  ([nastavení](https://claude.ai/settings/data-privacy-controls)).
+- **Pro a Max** mají podmínky pro spotřebitele. V EU
+  ([Consumer Terms](https://www.anthropic.com/legal/consumer-terms), čl. 11 *Non-commercial use only*)
+  **komerční použití výslovně nedovolují**: *„You agree that you will not use our Services
+  for any commercial or business purposes“*. Pro tedy jen na vyzkoušení se smyšlenými daty.
+- **Práci pro klienty dělejte v Team** (od 2 míst): firemní podmínky
+  ([Commercial Terms](https://www.anthropic.com/legal/commercial-terms)), DPA, netrénuje se.
 - **Posílejte co nejméně**, bez jmen klientů a smluv.
 - Text v cizích modelech a IFC může skrývat pokyny pro AI
   ([bezpečnost](https://code.claude.com/docs/en/security)).
@@ -96,13 +100,14 @@ a [zásad pro vývojáře](https://developer.tekla.com/policy):
 
 ## AI přímo od Trimble {#trimble}
 
-Trimble má vlastní AI v Tekle pro vyšší licence:
+Trimble má vlastní AI v Tekle:
 [Trimble Assistant](https://support.tekla.com/doc/tekla-structures/not-version-specific/trimble_assistant_for_tekla)
 (dotazy k manuálům),
 [Developer Assistant](https://support.tekla.com/doc/tekla-structures/not-version-specific/developer_assistant)
 (píše makra) a
 [Tekla Model Assistant](https://support.tekla.com/doc/tekla-structures/2026/mod_tekla_model_assistant)
-(agent v panelu, TS 2025 SP9 / 2026 SP2). Pokud je máte, porovnejte.
+(agent v panelu Tekly; je k dispozici v TS 2025 SP9 a 2026 SP2 pro licence Diamond,
+Graphite a Carbon, zatím jako preview). Pokud ho máte, porovnejte.
 
 ## Kde se dozvědět víc
 

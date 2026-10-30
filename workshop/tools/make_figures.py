@@ -326,14 +326,14 @@ WEIGHTS = [  # (profil, tuny) - vymyšlené, součet 18,4 t odpovídá textu ani
 assert abs(sum(t for _, t in WEIGHTS) - 18.4) < 1e-9
 
 LOOP = [  # (kdo, text, barva textu)
-    ('Vy', 'Z kusovnik_rev_B.csv udělej přehled hmotností do Excelu', DARK),
-    ('nástroj', '> head -3 reporty/kusovnik_rev_B.csv', DARK),
-    ('výstup', 'Pozice;Profil;Materiál;Ks;Hmotnost [kg]', GREY),
-    ('agent', 'Oddělovač je středník. Napíšu hmotnosti.py a spustím ho.', DARK),
+    ('Vy', 'Z hala_revB_part_list.csv udělej přehled hmotností do Excelu', DARK),
+    ('nástroj', '> head -5 podklady/tekla/hala_revB_part_list.csv', DARK),
+    ('výstup', 'TEKLA STRUCTURES REPORT … Pozice;Profil;Materiál;Ks;Hmotnost', GREY),
+    ('agent', 'Hlavička z Tekly, oddělovač je středník. Napíšu hmotnosti.py.', DARK),
     ('nástroj', '> uv run hmotnosti.py', DARK),
     ('výstup', "ValueError: could not convert '1 245,6'", RED),
     ('agent', 'Tekla píše „1 245,6“. Upravím načítání, spustím znovu.', DARK),
-    ('výstup', 'Uloženo vystupy/hmotnosti.xlsx (48 pozic, 18,4 t)', GREEN),
+    ('výstup', 'Uloženo vystupy/tekla/hmotnosti.xlsx (48 pozic, 18,4 t)', GREEN),
     ('agent', 'Hotovo. Pozor: B-17 nemá materiál, 3× „?“ v čísle.', ORANGE),
 ]
 TAG = {'Vy': BLUE, 'agent': TEAL, 'nástroj': DARK, 'výstup': GREY}
@@ -397,16 +397,16 @@ def agent_loop():
 # úklid složky zakázky: nepořádek ze „Stažených“ → struktura zakázky
 # --------------------------------------------------------------------------
 
-FOLDERS = ['01_Smlouva', '02_Podklady', '03_Vykresy', '04_Reporty', '05_Korespondence']
-MOVES = [  # (původní název, složka, nový název)
-    ('scan0012.pdf', 0, '2026-014_smlouva_o_dilo.pdf'),
-    ('vykres A (2).pdf', 2, '2026-014_V-101_kotveni_A.pdf'),
-    ('Výkres_final_FINAL.pdf', 2, '2026-014_V-102_sloupy_B.pdf'),
-    ('kusovnik.csv', 3, '2026-014_kusovnik_rev_B.csv'),
-    ('RE_ dotaz na kotvy.msg', 4, '2026-09-14_dotaz_kotvy.msg'),
-    ('IMG_20260912.jpg', 1, '2026-09-12_foto_stavba.jpg'),
-    ('statika_v3.pdf', 1, '2026-014_statika_v3.pdf'),
-    ('nabidka(1).xlsx', 0, '2026-014_nabidka.xlsx'),
+FOLDERS = ['01_Podklady', '02_Vypocty', '04_Vykresy', '05_Korespondence', '06_Nabidky_a_fakturace']
+MOVES = [  # (původní název, složka, nový název) - konvence jako v kancelar.qmd
+    ('scan0012.pdf', 4, 'Z2026-014_SML_smlouva_o_dilo.pdf'),
+    ('vykres A (2).pdf', 2, 'Z2026-014_VYK_V-101_A.pdf'),
+    ('Výkres_final_FINAL.pdf', 2, 'Z2026-014_VYK_V-102_C.pdf'),
+    ('part_list.csv', 0, 'Z2026-014_POD_part_list_revB.csv'),
+    ('RE_ dotaz na kotvy.msg', 3, 'Z2026-014_KOR_dotaz_kotvy.msg'),
+    ('Zápis KD.docx', 3, 'Z2026-014_ZAP_2026-03-12.docx'),
+    ('statika_v3.pdf', 1, 'Z2026-014_VYP_statika_v3.pdf'),
+    ('nabidka(1).xlsx', 4, 'Z2026-014_NAB_nabidka.xlsx'),
 ]
 
 
@@ -438,7 +438,7 @@ def folder_sort():
             return fig
         # vpravo: struktura zakázky
         rbox(ax, RX, 0.35, W - RX - 0.2, H - 1.25, edge=TEAL, fill=PALE, lw=2)
-        ax.text(RX + 0.2, H - 1.15, '2026-014_Hala_Prerov/', fontsize=15, fontweight='bold',
+        ax.text(RX + 0.2, H - 1.15, 'Z2026-014_Hala_Modrice/', fontsize=15, fontweight='bold',
                 color=TEAL, va='center')
         y = H - 1.62
         for f, name in enumerate(FOLDERS):

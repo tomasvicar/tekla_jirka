@@ -1,6 +1,7 @@
 DATA Z TEKLY - SYNTETICKA CVICNA DATA
 =====================================
 Vse je vymyslene (generator tools/make_tekla_data.py, deterministicky).
+Zakazka Z2026-021 Hala sklad Lipnik.
 Ocelova hala 24 x 48 m, 9 ramu po 6 m, vyska okapu 6 m.
 
 hala_revA_assembly_list.csv  seznam sestav, revize A (12. 10. 2026)

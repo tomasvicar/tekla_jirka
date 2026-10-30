@@ -14,8 +14,10 @@ Většinu nastavení udělá agent, stačí mu to říct. Když menu vypadá jin
 
 ## Krok 2: pracovní složka
 
-1. V Průzkumníku vytvořte složku jen pro Clauda, např. `C:\Users\<jmeno>\Claude\stavar-workshop`.
-2. Stáhněte do ní [`CLAUDE.md`](files/CLAUDE.md){download="CLAUDE.md"}.
+1. V Průzkumníku vytvořte složku jen pro Clauda, např.
+   `C:\Users\<jmeno>\Claude\stavar-workshop`.
+2. Klikněte na [`CLAUDE.md`](files/CLAUDE.md){download="CLAUDE.md"}. Soubor se uloží do
+   *Stažené soubory*; v Průzkumníku ho odtud **přetáhněte** do nové složky.
    Jsou v něm pravidla, která Claude čte na začátku každé práce.
 
 Nevybírejte složku s modely Tekly, celé *Dokumenty* ani plochu.
@@ -25,74 +27,53 @@ Claude smí měnit všechno ve vybrané složce.
 
 1. V Claude Desktop přepněte na záložku **Code**, prostředí **Local**.
 2. Vyberte složku `stavar-workshop`.
-3. U pole pro zadání zvolte režim oprávnění **Manual** (někde *Ask permissions*).
+3. U pole pro zadání zvolte režim oprávnění **Manual**.
 
 | Režim | Co dělá | Kdy |
 | --- | --- | --- |
-| **Manual / Ask** | Ptá se před každou změnou a příkazem | Prvních pár týdnů |
-| **Plan** | Jen čte a navrhne postup | Větší úkoly, makra |
+| **Manual** | Ptá se před každou změnou a příkazem | Začněte tady, prvních pár týdnů |
 | **Accept edits** | Soubory mění sám, na příkazy se ptá | Až mu budete věřit |
-| **Bypass** | Na nic se neptá | **Nepoužívat** |
+| **Plan** | Jen čte a navrhne postup | Větší úkoly, makra |
+| **Auto** | Většinu kroků schvaluje sám | Zatím nepoužívat |
+| **Bypass permissions** | Na nic se neptá | **Nikdy** (objeví se, jen když v Settings zapnete *Allow bypass permissions mode*) |
 
 Na Windows běží příkazy agenta s vašimi právy. Chrání vás jen oprávnění, vaše kontrola
 a zálohy. Když nerozumíte, co chce udělat, odmítněte a napište:
 *„Vysvětli mi jednoduše, co ten příkaz udělá.“*
 
-## Krok 4: nástroje a první úkol
+## Krok 4: nástroje
 
 Řekněte agentovi:
 
 ```default
 Přečti si CLAUDE.md a řekni mi vlastními slovy, jaká pravidla máš.
-Pak zkontroluj, jestli mám Git for Windows a uv. Co chybí, nainstaluj přes winget.
-Ve složce vytvoř podsložky podklady a vystupy.
-Nakonec napiš krátký program, který vypíše, kolik pracovních dní zbývá do konce roku,
+Pak zkontroluj, jestli mám Git for Windows a uv. Co chybí, nainstaluj přes winget,
+kde to jde, s --scope user.
+Ve složce vytvoř podsložky podklady a vystupy a založ v ní git.
+```
+
+**Co uděláte vy:** schválíte jednotlivé kroky. Může vyskočit okno Windows
+s otázkou *Ano / Ne* (práva správce): u instalace Gitu nebo `uv` klikněte *Ano*.
+
+**Teď Claude Desktop úplně ukončete** (i z ikony vedle hodin) **a spusťte znovu.**
+Jinak nové nástroje neuvidí.
+
+## Krok 5: první úkol
+
+Ve stejné složce řekněte agentovi:
+
+```default
+Napiš krátký program, který vypíše, kolik pracovních dní zbývá do konce roku,
 spusť ho a ukaž mi výsledek.
 ```
 
-**Co uděláte vy:** schválíte jednotlivé kroky. Po instalaci Gitu nebo `uv`
-Claude Desktop **úplně ukončete** (i z ikony vedle hodin) a spusťte znovu.
-
 **Hotovo, když** Claude shrnul pravidla, vytvořil a spustil program a ukázal výsledek.
-
 Git pamatuje historii složky, takže se dá vrátit k předchozí verzi.
 
+Ovládání (zastavit, vrátit, nový úkol) najdete v [Praktickém info](prakticke.qmd#ovladani).
+MCP server pro Teklu je volitelný, viz [Živá Tekla](tekla.qmd#mcp).
+
 Pokračujte na [kancelářská cvičení](kancelar.qmd).
-
-## Užitečné ovládání
-
-| Co | Jak |
-| --- | --- |
-| Zastavit Clauda | **Esc** nebo tlačítko stop |
-| Vrátit úpravy souborů | `/rewind` (jen soubory, které upravil Claude) |
-| Nový úkol s čistou hlavou | `/clear` nebo nová konverzace |
-| Přidat soubor do zadání | `@` a jméno souboru |
-| Uložit verzi složky | *„Ulož aktuální stav do gitu.“* |
-
-## Volitelně: MCP server pro Teklu {#mcp}
-
-**MCP** připojí Clauda k dalšímu programu, třeba k otevřené Tekle. Na kancelář a reporty
-ho nepotřebujete. Vše jde nastavit v aplikaci, bez terminálu. Řekněte agentovi:
-
-```default
-Nainstaluj MCP server pro Teklu z https://github.com/tempalg1n/tekla-mcp-server/releases
-(poslední vydání pro Teklu <2026>, ne mock). Rozbal ho do C:\Nastroje\TeklaMcp.
-Do %APPDATA%\Claude\claude_desktop_config.json přidej do "mcpServers" server "tekla"
-s cestou k TeklaMcp.Server.exe a env TEKLA_MCP_READ_ONLY = "1".
-Ostatní obsah zachovej, soubor předtím zazálohuj. Než ho uložíš, ukaž mi změnu.
-```
-
-**Co uděláte vy:**
-
-- schválíte stažení a zápis mimo pracovní složku,
-- zkontrolujete, že je v konfiguraci `TEKLA_MCP_READ_ONLY` = `"1"`,
-- Claude Desktop úplně ukončíte a spustíte znovu.
-
-Konfiguraci můžete otevřít i sami: **Settings → Developer → Edit Config**,
-v novějších verzích **Settings → Extensions**. Když server nenaběhne, ať agent přečte
-`%APPDATA%\Claude\logs\mcp*.log` a vysvětlí chybu.
-
-Jak server používat a na co si dát pozor: [Živá Tekla](tekla.qmd#mcp).
 
 ## Když to nefunguje
 

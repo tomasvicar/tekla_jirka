@@ -298,7 +298,7 @@ with pd.ExcelWriter(OUT / "nabidka.xlsx", engine="openpyxl") as w:
     pd.DataFrame({"předpoklad": assumptions}).to_excel(w, sheet_name="Předpoklady", index=False)
 wb = load_workbook(OUT / "nabidka.xlsx")
 ws = wb["Nabídka"]
-ws["A1"] = "Cenová nabídka – ocelová konstrukce HALA SKLAD 24x48 (zakázka Z-2026-014, revize B)"
+ws["A1"] = "Cenová nabídka – ocelová konstrukce Hala sklad Lipník 24 × 48 m (zakázka Z2026-021, revize B)"
 ws["A1"].font = Font(bold=True, size=13)
 ws["A2"] = "Návrh pro interní kontrolu · syntetická data · ceny bez záruky"
 n = ws.max_row
@@ -329,8 +329,8 @@ td,th{{padding:7px 8px;border-bottom:1px solid #e3e6ea;text-align:left;vertical-
 .big td{{font-size:18px}} .note{{background:#fff7e0;border-left:4px solid #e0a100;padding:10px 14px;margin:18px 0}}
 @media print{{body{{padding:0}} .note{{break-inside:avoid}}}}
 </style>
-<header><div><h1>Cenová nabídka</h1><div class=muted>Ocelová konstrukce · HALA SKLAD 24×48 m</div></div>
-<div class="muted n">Zakázka Z-2026-014<br>Podklad: model revize B (27. 10. 2026)<br>Návrh – NEODESÍLAT bez kontroly</div></header>
+<header><div><h1>Cenová nabídka</h1><div class=muted>Ocelová konstrukce · Hala sklad Lipník 24 × 48 m</div></div>
+<div class="muted n">Zakázka Z2026-021<br>Podklad: model revize B (27. 10. 2026)<br>Návrh – NEODESÍLAT bez kontroly</div></header>
 <p>Rozsah: sloupy, příčle, vaznice, paždíky, ztužidla a rám vrat podle exportu z Tekla Structures,
 celková hmotnost <b>{t(W)} kg</b>. Ceny podle interního ceníku (syntetický), bez DPH.</p>
 <table><thead><tr><th>Položka</th><th>Výpočet</th><th class=n>Cena bez DPH</th></tr></thead><tbody>{offer_rows}</tbody>
@@ -439,7 +439,7 @@ td,th{{padding:6px 9px;border-bottom:1px solid #e3e6ea;text-align:left}} th{{bac
 h1,h2{{line-height:1.2;color:#12355b}} .note{{background:#edf6fc;padding:14px;border-radius:10px}}
 .kpi{{display:flex;flex-wrap:wrap;gap:12px}} .kpi div{{background:#f1f5f9;border-radius:10px;padding:10px 16px}}
 .kpi b{{display:block;font-size:24px;color:#12355b}}</style>
-<h1>Souhrn z reportu Tekla – hala 24 × 48 m, revize B</h1>
+<h1>Souhrn z reportu Tekla – Z2026-021 Hala sklad Lipník 24 × 48 m, revize B</h1>
 <p class=note>Výuková ukázka · všechna data jsou syntetická. Vytvořeno skriptem <code>tools/solve_tekla_data.py</code>.</p>
 <div class=kpi><div><b>{t(total, 1)} kg</b>celková hmotnost</div><div><b>{overview['kusů dílů (součet QTY)']}</b>kusů dílů</div>
 <div><b>{overview['kusů sestav (součet QTY)']}</b>kusů sestav</div><div><b>{len(problems_df)}</b>řádků s problémem</div>

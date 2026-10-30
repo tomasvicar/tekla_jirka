@@ -33,10 +33,11 @@ namespace Tekla.Technology.Akit.UserScript
         private static readonly string[] PODEZRELE_MATERIALY =
             { "", "Steel_Undefined", "Concrete_Undefined", "UNKNOWN" };
 
-        // Profily, které u vás obvykle znamenají "výchozí, zapomenuté".
-        // PŘÍKLAD – zjistěte, jaké výchozí profily má vaše prostředí, a přepište je.
-        private static readonly string[] PODEZRELE_PROFILY =
-            { "", "HEA300", "PL20*200", "D200" };
+        // Profily, které u vás znamenají "výchozí, zapomenuté". Zjistěte je v Tekle:
+        // vložte nový nosník bez úprav a v Inquire se podívejte na profil.
+        // Pozor: nepište sem profil, který v modelu běžně používáte (např. sloupy HEA300).
+        // Příklad zápisu: { "", "PL20*200", "D200" }
+        private static readonly string[] PODEZRELE_PROFILY = { "" };
         // ----------------------------------------------------------------------
 
         public static void Run(Tekla.Technology.Akit.IScript akit)

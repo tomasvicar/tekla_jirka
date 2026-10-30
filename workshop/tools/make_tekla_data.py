@@ -1,6 +1,6 @@
 """Syntetické exporty z Tekla Structures pro cvičení „Data z Tekly“.
 
-Ocelová hala 24 × 48 m (9 rámů po 6 m, okap 6 m), dvě revize modelu (A, B).
+Zakázka Z2026-021 Hala sklad Lipník: ocelová hala 24 × 48 m (9 rámů po 6 m, okap 6 m), dvě revize modelu (A, B).
 Revize B obsahuje skutečné změny i úmyslné chyby k nalezení.
 Vše je vymyšlené, plně deterministické (bez náhody, každé spuštění dá stejné soubory), žádná data klientů.
 
@@ -23,8 +23,8 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data" / "tekla"
 ZIP = ROOT / "data" / "tekla_data.zip"
 
-PROJECT = "HALA SKLAD 24x48"
-ORDER = "Z-2026-014"
+PROJECT = "HALA SKLAD LIPNIK 24x48"
+ORDER = "Z2026-021"
 
 # Profil: (kg/m, m2/m povrchu, kód DSTV, výška, šířka pásnice, tl. pásnice, tl. stojiny)
 # Hodnoty odpovídají běžným tabulkám válcovaných profilů (zaokrouhleno).
@@ -268,7 +268,7 @@ def write_nc(folder, parts_b):
         txt.append("EN")
         (folder / f"{key}.nc1").write_text("\n".join(txt) + "\n", encoding="ascii")
     (folder / "dstv_nc.log").write_text(
-        "Tekla Structures NC export\nDatum: 2026-10-20 14:02\nModel: HALA_24x48\n"
+        "Tekla Structures NC export\nDatum: 2026-10-20 14:02\nModel: HALA_LIPNIK_24x48\n"
         f"Exportovano souboru: {len(nc)}\nPreskoceno (plechy a tahla nejsou v tomto exportu): ano\n",
         encoding="ascii")
 
@@ -331,6 +331,7 @@ def write_pricelist(path):
 README = """DATA Z TEKLY - SYNTETICKA CVICNA DATA
 =====================================
 Vse je vymyslene (generator tools/make_tekla_data.py, deterministicky).
+Zakazka Z2026-021 Hala sklad Lipnik.
 Ocelova hala 24 x 48 m, 9 ramu po 6 m, vyska okapu 6 m.
 
 hala_revA_assembly_list.csv  seznam sestav, revize A (12. 10. 2026)
@@ -376,7 +377,7 @@ def main():
     with zipfile.ZipFile(ZIP, "w", zipfile.ZIP_DEFLATED) as z:
         for f in sorted(OUT.rglob("*")):
             if f.is_file():
-                info = zipfile.ZipInfo(str(f.relative_to(OUT.parent)), date_time=(2026, 10, 30, 12, 0, 0))
+                info = zipfile.ZipInfo(str(f.relative_to(OUT).as_posix()), date_time=(2026, 10, 30, 12, 0, 0))
                 info.compress_type = zipfile.ZIP_DEFLATED
                 z.writestr(info, f.read_bytes())
     print("hotovo:", OUT, ZIP)

@@ -12,15 +12,21 @@ z [instalace](instalace.qmd)). Po každém kroku si výsledek otevřete.
 
 ## Co je v datech
 
-Vymyšlená **ocelová hala 24 × 48 m** ve dvou revizích modelu: **A** a **B**.
+Vymyšlená zakázka **Z2026-021 Hala sklad Lipník**, ocelová hala 24 × 48 m, ve dvou revizích modelu: **A** a **B**.
 V revizi B jsou změny projektu a **schválně i chyby**, jaké se v exportech objevují.
-Data jsou syntetická. ZIP uložte do `podklady\`, výsledky vznikají ve `vystupy\`.
+Data jsou syntetická. Výsledky vznikají ve `vystupy\`.
 Se skutečnými daty klientů zacházejte podle [Soukromí a data klientů](prakticke.qmd#soukromi).
 
 [Stáhnout data (ZIP)](data/tekla_data.zip){.btn-pill .solid download="tekla_data.zip"}
 [Ukázkové řešení](demos/tekla_data/souhrn.html){.btn-pill}
 
-V ZIPu je part list a assembly list obou revizí (CSV), ceník `cenik.xlsx`,
+Prohlížeč ZIP uloží do **Stažené soubory**. Řekněte agentovi:
+
+```default
+Přesuň ze složky Stažené soubory tekla_data.zip do podklady/.
+```
+
+V ZIPu je part list (seznam dílů) a assembly list (seznam sestav) obou revizí (CSV), ceník `cenik.xlsx`,
 NC soubory `nc_dstv/` a `README.txt` s popisem sloupců.
 
 ## 1 · Prohlédněte export (5 min) {#prohlidka}
@@ -28,7 +34,7 @@ NC soubory `nc_dstv/` a `README.txt` s popisem sloupců.
 Nejdřív se ujistíme, že Claude data čte správně.
 
 ```default
-Rozbal podklady/tekla_data.zip do podklady/. Přečti README.txt a prohlédni
+Rozbal podklady/tekla_data.zip do podklady/tekla/. Přečti README.txt a prohlédni
 part list a assembly list revize B. Popiš sloupce a jednotky, počet řádků
 a kusů a celkovou hmotnost. Co ti přijde podezřelé? Nic neměň.
 ```
@@ -73,7 +79,7 @@ Díly `1202` a `1203` ve dvou sestavách jsou v pořádku.
 
 ## 4 · Porovnání revize A a B (7 min) {#revize}
 
-Tekla porovnání dvou exportovaných seznamů nenabízí. Tady agent ušetří nejvíc času.
+Dva exportované reporty Tekla mezi sebou neporovná; agent ano, a rovnou do Excelu.
 
 ```default
 Porovnej revizi A a B na úrovni sestav i dílů. U každé sestavy urči:
@@ -95,7 +101,7 @@ Z hmotností a ceníku vznikne návrh nabídky během pár minut.
 ```default
 Podle part listu revize B a podklady/tekla/cenik.xlsx sestav návrh nabídky:
 materiál podle profilu a jakosti, prořez, výroba, montáž, doprava a povrch
-(NATER_C3 v Kč/m², ZINEK v Kč/kg). HAE200 nacen jako HEA200, díly bez materiálu
+(NATER_C3 v Kč/m², ZINEK v Kč/kg). HAE200 naceň jako HEA200, díly bez materiálu
 jako S235. Předpoklady vypiš zvlášť. Ulož vystupy/tekla/nabidka.xlsx s rozpisem
 a vystupy/tekla/nabidka.html jako jednostránkovou nabídku k tisku.
 ```
