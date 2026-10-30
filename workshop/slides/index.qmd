@@ -29,9 +29,9 @@ lang: cs
 ::: columns
 :::: {.column width="58%"}
 1. **Co je AI agent** a čím se liší od chatbota
-2. **Claude Desktop**: instalace, oprávnění, zálohy
+2. **Claude Desktop**: oprávnění, zálohy
 3. **Co jde udělat**: kancelář, data z Tekly, jak zadávat
-4. **Claude a Tekla**: soubory, makra, MCP
+4. **Claude a Tekla**: 1 Soubory · 2 Makra · 3 MCP
 5. **Prakticky**: cena, soukromí, limity
 ::::
 :::: {.column width="42%"}
@@ -70,7 +70,7 @@ Hračka s vymyšlenými pravděpodobnostmi. Statiku za vás nepočítá ani nepo
 :::: {.bot}
 [💬 Chat bez nástrojů]{.vs-h}
 
-*„Sečti hmotnosti z kusovnik.csv“*
+*„Sečti hmotnosti z hala_revB_part_list.csv“*
 
 1. napíše vzorec nebo kód **jako text**
 2. [vy]{.you} ho zkopírujete do Excelu
@@ -80,7 +80,7 @@ Hračka s vymyšlenými pravděpodobnostmi. Statiku za vás nepočítá ani nepo
 :::: {.agent .fragment}
 [🤖 Agent (záložka Code)]{.vs-h}
 
-*„Sečti hmotnosti z kusovnik.csv“*
+*„Sečti hmotnosti z hala_revB_part_list.csv“*
 
 1. **sám otevře** soubor ve složce zakázky
 2. napíše skript a **spustí ho**
@@ -120,26 +120,15 @@ Nejdřív si nechte ukázat **plán přejmenování**, pak teprve přesouvat.
 
 Aplikace na vašem počítači, model v cloudu.
 
-## Instalace
-
-1. **Předplatné Claude** (Pro na zkoušku; Free záložku Code nemá)
-2. **Claude Desktop** z [claude.com/download](https://claude.com/download), přihlásit se
-3. **Git for Windows**: Claude pak umí vrátit změny souborů
-4. Nastavení → Soukromí: **vypnout „Model improvement“**
-5. Záložka **Code** → vybrat složku → *„Co je v této složce?“*
-
-::: {.small-note}
-Python si Claude doinstaluje sám. Terminál znát nemusíte. Podrobně: [**Instalace**](../instalace.qmd).
-:::
-
 ## Oprávnění: kolik toho smí sám
 
 | Režim | Co dělá | Kdy |
 | --- | --- | --- |
-| **Plan** | jen čte a navrhne plán | větší úkol |
-| **Manual** | na každou změnu se zeptá | **začátky** |
-| **Accept edits** | soubory mění sám, příkazy schvalujete | ověřený postup |
-| **Auto** | rozhoduje sám | **zatím ne** |
+| **Manual** | ptá se před každou změnou a příkazem | **začněte tady** |
+| **Accept edits** | soubory mění sám, na příkazy se ptá | až mu budete věřit |
+| **Plan** | jen čte a navrhne postup | větší úkoly, makra |
+| **Auto** | rozhoduje sám, rizikové kroky hlídá | **zatím ne** |
+| **Bypass permissions** | na nic se neptá | **nikdy** |
 
 - **Čtěte, co chce provést.** „Ne“ je v pořádku.
 - Na Windows neběží v izolaci: **ochranou jste vy a oprávnění**.
@@ -149,7 +138,7 @@ Python si Claude doinstaluje sám. Terminál znát nemusíte. Podrobně: [**Inst
 ::: columns
 :::: {.column width="52%"}
 - Pracujte **v kopii** složky nebo s **Gitem**.
-- Model v Tekle: **Save and create backup copy** před každou session.
+- Model v Tekle: **Save and create backup copy** před každou prací s AI.
 - Postup: **jen číst → kopie modelu → ostrý model**.
 - Undo není záloha. Změny přes MCP **Claude sám nevrátí**.
 - Text v cizích modelech a IFC je **nedůvěryhodný**.
@@ -204,12 +193,13 @@ Pracuje se **s exportem**: model v Tekle se nepoškodí. [Cvičení →](../cvic
 :::
 
 ::: {.live .live-md}
-<textarea spellcheck="false"># Zakázka 2026-014: Hala Přerov
+<textarea spellcheck="false"># Zakázka Z2026-021: Hala sklad Lipník
 
 Ocelová hala **24 × 48 m**, Tekla 2025.
 
 ## Pravidla
-- reporty jsou ve složce `reporty/`
+- exporty z Tekly jsou v `podklady/`
+- výsledky ukládej do `vystupy/`
 - hmotnosti uváděj v **tunách**
 - model v Tekle **neměň**
 
@@ -224,22 +214,23 @@ Ocelová hala **24 × 48 m**, Tekla 2025.
 V Markdownu Claude píše poznámky, plány a pravidla projektu (`CLAUDE.md`).
 :::
 
-## Jak zadávat
+## Jak zadávat: pět zásad
 
 ::: columns
-:::: {.column width="60%"}
-- **Popište výsledek**, ne postup.
-- Řekněte **z čeho vycházet a kam uložit**.
-- Odkazujte na **soubory**, nekopírujte data.
-- Trvalá pravidla do **`CLAUDE.md`**.
+:::: {.column width="62%"}
+1. **Popište výsledek**, ne postup. Řekněte, z čeho vycházet a kam uložit.
+2. **Odkazujte na soubory**, nekopírujte data.
+3. **Kontrolujte**: součet proti Tekle, jeden řádek ručně.
+4. **Nejdřív jen číst**, změny na kopii a se zálohou.
+5. **Pravidla do `CLAUDE.md`**, citlivá data jen se souhlasem.
 
 ```default
-Porovnej reporty/kusovnik_rev_A.csv a _rev_B.csv.
-Do Excelu dej listy Přibylo, Ubylo, Změněno.
+Porovnej podklady/hala_revA_part_list.csv a hala_revB_part_list.csv.
+Do vystupy/porovnani.xlsx dej listy Přibylo, Ubylo, Změněno.
 Ověř, že rozdíl hmotností sedí na součty.
 ```
 ::::
-:::: {.column width="40%"}
+:::: {.column width="38%"}
 ![](figures/illus_context_desk.png){width=100%}
 
 ::: {.small-note}
@@ -284,7 +275,8 @@ Claude si ho **přečte na začátku každé konverzace**.
 # Tekla projekty
 
 - Tekla Structures 2025, CZ
-- Reporty: reporty/*.csv, oddělovač ;
+- Vstupy v podklady/, výsledky do vystupy/
+- Exporty z Tekly: *.csv, oddělovač ;
 - Desetinná čárka, hmotnosti v t
 - Uživatel neprogramuje:
   vysvětluj krok za krokem
@@ -294,7 +286,7 @@ Claude si ho **přečte na začátku každé konverzace**.
 :::
 
 ::: {.small-note}
-Pravidla Clauda **žádají**, ale nenutí. Omezit ho můžete jen **oprávněními**.
+`CLAUDE.md` je **prosba, ne zámek**. Zámek jsou **oprávnění**.
 :::
 
 ## Skills: recept na opakovaný postup
@@ -309,7 +301,7 @@ Z toho, co jsme právě udělali, udělej skill
 „nabidka-z-kusovniku“. Ceny ber z cenik.xlsx.
 ```
 
-- Příště stačí: *„Udělej nabídku pro 2026-017.“*
+- Příště stačí: *„Udělej nabídku pro Z2026-021.“*
 ::::
 :::: {.column width="40%"}
 ![](figures/illus_section_reach.png){width=100%}
@@ -318,25 +310,25 @@ Z toho, co jsme právě udělali, udělej skill
 
 # Claude a Tekla {.section-illus background-image="figures/illus_section_reach.png" background-size="40%" background-position="96% 55%" background-color="#f7fbff"}
 
-Tři cesty: soubory, makra, MCP.
+Tři úrovně: 1 Soubory · 2 Makra · 3 MCP.
 
-## Tři cesty, jak propojit Claude s Teklou
+## Tři úrovně propojení s Teklou
 
-| Cesta | Jak to funguje | Riziko pro model | Kdy |
+| Úroveň | Jak to funguje | Riziko pro model | Kdy |
 | --- | --- | --- | --- |
-| **A. Soubory** | export → Claude zpracuje → Excel/PDF | **žádné** | **hned** |
-| **B. C# makra** | Claude napíše makro, vy ho spustíte | střední: Undo, kopie | druhý krok |
-| **C. MCP** | Claude se ptá otevřené Tekly | podle nastavení | po otestování, **jen čtení** |
+| **1 · Soubory** | export → Claude zpracuje → Excel/PDF | **žádné** | **hned** |
+| **2 · Makra** | Claude napíše C# makro, vy ho spustíte | **střední**: kopie modelu | druhý krok |
+| **3 · MCP** | Claude se ptá otevřené Tekly | podle nastavení | po otestování, **jen čtení** |
 
 ::: {.insight-box}
-Nejvíc práce ušetří obvykle cesta **A**. Tekla sama neporovná dvě revize kusovníku; skript ano.
+Nejvíc práce ušetří obvykle úroveň **1**. Tekla sama neporovná dvě revize kusovníku; skript ano.
 :::
 
-## Cesta B: makro, které napíše Claude
+## Úroveň 2: makro, které napíše Claude
 
 1. *„Napiš makro, které vypíše vybrané díly. **Nic neměň.**“*
 2. Claude uloží `VypisDilu.cs` do složky maker.
-3. V Tekle: **Applications & components → Macros** → spustit.
+3. V Tekle: **Applications & components → Applications** → dvojklik na makro.
 4. Chyba? Hlášku zkopírujte Claudovi.
 5. Až čtení funguje: změny **na kopii modelu**.
 
@@ -344,7 +336,7 @@ Nejvíc práce ušetří obvykle cesta **A**. Tekla sama neporovná dvě revize 
 Makra pro sebe licence Tekly dovoluje; prodávat je lze jen přes Tekla Partners Program. [Návod →](../tekla.qmd)
 :::
 
-## Cesta C: MCP
+## Úroveň 3: MCP
 
 ![](figures/anim_mcp_flow.gif){width=88% fig-align="center"}
 
@@ -352,7 +344,7 @@ Makra pro sebe licence Tekly dovoluje; prodávat je lze jen přes Tekla Partners
 - Režim **jen pro čtení**, zápis na **„ask“**. Je to cizí program: nejdřív kopie modelu.
 
 ::: {.small-note}
-Trimble chystá vlastní **Tekla Model Assistant**, jen pro licence Diamond / Graphite / Carbon.
+Trimble má vlastní **Tekla Model Assistant** (preview), jen pro licence Diamond / Graphite / Carbon.
 :::
 
 # Prakticky {.section-illus background-image="figures/illus_section_tips.png" background-size="38%" background-position="94% 55%" background-color="#f7fbff"}
@@ -363,19 +355,19 @@ Cena, soukromí, limity.
 
 ::: columns
 :::: {.column width="50%"}
-**Pro**: 20 $ / měs.
+**Pro / Max**: od 20 USD / měs.
 
-- na zkoušku stačí
+- na vyzkoušení s cvičnými daty
 - vypnout *Model improvement*
-- spotřebitelské podmínky (EU): „jen nekomerční použití“ v článku o odpovědnosti → **šedá zóna**
-- **bez smlouvy o zpracování (DPA)**
+- podmínky pro spotřebitele (čl. 11): **komerční použití nedovolují**
+- bez smlouvy o zpracování (DPA)
 ::::
 :::: {.column width="50%"}
-**Team**: 25 $ / místo / měs., od 2 míst
+**Team**: 25 USD / místo / měs., od 2 míst
 
+- **práce pro klienty → Team**
 - obchodní podmínky, **DPA**
 - data se k trénování nepoužívají
-- = **čisté papíry pro firmu**
 ::::
 :::
 
@@ -399,18 +391,6 @@ Ceny bez DPH podle claude.com/pricing (říjen 2026). Nejde o právní radu.
 - **Dlouhá ≠ lepší**: zapomíná, opakuje chyby.
 - Důležité zapsat do `CLAUDE.md`, pak **nová konverzace**.
 ::::
-:::
-
-## Pět zásad na cestu
-
-1. **Popište výsledek**, ne postup.
-2. **Odkazujte na soubory**, nekopírujte data.
-3. **Kontrolujte**: součet proti Tekle, jeden řádek ručně.
-4. **Nejdřív jen číst**, změny na kopii a se zálohou.
-5. **Pravidla do `CLAUDE.md`**, citlivá data jen se souhlasem.
-
-::: {.insight-box}
-Claude píše a počítá, vy zadáváte a kontrolujete.
 :::
 
 # Díky! {.section-illus background-image="figures/illus_section_beyond.png" background-size="36%" background-position="92% 55%" background-color="#f7fbff"}

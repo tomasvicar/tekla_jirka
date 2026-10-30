@@ -18,8 +18,10 @@ Průběžný zápis testu (začato 30. 10. 2026). Cíl: ověřit na reálné Tek
 | Krok | Stav | Poznámky |
 | --- | --- | --- |
 | Záloha a úprava VM | ✅ | viz výše |
-| Trimble ID + žádost o trial Tekla 2026 | ⏳ čeká na uživatele | formulář na jméno uživatele |
-| Instalace Tekla 2026 + prostředí | ⏳ | |
+| Trimble ID + stažení | ✅ | uživatel; banner „Are you a student or an educator?“ je jen obecná nabídka, ne blokace. Stahuje se **Tekla Launcher** (14 MB, Squirrel, podepsán Trimble Inc.) |
+| Instalace Tekla 2026 + prostředí | ✅ | přes Launcher (~15 min); verze **2026 SP1 (226.1.58695)**, nainstalované jen prostředí *Default* (+ blank_project). Záloha VM před aktivací: `~/VMs/backup-2026-10-30-pred-aktivaci-tekly/` (SHA256 OK) |
+| Aktivace trialu | ✅ 30. 10. 10:49 | Launcher → *Activate trial* otevře web `download.trimble.com/...?page=activate` → tlačítko *Activate trial* (= souhlas s T&C) → „Trial - Single User 2026“; platí 30 dní (~do 29. 11. 2026) |
+| Nový model | ✅ | Launcher → New → *New blank model*, název `KOPIE_test`, bez Trimble Connect, prostředí Classic → *Default*, role *Steel Detailer* → `C:\TeklaStructuresModels\KOPIE_test`. 3D pohled na softwarovém vykreslování (QXL, bez GPU) **funguje**, start ~1 min |
 | Claude Desktop – přihlášení, Code tab | ⏳ | |
 | MCP tempalg1n přes „řekni agentovi“ | ⏳ | |
 | Makra 01–03 | ⏳ | |
