@@ -54,5 +54,18 @@ Tato verze je upravená pro **stavaře / detailera, který v Tekla Structures na
 ## Otevřené body
 
 - Verze a licence Tekly u kamaráda (Diamond/Graphite/Carbon → má i Tekla Model Assistant?).
-- Makra a MCP zatím **neotestované na živé Tekle** (test v trial VM, viz `../research/07-...`).
-- Zda publikovat na GitHub Pages (repo je privátní; Pages by byly veřejné).
+- ~~Makra a MCP neotestované~~ → **vyzkoušeno 30. 10. 2026** na Tekle 2026 SP1 (trial ve VM na `ada`):
+  příprava projektu agentem, makra 01/03/04/05 (hala, výpis, změna + Ctrl+Z, export PDF do vlastní struktury),
+  MCP čtení i zápis s náhledem. Podrobně `../research/13-test-tekla-trial.md`.
+- Web je na GitHub Pages: <https://tomasvicar.github.io/tekla_jirka/> (veřejně dostupný na URL).
+- Zbývá: vyzkoušet u kamaráda na jeho PC a plné licenci (hlavně tisk PDF a jeho skutečné výkresy).
+- Trial Tekly vyprší ~29. 11. 2026 (jen jednou na verzi, vázaný na VM).
+
+## Stav webu (30. 10. 2026)
+
+- 3 kola zjednodušení + 3 recenze (technická, začátečník, „detailer doma sám“); ~9–10 tis. slov.
+- Stránky: Úvod, Příprava, Instalace, Kancelář, Data z Tekly, Živá Tekla, Ukázky (8 vč. Export do PDF),
+  Nápady (≈40 nápadů), Praktické info, Prezentace (27 slajdů), Postup, Průzkum.
+- Rozhodnutí: režim **Auto** (Manual je pro začátečníky moc upovídaný), MCP jen pro čtení a volitelně,
+  změny modelu makry; chyby → výřez obrazovky (Win+Shift+S) do chatu; upravené makro nasazovat pod
+  novým názvem (`_v2`), Tekla si pamatuje starou verzi.

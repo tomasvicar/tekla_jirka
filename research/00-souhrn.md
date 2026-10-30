@@ -2,6 +2,19 @@
 
 *Stav k 30. 10. 2026. Syntéza zpráv 01–12 v této složce; zdroje a podrobnosti jsou v jednotlivých zprávách.*
 
+## Výsledek testu (30. 10. 2026)
+
+Vše podstatné **vyzkoušeno na Tekle 2026 SP1** (trial, Windows VM na `ada`, Claude Desktop, záložka Code) –
+podrobně [13 – test](13-test-tekla-trial.md):
+
+- Agent sám připraví projekt: najde verzi Tekly, cesty, složku maker a XML dokumentaci API (je v instalaci).
+- Makra napsaná agentem fungují: hala 51 dílů, výpis do CSV, změna třídy (jedno **Ctrl+Z** vrátí vše),
+  **export všech výkresů do PDF do vlastní složkové struktury** (i v trialu přes API).
+- MCP server tempalg1n v0.9.0 funguje s Teklou 2026: dotazy na model, zápis s náhledem + Ctrl+Z.
+- Úskalí: Manual režim se ptá na vše → doporučujeme Auto; chyba kompilace makra je jen v okně
+  (→ výřez obrazovky do chatu); Tekla si pamatuje přeložená makra (→ upravené nasazovat jako `_v2`).
+- Web s workshopem: <https://tomasvicar.github.io/tekla_jirka/>
+
 ## TL;DR
 
 - **Jde to, ale ne „úplně všechno“.** Tekla Open API pokryje většinu práce s modelem (díly, šrouby, svary, komponenty, UDA, výběr, reporty, IFC/NC export, kolize). Výkresy jen částečně, číslování přes makro, některé dialogy vůbec. → [02](02-open-api-moznosti.md)
