@@ -17,4 +17,4 @@ Průzkum a podklady: jak pomocí Claude Code / Claude Desktop (MCP, C# makra, sk
   - 10 – výuka neprogramátora
   - 11 – nápady na automatizace
   - 12 – české a slovenské zdroje
-  - 00 – souhrn a doporučený postup (doplní se po dokončení průzkumu)
+  - **00 – souhrn a doporučený postup → začni tady: [research/00-souhrn.md](research/00-souhrn.md)**
